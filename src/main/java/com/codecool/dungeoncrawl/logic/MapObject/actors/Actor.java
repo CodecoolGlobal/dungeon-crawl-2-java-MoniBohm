@@ -22,8 +22,8 @@ public abstract class Actor implements Drawable {
     private void validateCell(Cell nextCell) {
         if(isEmptyCell(nextCell) && isEnemyCell(nextCell)){
             fightEnemy();
-        }else if (isEmptyCell(nextCell) && isItemCell(nextCell)){
-            pickupItem();
+        }else if (isItemCell(nextCell)){
+            pickupItem(nextCell);
         }else if (isEmptyCell(nextCell)) {
             move(nextCell);
         }
@@ -31,21 +31,23 @@ public abstract class Actor implements Drawable {
 
     private boolean isEnemyCell(Cell nextCell){
         Actor actor = nextCell.getActor();
-        if (actor instanceof Skeleton) {
-            return true;
-        }
-            return false;
+        return actor instanceof Skeleton;
     }
 
     private void fightEnemy(){
-        
+
     }
 
     private boolean isItemCell(Cell nextCell){
         return nextCell.getItem() != null;
     }
 
-    private void pickupItem(){}
+    private void pickupItem(Cell nextCell){
+        cell.setActor(null);
+        nextCell.setItem(null);
+        nextCell.setActor(this);
+        this.cell = nextCell;
+    }
 
     private void move(Cell nextCell) {
         cell.setActor(null);
