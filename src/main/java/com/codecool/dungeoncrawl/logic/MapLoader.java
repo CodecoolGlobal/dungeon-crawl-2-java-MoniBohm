@@ -22,20 +22,20 @@ public class MapLoader {
                 if (x < line.length()) {
                     Cell cell = map.getCell(x, y);
                     switch (line.charAt(x)) {
-                        case ' ':
+                        case ' ': // not player area
                             cell.setType(CellType.EMPTY);
                             break;
-                        case '#':
+                        case '#': // wall
                             cell.setType(CellType.WALL);
                             break;
-                        case '.':
+                        case '.': // empty cell
                             cell.setType(CellType.FLOOR);
                             break;
-                        case 's':
+                        case 's': // skeleton
                             cell.setType(CellType.FLOOR);
                             new Skeleton(cell);
                             break;
-                        case '@':
+                        case '@': // player
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
                             break;

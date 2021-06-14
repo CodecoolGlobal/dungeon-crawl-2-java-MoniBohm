@@ -41,16 +41,16 @@ public class Main extends Application {
         borderPane.setCenter(canvas);
         borderPane.setRight(ui);
 
-        Scene scene = new Scene(borderPane);
-        primaryStage.setScene(scene);
+        Scene scene = new Scene(borderPane); // ide rakja be az összes elemet
+        primaryStage.setScene(scene); // ez teszi bele a programba
         refresh();
-        scene.setOnKeyPressed(this::onKeyPressed);
+        scene.setOnKeyPressed(this::onKeyPressed); // játékos mozgása - eventlistener
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
     }
 
-    private void onKeyPressed(KeyEvent keyEvent) {
+    private void onKeyPressed(KeyEvent keyEvent) { // key event
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().move(0, -1);
@@ -84,6 +84,6 @@ public class Main extends Application {
                 }
             }
         }
-        healthLabel.setText("" + map.getPlayer().getHealth());
+        healthLabel.setText("" + map.getPlayer().getHealth()); // healthet mutatja
     }
 }
