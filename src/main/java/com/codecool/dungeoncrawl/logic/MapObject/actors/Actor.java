@@ -44,13 +44,13 @@ public abstract class Actor implements Drawable {
 
     private void pickupItem(Cell nextCell){
         cell.setActor(null);
-        this.putItemToInventroy(nextCell.getItem());
+        this.putItemToInventory(nextCell.getItem());
         nextCell.setItem(null);
         nextCell.setActor(this);
         this.cell = nextCell;
     }
 
-    protected abstract void putItemToInventroy(Item item);
+    protected abstract void putItemToInventory(Item item);
 
     private void move(Cell nextCell) {
         cell.setActor(null);

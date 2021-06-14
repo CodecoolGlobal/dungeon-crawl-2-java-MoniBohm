@@ -9,7 +9,7 @@ public class Skeleton extends Enemy {
     }
 
     @Override
-    protected void putItemToInventroy(Item item) {
+    protected void putItemToInventory(Item item) {
 
     }
 

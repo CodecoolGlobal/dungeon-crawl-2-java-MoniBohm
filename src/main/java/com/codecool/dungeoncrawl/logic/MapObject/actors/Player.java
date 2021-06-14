@@ -2,8 +2,6 @@ package com.codecool.dungeoncrawl.logic.MapObject.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
-import com.codecool.dungeoncrawl.logic.MapObject.items.Key;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class Player extends Actor {
     }
 
     @Override
-    protected void putItemToInventroy(Item item) {
+    protected void putItemToInventory(Item item) {
         inventory.add(item);
     }
 
