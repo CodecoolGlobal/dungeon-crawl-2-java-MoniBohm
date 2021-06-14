@@ -9,6 +9,11 @@ public class Key extends Item {
     }
 
     @Override
+    public String toString() {
+        return "Key";
+    }
+
+    @Override
     public String getTileName() {
         return "key";
     }
