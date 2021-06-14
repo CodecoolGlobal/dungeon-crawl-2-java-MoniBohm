@@ -2,6 +2,8 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
+import com.codecool.dungeoncrawl.logic.MapObject.items.Key;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -38,6 +40,10 @@ public class MapLoader {
                         case '@': // player
                             cell.setType(CellType.FLOOR);
                             map.setPlayer(new Player(cell));
+                            break;
+                        case 'i': // item
+                            cell.setType(CellType.FLOOR);
+                            new Key(cell);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

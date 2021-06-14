@@ -36,6 +36,7 @@ public class Cell implements Drawable {
     public Actor getActor() {
         return actor;
     }
+
     public Item getItem() {
         return item;
     }
