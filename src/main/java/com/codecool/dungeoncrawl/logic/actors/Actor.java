@@ -12,7 +12,7 @@ public abstract class Actor implements Drawable {
         this.cell.setActor(this);
     }
 
-    public void move(int dx, int dy) {
+    public void move(int dx, int dy) { // emptyre mehet csak - item/enemy vizsgálat
         Cell nextCell = cell.getNeighbor(dx, dy);
         cell.setActor(null);
         nextCell.setActor(this);
