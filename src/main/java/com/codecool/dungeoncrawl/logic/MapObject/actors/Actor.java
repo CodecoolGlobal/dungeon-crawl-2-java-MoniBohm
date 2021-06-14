@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.MapObject.actors;
 
+import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.Cell;
 
@@ -12,11 +13,21 @@ public abstract class Actor implements Drawable {
         this.cell.setActor(this);
     }
 
-    public void move(int dx, int dy) { // emptyre mehet csak - item/enemy vizsgálat
+    public void initMove(int dx, int dy) { // emptyre mehet csak - item/enemy vizsgálat
         Cell nextCell = cell.getNeighbor(dx, dy);
+        if (isEmptyCell(nextCell)) {
+            move(nextCell);
+        }
+    }
+
+    private void move(Cell nextCell) {
         cell.setActor(null);
         nextCell.setActor(this);
-        cell = nextCell;
+        this.cell = nextCell;
+    }
+
+    private boolean isEmptyCell(Cell nextCell) {
+        return nextCell.getType() == CellType.FLOOR;
     }
 
     public int getHealth() {
