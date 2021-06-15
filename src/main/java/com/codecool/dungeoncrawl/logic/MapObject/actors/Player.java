@@ -79,8 +79,10 @@ public class Player extends Actor {
             if(isEnoughOfKey("Key")){
                GameMap map =  nextCell.getGameMap();
                Cell cell =  map.getNextDoor();
-               NextStageDoor nextStageDoor = (NextStageDoor) cell.getItem();
-               nextStageDoor.setOpen(true);
+               if (cell != null){
+                   NextStageDoor nextStageDoor = (NextStageDoor) cell.getItem();
+                   nextStageDoor.setOpen(true);
+               }
             }
         }
         nextCell.setItem(null);
