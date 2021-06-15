@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.MapObject.actors.*;
-import com.codecool.dungeoncrawl.logic.MapObject.items.Door;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.LegArmor;
@@ -70,7 +70,7 @@ public class MapLoader {
                             break;
                         case 'E': // item
                             cell.setType(CellType.FLOOR);
-                            new Door(cell);
+                            new NextStageDoor(cell);
                             break;
                         case '@': // player
                             cell.setType(CellType.FLOOR);
