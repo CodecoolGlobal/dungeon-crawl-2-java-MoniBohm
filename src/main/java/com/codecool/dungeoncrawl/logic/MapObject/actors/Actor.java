@@ -6,26 +6,29 @@ import com.codecool.dungeoncrawl.logic.Cell;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
-    protected int health = 10;
+    protected int health;
+    protected int damage;
+    protected boolean gameOver = false;
 
     public Actor(Cell cell) {
         this.cell = cell;
         this.cell.setActor(this);
     }
 
-    protected boolean isEnemyCell(Cell nextCell){
+    protected boolean isEnemyCell(Cell nextCell) {
         Actor actor = nextCell.getActor();
         return actor instanceof Bucket;
     }
 
 
-    protected boolean isItemCell(Cell nextCell){
+    protected boolean isItemCell(Cell nextCell) {
         return nextCell.getItem() != null;
     }
 
+
     protected boolean isEmptyCell(Cell nextCell) {
         return nextCell.getType() == CellType.FLOOR
-                && nextCell.getActor()==null
+                && nextCell.getActor() == null
                 && nextCell.getItem() == null;
     }
 
@@ -33,7 +36,11 @@ public abstract class Actor implements Drawable {
         return health;
     }
 
-    public Cell getCell() {
+    protected void setHealth(int newHealth) {
+        this.health = newHealth;
+    }
+
+    protected Cell getCell() {
         return cell;
     }
 
@@ -44,6 +51,5 @@ public abstract class Actor implements Drawable {
     public int getY() {
         return cell.getY();
     }
-
 
 }

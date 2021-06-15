@@ -7,9 +7,13 @@ import java.util.List;
 
 public class Player extends Actor {
     private List<Item> inventory;
+
+
     public Player(Cell cell) {
         super(cell);
         inventory = new ArrayList<Item>();
+        damage = 3;
+        health = 50;
     }
 
     public String inventoryToString(){
@@ -18,6 +22,16 @@ public class Player extends Actor {
             sb.append(item).append(" \n");
         }
         return sb.toString();
+    }
+
+    private void validateCell(Cell nextCell) {
+        if(isEnemyCell(nextCell)){
+            fightEnemy(nextCell);
+        }else if (isItemCell(nextCell)){
+            pickupItem(nextCell);
+        }else if (isEmptyCell(nextCell)) {
+            move(nextCell);
+        }
     }
 
     private void pickupItem(Cell nextCell){
@@ -33,25 +47,50 @@ public class Player extends Actor {
         validateCell(nextCell);
     }
 
+
+    private void fightEnemy(Cell nextCell){
+        Actor player = cell.getActor();
+        Actor enemy = nextCell.getActor();
+        boolean isFightOver = false;
+
+        while (!isFightOver){
+            player.setHealth(hitPlayer(player, enemy));
+            enemy.setHealth(hitEnemy(player, enemy));
+            if(isActorDead(player.health)){
+                isFightOver = true;
+                gameOver = true;
+            }
+            if(isActorDead(enemy.health)){
+                isFightOver = true;
+                move(nextCell);
+            }
+        }
+
+    }
+
+    private int hitEnemy(Actor player, Actor enemy) {
+        return (enemy.getHealth()) - player.damage;
+    }
+
+    private int hitPlayer(Actor player, Actor enemy) {
+        return (player.getHealth()) - enemy.damage;
+    }
+
+    protected boolean isActorAlive(int actorHealth) {
+        return actorHealth > 0;
+    }
+
+    protected boolean isActorDead(int actorHealth) {
+        return actorHealth <= 0;
+    }
+
+
     private void move(Cell nextCell) {
         cell.setActor(null);
         nextCell.setActor(this);
         this.cell = nextCell;
     }
 
-    private void validateCell(Cell nextCell) {
-        if(isEmptyCell(nextCell) && isEnemyCell(nextCell)){
-            fightEnemy();
-        }else if (isItemCell(nextCell)){
-            pickupItem(nextCell);
-        }else if (isEmptyCell(nextCell)) {
-            move(nextCell);
-        }
-    }
-
-    private void fightEnemy(){
-
-    }
 
     protected void putItemToInventory(Item item) {
         inventory.add(item);
