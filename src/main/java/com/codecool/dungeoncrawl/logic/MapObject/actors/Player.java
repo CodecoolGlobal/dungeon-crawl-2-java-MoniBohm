@@ -6,10 +6,7 @@ import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Key;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class Player extends Actor {
     private List<Item> inventory;
@@ -43,31 +40,26 @@ public class Player extends Actor {
     }
 
     private void manageDoor(Cell nextCell){
-        Item item = nextCell.getItem();
-        Key.count = 0;
-//        pickedUpAllItemsOfType(item.getTileName());
-    }
-
-
-    private int pickedUpAllItemsOfType(String item){
-        int counter = 0;
-        for (Item element : inventory){
-            String elementName  = element.getTileName();
-            if(elementName.equalsIgnoreCase(item)){
-                counter+=1;}
+        if(isEnoughOfKey("Key")){
+            //következő pálya vagy GameOver
         }
-
-//
-//        int counter = inventory.stream()
-//                .flatMap(element -> Arrays.stream(element.getTileName()))
-//                .collect(Collectors.groupingBy(Function.identity(),
-//                        Collectors.counting()));
-        return counter;
     }
 
 
-    private boolean isEnoughKey(int numberOfKey){
-        return  numberOfKey== Key.count;
+    private int numberOfItem(String nameOfItem){
+        return (int) inventory.stream()
+                .filter(item1 -> item1.getTileName().equalsIgnoreCase(nameOfItem))
+                .count();
+    }
+
+
+    private boolean isEnoughOfKey(String itemName){
+        return  numberOfItem(itemName) == Key.count;
+    }
+
+
+    private boolean isEnoughOfCoin(String itemName, int numberOfCoin){
+        return  numberOfItem(itemName) == numberOfCoin;
     }
 
     private boolean isDoor(Cell nextCell){
