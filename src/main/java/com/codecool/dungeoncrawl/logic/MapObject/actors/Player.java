@@ -43,7 +43,7 @@ public class Player extends Actor {
     private void manageDoor(){
         if(isEnoughOfKey("Key")){
             cell.setOpen(true);
-
+            Main.isNextMap = true;
         }
     }
 

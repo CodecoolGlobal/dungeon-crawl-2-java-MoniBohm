@@ -22,8 +22,8 @@ import java.util.List;
 
 
 public class Main extends Application {
-    boolean isNextMap;
-    boolean isPreviousMap;
+    public static boolean isNextMap;
+    public static boolean isPreviousMap;
     int currentMap = 0;
     List<String> nameOfFiles = setMapNames();
     Stage window;
@@ -91,18 +91,22 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case UP:
                 map.getPlayer().initMove(Direction.UP.dx, Direction.UP.dy);
+                ChangeMapIfTrue();
                 refresh();
                 break;
             case DOWN:
                 map.getPlayer().initMove(Direction.DOWN.dx, Direction.DOWN.dy);
+                ChangeMapIfTrue();
                 refresh();
                 break;
             case LEFT:
                 map.getPlayer().initMove(Direction.LEFT.dx, Direction.LEFT.dy);
+                ChangeMapIfTrue();
                 refresh();
                 break;
             case RIGHT:
                 map.getPlayer().initMove(Direction.RIGHT.dx, Direction.RIGHT.dy);
+                ChangeMapIfTrue();
                 refresh();
                 break;
             case I:
@@ -110,6 +114,16 @@ public class Main extends Application {
                 refresh();
                 break;
         }
+    }
+
+    private void ChangeMapIfTrue() {
+        if (isNewMap()) {
+            initNewMap();
+        }
+    }
+
+    private boolean isNewMap(){
+        return isNextMap || isPreviousMap;
     }
 
     public void initNewMap(){
