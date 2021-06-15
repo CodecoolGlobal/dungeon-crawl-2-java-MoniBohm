@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
