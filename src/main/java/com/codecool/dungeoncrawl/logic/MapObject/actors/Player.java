@@ -12,8 +12,8 @@ public class Player extends Actor {
     public Player(Cell cell) {
         super(cell);
         inventory = new ArrayList<Item>();
-        damage = 3;
-        health = 50;
+        damage = ActorStats.PLAYER.damage;
+        health = ActorStats.PLAYER.health;
     }
 
     public String inventoryToString(){
