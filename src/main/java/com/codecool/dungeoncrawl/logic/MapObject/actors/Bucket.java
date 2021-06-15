@@ -11,9 +11,7 @@ public class Bucket extends Enemy {
     }
 
     @Override
-    void move() {
-
-    }
+    public void initMove() { }
 
     @Override
     public String getTileName() {

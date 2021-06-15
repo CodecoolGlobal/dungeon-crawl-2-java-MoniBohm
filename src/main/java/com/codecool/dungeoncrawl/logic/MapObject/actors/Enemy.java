@@ -8,5 +8,5 @@ public abstract class Enemy extends Actor {
         super(cell);
     }
 
-    abstract void move();
+    public abstract void initMove();
 }

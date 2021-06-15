@@ -14,4 +14,9 @@ public enum Direction {
         this.dx = dx;
         this.dy = dy;
     }
+
+    public static Direction getRandom() {
+        int randomPick = RandomHelper.getRandomInt(Direction.values().length);
+        return Direction.values()[randomPick];
+    }
 }
