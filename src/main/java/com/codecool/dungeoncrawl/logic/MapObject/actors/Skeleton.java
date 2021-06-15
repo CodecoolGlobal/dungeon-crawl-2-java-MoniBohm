@@ -8,6 +8,8 @@ import java.util.List;
 public class Skeleton extends Enemy {
     public Skeleton(Cell cell) {
         super(cell);
+        damage = 10;
+        health = 50;
     }
 
     @Override

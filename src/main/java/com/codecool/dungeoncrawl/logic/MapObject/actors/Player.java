@@ -7,9 +7,13 @@ import java.util.List;
 
 public class Player extends Actor {
     private List<Item> inventory;
+
+
     public Player(Cell cell) {
         super(cell);
         inventory = new ArrayList<Item>();
+        damage = 10;
+        health = 50;
     }
 
     public String inventoryToString(){

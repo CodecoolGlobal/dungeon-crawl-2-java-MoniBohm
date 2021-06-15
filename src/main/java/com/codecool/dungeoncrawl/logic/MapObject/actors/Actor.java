@@ -8,8 +8,10 @@ import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import java.util.List;
 
 public abstract class Actor implements Drawable {
-    private Cell cell;
-    private int health = 10;
+    protected Cell cell;
+    protected int health;
+    protected int damage;
+    protected boolean gameOver = false;
 
     public Actor(Cell cell) {
         this.cell = cell;
@@ -37,10 +39,34 @@ public abstract class Actor implements Drawable {
     }
 
     private void fightEnemy(Cell nextCell){
+        Actor player = cell.getActor();
+        Actor enemy = nextCell.getActor();
         int enemyDamage = nextCell.getActorDamage();
-        int playerNewHealth = (cell.getActor().getHealth()) - enemyDamage;
-        setHealth(playerNewHealth);
+        int playerDamage = nextCell.getActorDamage();
+        int playerNewHealth = (player.getHealth()) - enemyDamage;
+        int enemyNewHealth = (enemy.getHealth()) - playerDamage;
+        if(isActorAlive(playerNewHealth) && isActorDead(enemyNewHealth)){move(nextCell);}
+        boolean isFightOver = false;
+        while (!isFightOver){
+            playerNewHealth = (player.getHealth()) - enemyDamage;
+            enemyNewHealth = (enemy.getHealth()) - playerDamage;
+
+            if(isActorDead(playerNewHealth)){
+                isFightOver = true;
+                gameOver = true;
+            }
+
+            if(isActorDead(enemyNewHealth)){
+                isFightOver = true;
+                move(nextCell);
+            }
+        }
+
     }
+
+    private boolean isActorAlive(int actorHealth ){return actorHealth > 0;}
+
+    private boolean isActorDead(int actorHealth ){return actorHealth <=0;}
 
     private boolean isItemCell(Cell nextCell){
         return nextCell.getItem() != null;
