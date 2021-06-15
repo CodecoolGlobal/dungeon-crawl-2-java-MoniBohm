@@ -49,7 +49,7 @@ public class Player extends Actor {
     }
 
 
-    private int pickedUpAllItemsOfType(Item item){
+    private int pickedUpAllItemsOfType(String item){
         int counter = 0;
         for (Item element : inventory){
             String elementName  = element.getTileName();
