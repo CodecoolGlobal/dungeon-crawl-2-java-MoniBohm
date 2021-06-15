@@ -3,7 +3,6 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -17,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    Stage window;
     GameMap map = MapLoader.loadMap();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
@@ -31,6 +31,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        window = primaryStage;
         GridPane ui = new GridPane();
         ui.setPrefWidth(250);
         ui.setPadding(new Insets(10));
@@ -41,6 +42,10 @@ public class Main extends Application {
         ui.add(new Label("Inventory: "), 0, 20);
         ui.add(inventoryLabel, 1, 20);
 
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            closeApp();
+        });
 
         BorderPane borderPane = new BorderPane();
 
@@ -54,6 +59,13 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+    }
+
+    private void closeApp() {
+        Boolean answer = ConfirmBox.display("Exit", "Do you want to exit?");
+        if (answer) {
+            window.close();
+        }
     }
 
     private void onKeyPressed(KeyEvent keyEvent) { // key event
