@@ -8,6 +8,7 @@ public class Cell implements Drawable {
     private CellType type;
     private Actor actor;
     private int damage;
+    private boolean isOpen;
     private Item item;
     private GameMap gameMap;
     private int x, y;
@@ -46,6 +47,10 @@ public class Cell implements Drawable {
 
     public Item getItem() {
         return item;
+    }
+
+    public void setOpen(boolean value){
+        this.isOpen = value;
     }
 
     public Cell getNeighbor(int dx, int dy) {

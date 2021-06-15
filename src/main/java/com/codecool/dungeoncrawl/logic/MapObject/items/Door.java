@@ -4,8 +4,11 @@ import com.codecool.dungeoncrawl.logic.Cell;
 
 public class Door extends Item{
 
+    public boolean isOpen;
+
     public Door(Cell cell) {
         super(cell);
+        isOpen = false;
     }
 
     @Override
@@ -17,4 +20,5 @@ public class Door extends Item{
     public String getTileName() {
         return "door";
     }
+
 }
