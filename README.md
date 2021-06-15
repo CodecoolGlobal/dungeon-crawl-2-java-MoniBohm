@@ -61,8 +61,8 @@ the important bit is that it should be fun!
     - Different monsters have different health and attack strength.
 
 7. Create doors in the dungeon that open by using keys.
-    - There are two new square types, closed door, and open door.
-    - The hero cannot pass through a closed door, unless it has a key in his/her inventory. Then it becomes an open door.
+    - There are two new square types, closed nextStageDoor, and open nextStageDoor.
+    - The hero cannot pass through a closed nextStageDoor, unless it has a key in his/her inventory. Then it becomes an open nextStageDoor.
 
 8. Create three different monster types with different behaviors.
     - There are at least three different monster types with different behaviors.

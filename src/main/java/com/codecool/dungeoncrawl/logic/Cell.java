@@ -2,13 +2,13 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Actor;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Enemy;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 
 public class Cell implements Drawable {
     private CellType type;
     private Actor actor;
-    private int damage;
-    private boolean isOpen;
+    private NextStageDoor nextLevelNextStageDoor;
     private Item item;
     private GameMap gameMap;
     private int x, y;
@@ -69,4 +69,5 @@ public class Cell implements Drawable {
     public GameMap getGameMap() {
         return gameMap;
     }
+
 }

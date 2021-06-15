@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.util.Direction;
 import javafx.application.Application;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -47,10 +48,10 @@ public class Main extends Application {
 
     private void generateScene(Stage primaryStage) {
         window = primaryStage;
-        window.setMaxWidth(1500);
-        window.setMaxHeight(1500);
-        window.setMinWidth(500);
-        window.setMinHeight(500);
+//        window.setMaxWidth(1500);
+//        window.setMaxHeight(1500);
+//        window.setMinWidth(500);
+//        window.setMinHeight(500);
         GridPane ui = new GridPane();
         ui.setPrefWidth(150);   // inventory width
         ui.setPadding(new Insets(10));
@@ -90,6 +91,10 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) { // key event
         switch (keyEvent.getCode()) {
             case UP:
+
+                canvas.getLayoutX();
+                System.out.println("bounds = " +canvas.getWidth());
+
                 map.getPlayer().initMove(Direction.UP.dx, Direction.UP.dy);
                 ChangeMapIfTrue();
                 refresh();
@@ -174,7 +179,7 @@ public class Main extends Application {
                 if (cell.getActor() != null) {
                     Tiles.drawTile(context, cell.getActor(), x, y); // draws player on ui
                 } else if (cell.getItem() != null) {        // draws items on ui
-                        Tiles.drawTile(context, cell.getItem(), x, y);
+                    Tiles.drawTile(context, cell.getItem(), x, y);
                 } else {
                     Tiles.drawTile(context, cell, x, y); // draws empty on ui
                 }

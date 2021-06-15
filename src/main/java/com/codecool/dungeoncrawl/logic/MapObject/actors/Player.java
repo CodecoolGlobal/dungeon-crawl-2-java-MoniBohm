@@ -2,7 +2,8 @@ package com.codecool.dungeoncrawl.logic.MapObject.actors;
 
 import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.MapObject.items.Door;
+import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
 
@@ -43,8 +44,8 @@ public class Player extends Actor {
 
     private void manageDoor(Cell nextCell){
         if(isEnoughOfKey("Key")){
-            Door door = (Door) nextCell.getItem();
-            door.setOpen(true);
+            NextStageDoor nextStageDoor = (NextStageDoor) nextCell.getItem();
+            nextStageDoor.setOpen(true);
             Main.isNextMap = true;
         }
     }
@@ -68,12 +69,20 @@ public class Player extends Actor {
 
     private boolean isDoor(Cell nextCell){
         Item currentItem = nextCell.getItem();
-        return currentItem instanceof Door;
+        return currentItem instanceof NextStageDoor;
     }
 
     private void pickupItem(Cell nextCell){
         cell.setActor(null);
         this.putItemToInventory(nextCell.getItem());
+        if(nextCell.getItem() instanceof Key){
+            if(isEnoughOfKey("Key")){
+               GameMap map =  nextCell.getGameMap();
+               Cell cell =  map.getNextDoor();
+               NextStageDoor nextStageDoor = (NextStageDoor) cell.getItem();
+               nextStageDoor.setOpen(true);
+            }
+        }
         nextCell.setItem(null);
         nextCell.setActor(this);
         this.cell = nextCell;

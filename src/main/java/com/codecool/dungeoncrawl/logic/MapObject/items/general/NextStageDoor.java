@@ -1,12 +1,13 @@
-package com.codecool.dungeoncrawl.logic.MapObject.items;
+package com.codecool.dungeoncrawl.logic.MapObject.items.general;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 
-public class Door extends Item{
+public class NextStageDoor extends Item {
 
     public boolean isOpen;
 
-    public Door(Cell cell) {
+    public NextStageDoor(Cell cell) {
         super(cell);
         isOpen = false;
     }
@@ -22,8 +23,9 @@ public class Door extends Item{
     public String getTileName() {
         if (isOpen){
             return "opendoor";
+        }else{
+            return "door";
         }
-        return "door";
     }
 
 }
