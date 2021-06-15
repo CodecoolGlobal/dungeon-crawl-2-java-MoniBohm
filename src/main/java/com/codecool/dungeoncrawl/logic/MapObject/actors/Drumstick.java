@@ -16,7 +16,7 @@ public class Drumstick extends Enemy {
         do {
             nextDirection = Direction.getRandom();
             nextCell = cell.getNeighbor(nextDirection.dx, nextDirection.dy);
-        } while (isEmptyCell(nextCell));
+        } while (!isEmptyCell(nextCell));
         move(nextCell);
     }
 
