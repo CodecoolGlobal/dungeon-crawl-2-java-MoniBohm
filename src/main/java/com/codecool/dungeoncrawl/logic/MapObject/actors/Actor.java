@@ -23,7 +23,7 @@ public abstract class Actor implements Drawable {
 
     private void validateCell(Cell nextCell) {
         if(isEmptyCell(nextCell) && isEnemyCell(nextCell)){
-            fightEnemy();
+            fightEnemy(nextCell);
         }else if (isItemCell(nextCell)){
             pickupItem(nextCell);
         }else if (isEmptyCell(nextCell)) {
@@ -36,8 +36,10 @@ public abstract class Actor implements Drawable {
         return actor instanceof Skeleton;
     }
 
-    private void fightEnemy(){
-
+    private void fightEnemy(Cell nextCell){
+        int enemyDamage = nextCell.getActorDamage();
+        int playerNewHealth = (cell.getActor().getHealth()) - enemyDamage;
+        setHealth(playerNewHealth);
     }
 
     private boolean isItemCell(Cell nextCell){
@@ -68,6 +70,10 @@ public abstract class Actor implements Drawable {
 
     public int getHealth() {
         return health;
+    }
+
+    public void setHealth(int newHealth) {
+        this.health = newHealth;
     }
 
     public Cell getCell() {
