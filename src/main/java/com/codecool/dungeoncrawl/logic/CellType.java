@@ -10,7 +10,6 @@ public enum CellType {
     CellType(String tileName) {
         this.tileName = tileName;
     }
-
     public String getTileName() {
         return tileName;
     }
