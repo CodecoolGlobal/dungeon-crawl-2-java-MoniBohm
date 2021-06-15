@@ -73,6 +73,8 @@ public class Main extends Application {
         borderPane.setRight(ui);    // puts ui to a right pane layout
 
         Scene scene = new Scene(borderPane); // creating the scene filling it with layout
+        scene.getStylesheets().add("style.css");
+        ui.setId("rightbar");
         primaryStage.setScene(scene); // put's the scene in main window
         refresh();  // printing
         scene.setOnKeyPressed(this::onKeyPressed); // Player movement - eventlistener
@@ -115,7 +117,8 @@ public class Main extends Application {
                 refresh();
                 break;
             case I:
-                InventoryBox.display(map.getPlayer().getInventory());
+                InventoryBox ibox = new InventoryBox();
+                ibox.display(map.getPlayer().getInventory());
                 refresh();
                 break;
         }

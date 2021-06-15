@@ -7,12 +7,13 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.geometry.*;
 
+import java.io.File;
 import java.util.List;
 
 public class InventoryBox {
 
 
-    public static void display(List inventory){
+    public void display(List inventory){
 
         Stage window = new Stage();
 
@@ -25,33 +26,28 @@ public class InventoryBox {
 
         //Creating a Grid Pane
         GridPane gridPane = new GridPane();
+        gridPane.setId("pane");
 
         //Setting size for the pane
-        gridPane.setMinSize(400, 200);
+        gridPane.setMinSize(400, 400);
 
         //Setting the padding
         gridPane.setPadding(new Insets(10, 10, 10, 10));
 
-        Text text1 = new Text();
-        text1.setText("Mana");
-        Text text2 = new Text();
-        text2.setText("Helmet");
-        Text text3 = new Text();
-        text3.setText("Health potion");
-        Text text4 = new Text();
-        text4.setText("body armour");
-        Text text5 = new Text();
-        text5.setText("Left leg armour");
-        Text text6 = new Text();
-        text6.setText("bottom armour");
-        Text text7 = new Text();
-        text7.setText("Right leg armour");
-
-//        text1.setScaleY(10);
-//        text2.setScaleY(10);
-//        text3.setScaleY(10);
-//        text4.setScaleY(10);
-//        text5.setScaleY(10);
+        Button text1 = new Button();
+        text1.setText("Use Mana");
+        Button text2 = new Button();
+        text2.setText("Drop Helmet");
+        Button text3 = new Button();
+        text3.setText("Use Health potion");
+        Button text4 = new Button();
+        text4.setText("Drop body armour");
+        Button text5 = new Button();
+        text5.setText("Drop Left leg armour");
+        Button text6 = new Button();
+        text6.setText("Drop bottom armour");
+        Button text7 = new Button();
+        text7.setText("Drop Right leg armour");
 
 
         //Setting the vertical and horizontal gaps between the columns
@@ -79,6 +75,7 @@ public class InventoryBox {
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(gridPane);
+        scene.getStylesheets().add("style.css");
         window.setScene(scene);
         window.showAndWait();
 
