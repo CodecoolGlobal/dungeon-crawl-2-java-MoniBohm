@@ -31,7 +31,7 @@ public class Player extends Actor {
         if(isEnemyCell(nextCell)){
             fightEnemy(nextCell);
         }else if(isDoor(nextCell)){
-            manageDoor(nextCell);
+            manageDoor();
         }else if (isItemCell(nextCell)){
             pickupItem(nextCell);
         }else if (isEmptyCell(nextCell)) {
@@ -39,9 +39,9 @@ public class Player extends Actor {
         }
     }
 
-    private void manageDoor(Cell nextCell){
+    private void manageDoor(){
         if(isEnoughOfKey("Key")){
-            //következő pálya vagy GameOver
+            cell.setOpen(true);
         }
     }
 
@@ -73,7 +73,6 @@ public class Player extends Actor {
         nextCell.setItem(null);
         nextCell.setActor(this);
         this.cell = nextCell;
-//        isPickedUpAllItemsOfType("key");
     }
 
     public void initMove(int dx, int dy) {
@@ -117,7 +116,6 @@ public class Player extends Actor {
     protected boolean isActorDead(int actorHealth) {
         return actorHealth <= 0;
     }
-
 
     private void move(Cell nextCell) {
         cell.setActor(null);
