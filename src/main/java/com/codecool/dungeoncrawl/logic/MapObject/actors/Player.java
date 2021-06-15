@@ -1,7 +1,10 @@
 package com.codecool.dungeoncrawl.logic.MapObject.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.MapObject.items.Door;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +30,18 @@ public class Player extends Actor {
     private void validateCell(Cell nextCell) {
         if(isEnemyCell(nextCell)){
             fightEnemy(nextCell);
+        }else if(isDoor(nextCell)){
+
         }else if (isItemCell(nextCell)){
             pickupItem(nextCell);
         }else if (isEmptyCell(nextCell)) {
             move(nextCell);
         }
+    }
+
+    private boolean isDoor(Cell nextCell){
+        Item currentItem = nextCell.getItem();
+        return currentItem instanceof Door;
     }
 
     private void pickupItem(Cell nextCell){
@@ -42,7 +52,7 @@ public class Player extends Actor {
         this.cell = nextCell;
     }
 
-    public void initMove(int dx, int dy) { // emptyre mehet csak - item/enemy vizsgálat
+    public void initMove(int dx, int dy) {
         Cell nextCell = cell.getNeighbor(dx, dy);
         validateCell(nextCell);
     }
