@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.UI;
 
+import javafx.scene.text.Font;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -18,6 +19,7 @@ public class AlertBox {
 
         Label label = new Label();
         label.setText(msg);
+        label.setFont(Font.font("Verdana"));
         Button closeButton = new Button("Close window");
         closeButton.setOnAction( e -> window.close());
 

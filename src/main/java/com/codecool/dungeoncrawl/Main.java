@@ -53,7 +53,7 @@ public class Main extends Application {
 //        window.setMinWidth(500);
 //        window.setMinHeight(500);
         GridPane ui = new GridPane();
-        ui.setPrefWidth(150);   // inventory width
+        ui.setPrefWidth(200);   // inventory width
         ui.setPadding(new Insets(10));
 
         ui.add(new Label("Health: "), 0, 0);

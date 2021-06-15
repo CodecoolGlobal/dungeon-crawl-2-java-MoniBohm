@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.UI;
 
+import javafx.scene.text.Font;
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -16,10 +17,13 @@ public class ConfirmBox {
         window.setMinWidth(250);
         Label label = new Label();
         label.setText(msg);
+        label.setFont(Font.font("Verdana"));
 
 
         Button yesBtn = new Button("Yes");
+        yesBtn.setFont(Font.font("Verdana"));
         Button noBtn = new Button("No");
+        noBtn.setFont(Font.font("Verdana"));
 
         yesBtn.setOnAction( e -> {
             answer = true;
