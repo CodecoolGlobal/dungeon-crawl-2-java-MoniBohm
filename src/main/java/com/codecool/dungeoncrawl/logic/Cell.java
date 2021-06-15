@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 public class Cell implements Drawable {
     private CellType type;
     private Actor actor;
+    private int damage;
     private Item item;
     private GameMap gameMap;
     private int x, y;
