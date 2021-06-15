@@ -38,8 +38,6 @@ public class Cell implements Drawable {
         return actor;
     }
 
-    public int getActorDamage(){return damage;}
-
     public Item getItem() {
         return item;
     }

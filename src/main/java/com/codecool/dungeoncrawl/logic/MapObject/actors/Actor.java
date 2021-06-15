@@ -24,7 +24,7 @@ public abstract class Actor implements Drawable {
     }
 
     private void validateCell(Cell nextCell) {
-        if(isEmptyCell(nextCell) && isEnemyCell(nextCell)){
+        if(isEnemyCell(nextCell)){
             fightEnemy(nextCell);
         }else if (isItemCell(nextCell)){
             pickupItem(nextCell);
@@ -41,22 +41,16 @@ public abstract class Actor implements Drawable {
     private void fightEnemy(Cell nextCell){
         Actor player = cell.getActor();
         Actor enemy = nextCell.getActor();
-        int enemyDamage = nextCell.getActorDamage();
-        int playerDamage = nextCell.getActorDamage();
-        int playerNewHealth = (player.getHealth()) - enemyDamage;
-        int enemyNewHealth = (enemy.getHealth()) - playerDamage;
-        if(isActorAlive(playerNewHealth) && isActorDead(enemyNewHealth)){move(nextCell);}
         boolean isFightOver = false;
-        while (!isFightOver){
-            playerNewHealth = (player.getHealth()) - enemyDamage;
-            enemyNewHealth = (enemy.getHealth()) - playerDamage;
 
-            if(isActorDead(playerNewHealth)){
+        while (!isFightOver){
+            player.setHealth(hitPlayer(player, enemy));
+            enemy.setHealth(hitEnemy(player, enemy));
+            if(isActorDead(player.health)){
                 isFightOver = true;
                 gameOver = true;
             }
-
-            if(isActorDead(enemyNewHealth)){
+            if(isActorDead(enemy.health)){
                 isFightOver = true;
                 move(nextCell);
             }
@@ -64,9 +58,17 @@ public abstract class Actor implements Drawable {
 
     }
 
+    private int hitEnemy(Actor player, Actor enemy) {
+        return (enemy.getHealth()) - player.damage;
+    }
+
+    private int hitPlayer(Actor player, Actor enemy) {
+        return (player.getHealth()) - enemy.damage;
+    }
+
     private boolean isActorAlive(int actorHealth ){return actorHealth > 0;}
 
-    private boolean isActorDead(int actorHealth ){return actorHealth <=0;}
+    private boolean isActorDead(int actorHealth ){return actorHealth <= 0;}
 
     private boolean isItemCell(Cell nextCell){
         return nextCell.getItem() != null;
