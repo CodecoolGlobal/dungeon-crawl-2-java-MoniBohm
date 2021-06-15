@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.UI.InventoryBox;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.util.Direction;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -79,19 +80,19 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) { // key event
         switch (keyEvent.getCode()) {
             case UP:
-                map.getPlayer().initMove(0, -1);
+                map.getPlayer().initMove(Direction.UP.dx, Direction.UP.dy);
                 refresh();
                 break;
             case DOWN:
-                map.getPlayer().initMove(0, 1);
+                map.getPlayer().initMove(Direction.DOWN.dx, Direction.DOWN.dy);
                 refresh();
                 break;
             case LEFT:
-                map.getPlayer().initMove(-1, 0);
+                map.getPlayer().initMove(Direction.LEFT.dx, Direction.LEFT.dy);
                 refresh();
                 break;
             case RIGHT:
-                map.getPlayer().initMove(1,0);
+                map.getPlayer().initMove(Direction.RIGHT.dx, Direction.RIGHT.dy);
                 refresh();
                 break;
             case I:
