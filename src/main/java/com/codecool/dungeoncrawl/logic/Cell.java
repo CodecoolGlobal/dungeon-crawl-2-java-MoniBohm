@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Actor;
+import com.codecool.dungeoncrawl.logic.MapObject.actors.Enemy;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 
 public class Cell implements Drawable {
@@ -38,6 +39,11 @@ public class Cell implements Drawable {
         return actor;
     }
 
+    public boolean isEnemyCell() {
+        Actor actor = this.getActor();
+        return actor instanceof Enemy;
+    }
+
     public Item getItem() {
         return item;
     }
@@ -57,5 +63,9 @@ public class Cell implements Drawable {
 
     public int getY() {
         return y;
+    }
+
+    public GameMap getGameMap() {
+        return gameMap;
     }
 }

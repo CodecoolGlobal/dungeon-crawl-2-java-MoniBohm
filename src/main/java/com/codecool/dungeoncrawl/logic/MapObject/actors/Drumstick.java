@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic.MapObject.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.util.Direction;
 
 public class Drumstick extends Enemy {
     public Drumstick(Cell cell) {
@@ -9,9 +10,20 @@ public class Drumstick extends Enemy {
         health = ActorStats.DRUMSTICK.health;
     }
 
-    @Override
-    void move() {
+    public void initMove() {
+        Cell nextCell;
+        Direction nextDirection;
+        do {
+            nextDirection = Direction.getRandom();
+            nextCell = cell.getNeighbor(nextDirection.dx, nextDirection.dy);
+        } while (isEmptyCell(nextCell));
+        move(nextCell);
+    }
 
+    public void move(Cell nextCell) {
+        cell.setActor(null);
+        nextCell.setActor(this);
+        this.cell = nextCell;
     }
 
     @Override

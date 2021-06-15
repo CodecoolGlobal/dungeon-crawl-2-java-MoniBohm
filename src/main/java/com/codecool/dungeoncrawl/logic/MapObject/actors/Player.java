@@ -89,6 +89,7 @@ public class Player extends Actor {
         cell.setActor(null);
         nextCell.setActor(this);
         this.cell = nextCell;
+        this.cell.getGameMap().moveEnemies();
     }
 
 
