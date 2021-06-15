@@ -3,10 +3,13 @@ package com.codecool.dungeoncrawl.logic.MapObject.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Door;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
-import org.junit.jupiter.api.condition.DisabledOnOs;
+import com.codecool.dungeoncrawl.logic.MapObject.items.Key;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Player extends Actor {
     private List<Item> inventory;
@@ -14,7 +17,7 @@ public class Player extends Actor {
 
     public Player(Cell cell) {
         super(cell);
-        inventory = new ArrayList<Item>();
+        inventory = new ArrayList<>();
         damage = ActorStats.PLAYER.damage;
         health = ActorStats.PLAYER.health;
     }
@@ -31,12 +34,40 @@ public class Player extends Actor {
         if(isEnemyCell(nextCell)){
             fightEnemy(nextCell);
         }else if(isDoor(nextCell)){
-
+            manageDoor(nextCell);
         }else if (isItemCell(nextCell)){
             pickupItem(nextCell);
         }else if (isEmptyCell(nextCell)) {
             move(nextCell);
         }
+    }
+
+    private void manageDoor(Cell nextCell){
+        Item item = nextCell.getItem();
+        Key.count = 0;
+//        pickedUpAllItemsOfType(item.getTileName());
+    }
+
+
+    private int pickedUpAllItemsOfType(Item item){
+        int counter = 0;
+        for (Item element : inventory){
+            String elementName  = element.getTileName();
+            if(elementName.equalsIgnoreCase(item)){
+                counter+=1;}
+        }
+
+//
+//        int counter = inventory.stream()
+//                .flatMap(element -> Arrays.stream(element.getTileName()))
+//                .collect(Collectors.groupingBy(Function.identity(),
+//                        Collectors.counting()));
+        return counter;
+    }
+
+
+    private boolean isEnoughKey(int numberOfKey){
+        return  numberOfKey== Key.count;
     }
 
     private boolean isDoor(Cell nextCell){
@@ -50,6 +81,7 @@ public class Player extends Actor {
         nextCell.setItem(null);
         nextCell.setActor(this);
         this.cell = nextCell;
+//        isPickedUpAllItemsOfType("key");
     }
 
     public void initMove(int dx, int dy) {

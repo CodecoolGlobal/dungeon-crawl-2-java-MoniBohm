@@ -43,10 +43,6 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Colonel(cell);
                             break;
-                        case '@': // player
-                            cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell));
-                            break;
                         case 'i': // item
                             cell.setType(CellType.FLOOR);
                             new Key(cell);
@@ -54,6 +50,10 @@ public class MapLoader {
                         case 'E': // item
                             cell.setType(CellType.FLOOR);
                             new Door(cell);
+                            break;
+                        case '@': // player
+                            cell.setType(CellType.FLOOR);
+                            map.setPlayer(new Player(cell));
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
