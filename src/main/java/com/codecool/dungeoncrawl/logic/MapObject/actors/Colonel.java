@@ -5,6 +5,13 @@ import com.codecool.dungeoncrawl.logic.Cell;
 public class Colonel extends Enemy {
     public Colonel(Cell cell) {
         super(cell);
+        damage = ActorStats.COLONEL.damage;
+        health = ActorStats.COLONEL.health;
+    }
+
+    @Override
+    void move() {
+
     }
 
     @Override
