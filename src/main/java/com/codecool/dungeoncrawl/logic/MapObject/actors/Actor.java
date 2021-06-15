@@ -40,6 +40,11 @@ public abstract class Actor implements Drawable {
         this.health = newHealth;
     }
 
+    public int getDamage() {
+        return this.damage;
+    }
+
+
     protected Cell getCell() {
         return cell;
     }

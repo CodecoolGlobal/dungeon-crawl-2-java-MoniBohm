@@ -52,4 +52,14 @@ class ActorTest {
         assertEquals(1, colonel.getY());
         assertEquals(colonel, gameMap.getCell(2, 1).getActor());
     }
+
+//    @Test
+//    void healthChange_WhenPlayerMeetWithEnemy_ThenHealthDecrease(){
+//        Player player = new Player(gameMap.getCell(1, 1));
+//        Skeleton enemy = new Skeleton(gameMap.getCell(0, 1));
+//        player.initMove(0,1);
+//        int currentHealth= player.getHealth();
+//        int enemyDamage = enemy.getDamage();
+//        assertEquals(currentHealth - (enemyDamage) * 5, player.getHealth());
+//    }
 }
