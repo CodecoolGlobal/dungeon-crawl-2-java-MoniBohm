@@ -3,6 +3,8 @@ package com.codecool.dungeoncrawl.logic.MapObject.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 
+import java.util.List;
+
 public class Skeleton extends Enemy {
     public Skeleton(Cell cell) {
         super(cell);
@@ -14,7 +16,7 @@ public class Skeleton extends Enemy {
     }
 
     @Override
-    public String getInventory() {
+    public List getInventory() {
         return null;
     }
 

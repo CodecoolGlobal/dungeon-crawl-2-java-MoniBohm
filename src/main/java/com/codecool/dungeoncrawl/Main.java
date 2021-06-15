@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.UI.ConfirmBox;
+import com.codecool.dungeoncrawl.UI.InventoryBox;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
@@ -18,7 +19,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     Stage window;
-    GameMap map = MapLoader.loadMap();
+    String mapFile1 = "/map.txt";
+    String mapFile2 = "/map2.txt";
+    GameMap map = MapLoader.loadMap(mapFile1);
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -33,8 +36,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
+        window.setMaxWidth(1500);
+        window.setMaxHeight(1500);
+        window.setMinWidth(500);
+        window.setMinHeight(500);
         GridPane ui = new GridPane();
-        ui.setPrefWidth(250);   // inventory width
+        ui.setPrefWidth(150);   // inventory width
         ui.setPadding(new Insets(10));
 
         ui.add(new Label("Health: "), 0, 0);
@@ -85,6 +92,10 @@ public class Main extends Application {
                 break;
             case RIGHT:
                 map.getPlayer().initMove(1,0);
+                refresh();
+                break;
+            case I:
+                InventoryBox.display(map.getPlayer().getInventory());
                 refresh();
                 break;
         }

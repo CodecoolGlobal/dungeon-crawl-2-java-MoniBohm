@@ -26,9 +26,8 @@ public class Player extends Actor {
     }
 
     @Override
-    public String getInventory() {
-        System.out.println(inventory.toString());
-        return inventory.toString();
+    public List getInventory() {
+        return inventory;
     }
 
     public String getTileName() {

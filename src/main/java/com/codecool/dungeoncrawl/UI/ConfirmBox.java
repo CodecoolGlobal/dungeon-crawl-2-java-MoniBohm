@@ -12,7 +12,7 @@ public class ConfirmBox {
     public static Boolean display(String title, String msg){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("title");
+        window.setTitle(title);
         window.setMinWidth(250);
         Label label = new Label();
         label.setText(msg);

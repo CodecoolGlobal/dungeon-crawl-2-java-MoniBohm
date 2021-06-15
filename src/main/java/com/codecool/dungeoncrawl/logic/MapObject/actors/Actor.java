@@ -5,6 +5,8 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 
+import java.util.List;
+
 public abstract class Actor implements Drawable {
     private Cell cell;
     private int health = 10;
@@ -80,5 +82,5 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
-    public abstract String getInventory();
+    public abstract List getInventory();
 }
