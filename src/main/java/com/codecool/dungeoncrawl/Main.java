@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.UI.ConfirmBox;
+import com.codecool.dungeoncrawl.UI.InventoryBox;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
@@ -16,12 +18,16 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    GameMap map = MapLoader.loadMap();
+    Stage window;
+    String mapFile1 = "/map.txt";
+    String mapFile2 = "/map2.txt";
+    GameMap map = MapLoader.loadMap(mapFile1);
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
-    Label healthLabel = new Label();
+    Label healthLabel = new Label();    // label for health
+    Label inventoryLabel = new Label(); // label for inventory
 
     public static void main(String[] args) {
         launch(args);
@@ -29,25 +35,45 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        window = primaryStage;
+        window.setMaxWidth(1500);
+        window.setMaxHeight(1500);
+        window.setMinWidth(500);
+        window.setMinHeight(500);
         GridPane ui = new GridPane();
-        ui.setPrefWidth(200);
+        ui.setPrefWidth(150);   // inventory width
         ui.setPadding(new Insets(10));
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
 
-        BorderPane borderPane = new BorderPane();
+        ui.add(new Label("Inventory: "), 0, 20);
+        ui.add(inventoryLabel, 1, 20);
+
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            closeApp();
+        });
+
+        BorderPane borderPane = new BorderPane();  // borderPane layout
 
         borderPane.setCenter(canvas);
-        borderPane.setRight(ui);
+        borderPane.setRight(ui);    // puts ui to a right pane layout
 
-        Scene scene = new Scene(borderPane); // ide rakja be az összes elemet
-        primaryStage.setScene(scene); // ez teszi bele a programba
-        refresh();
-        scene.setOnKeyPressed(this::onKeyPressed); // játékos mozgása - eventlistener
+        Scene scene = new Scene(borderPane); // creating the scene filling it with layout
+        primaryStage.setScene(scene); // put's the scene in main window
+        refresh();  // printing
+        scene.setOnKeyPressed(this::onKeyPressed); // Player movement - eventlistener
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+    }
+
+    private void closeApp() {   // modal window for closing
+        Boolean answer = ConfirmBox.display("Exit", "Do you want to exit?");
+        if (answer) {
+            window.close();
+        }
     }
 
     private void onKeyPressed(KeyEvent keyEvent) { // key event
@@ -68,6 +94,10 @@ public class Main extends Application {
                 map.getPlayer().initMove(1,0);
                 refresh();
                 break;
+            case I:
+                InventoryBox.display(map.getPlayer().getInventory());
+                refresh();
+                break;
         }
     }
 
@@ -78,14 +108,15 @@ public class Main extends Application {
             for (int y = 0; y < map.getHeight(); y++) {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null) {
-                    Tiles.drawTile(context, cell.getActor(), x, y);
-                } else if (cell.getItem() != null) {
+                    Tiles.drawTile(context, cell.getActor(), x, y); // draws player on ui
+                } else if (cell.getItem() != null) {        // draws items on ui
                         Tiles.drawTile(context, cell.getItem(), x, y);
                 } else {
-                    Tiles.drawTile(context, cell, x, y);
+                    Tiles.drawTile(context, cell, x, y); // draws empty on ui
                 }
             }
         }
-        healthLabel.setText("" + map.getPlayer().getHealth()); // healthet mutatja
+        healthLabel.setText("" + map.getPlayer().getHealth()); // represents health
+        inventoryLabel.setText("" + map.getPlayer().inventoryToString()); //represents inventory
     }
 }
