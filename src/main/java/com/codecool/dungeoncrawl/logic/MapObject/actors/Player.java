@@ -3,7 +3,7 @@ package com.codecool.dungeoncrawl.logic.MapObject.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Door;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
-import com.codecool.dungeoncrawl.logic.MapObject.items.Key;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
 
 import java.util.ArrayList;
 import java.util.List;

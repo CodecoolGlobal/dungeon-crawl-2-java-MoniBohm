@@ -1,7 +1,12 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.MapObject.actors.*;
-import com.codecool.dungeoncrawl.logic.MapObject.items.*;
+import com.codecool.dungeoncrawl.logic.MapObject.items.Door;
+import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
+import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
+import com.codecool.dungeoncrawl.logic.MapObject.items.armor.LegArmor;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.Coin;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -43,9 +48,25 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Colonel(cell);
                             break;
-                        case 'i': // item
+                        case 'k': // item
                             cell.setType(CellType.FLOOR);
                             new Key(cell);
+                            break;
+                        case 'C': // item
+                            cell.setType(CellType.FLOOR);
+                            new Coin(cell);
+                            break;
+                        case 'h': // item
+                            cell.setType(CellType.FLOOR);
+                            new HeadGear(cell);
+                            break;
+                        case 'a': // item
+                            cell.setType(CellType.FLOOR);
+                            new BodyArmor(cell);
+                            break;
+                        case 'l': // item
+                            cell.setType(CellType.FLOOR);
+                            new LegArmor(cell);
                             break;
                         case 'E': // item
                             cell.setType(CellType.FLOOR);
