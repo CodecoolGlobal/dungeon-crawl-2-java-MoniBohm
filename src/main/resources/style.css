@@ -1,12 +1,15 @@
-#pane{
+.root {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Courier New", Arial, sans-serif;
+    -fx-base: rgb(132, 145, 47);
+    -fx-background: rgb(58, 45, 71);
+}
+
+#pane {
     -fx-background-image: url("inv.jpeg");
-    -fx-font-family: sans-serif;
-    -fx-background-repeat: stretch;
-    -fx-background-size: 500 350;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
-#rightBar{
-    -fx-font-family: sans-serif;
-
-}
+#rightbar {}

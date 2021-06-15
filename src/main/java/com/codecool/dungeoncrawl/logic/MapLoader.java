@@ -30,45 +30,54 @@ public class MapLoader {
                         case ' ': // not player area
                             cell.setType(CellType.EMPTY);
                             break;
+                        case 'f': // fire
+                            cell.setType(CellType.FIRE);
+                            break;
+                        case 'g': // grave
+                            cell.setType(CellType.GRAVE);
+                            break;
+                        case 'x': // corpse
+                            cell.setType(CellType.CORPSE);
+                            break;
                         case '#': // wall
                             cell.setType(CellType.WALL);
                             break;
                         case '.': // empty cell
                             cell.setType(CellType.FLOOR);
                             break;
-                        case 'b': // bucket
+                        case 'b': // enemy: bucket
                             cell.setType(CellType.FLOOR);
                             new Bucket(cell);
                             break;
-                        case 'd': // drumstick
+                        case 'd': // enemy: drumstick
                             cell.setType(CellType.FLOOR);
                             new Drumstick(cell);
                             break;
-                        case 'c': // colonel
+                        case 'c': // enemy: colonel
                             cell.setType(CellType.FLOOR);
                             new Colonel(cell);
                             break;
-                        case 'k': // item
+                        case 'k': // key
                             cell.setType(CellType.FLOOR);
                             new Key(cell);
                             break;
-                        case 'C': // item
+                        case 'C': // coin
                             cell.setType(CellType.FLOOR);
                             new Coin(cell);
                             break;
-                        case 'h': // item
+                        case 'h': // head gear
                             cell.setType(CellType.FLOOR);
                             new HeadGear(cell);
                             break;
-                        case 'a': // item
+                        case 'a': // body armor
                             cell.setType(CellType.FLOOR);
                             new BodyArmor(cell);
                             break;
-                        case 'l': // item
+                        case 'l': // leg armor
                             cell.setType(CellType.FLOOR);
                             new LegArmor(cell);
                             break;
-                        case 'E': // item
+                        case 'E': // next stage door
                             cell.setType(CellType.FLOOR);
                             new NextStageDoor(cell);
                             break;

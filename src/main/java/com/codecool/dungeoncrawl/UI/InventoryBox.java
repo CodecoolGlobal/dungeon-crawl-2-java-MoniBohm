@@ -18,8 +18,8 @@ public class InventoryBox {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("title");
-        window.setMinWidth(350);
+        window.setTitle("Inventory");
+        window.setMinWidth(400);
 
         Label label = new Label();
         label.setText("Inventory");
@@ -29,7 +29,7 @@ public class InventoryBox {
         gridPane.setId("pane");
 
         //Setting size for the pane
-        gridPane.setMinSize(400, 400);
+        gridPane.setMinSize(500, 400);
 
         //Setting the padding
         gridPane.setPadding(new Insets(10, 10, 10, 10));
@@ -51,8 +51,8 @@ public class InventoryBox {
 
 
         //Setting the vertical and horizontal gaps between the columns
-        gridPane.setVgap(25);
-        gridPane.setHgap(25);
+        gridPane.setVgap(10);
+        gridPane.setHgap(10);
 
         //Setting the Grid alignment
         gridPane.setAlignment(Pos.CENTER);
@@ -70,7 +70,7 @@ public class InventoryBox {
         Button closeButton = new Button("Close window");
         closeButton.setOnAction( e -> window.close());
 
-        VBox layout = new VBox(350);
+        VBox layout = new VBox(400);
         layout.getChildren().addAll( label, closeButton);
         layout.setAlignment(Pos.CENTER);
 
