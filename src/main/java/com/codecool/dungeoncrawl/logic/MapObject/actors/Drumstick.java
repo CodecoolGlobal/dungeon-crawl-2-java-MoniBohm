@@ -22,8 +22,8 @@ public class Drumstick extends Enemy {
 
     public void move(Cell nextCell) {
         cell.setActor(null);
-        nextCell.setActor(this);
         this.cell = nextCell;
+        nextCell.setActor(this);
     }
 
     @Override
