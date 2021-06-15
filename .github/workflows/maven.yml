@@ -20,7 +20,7 @@ jobs:
         java-version: '16'
         distribution: 'adopt'
     - name: Build and Run Tests
-      run: mvn test --batch-mode --fail-at-end
+      run: mvn --batch-mode --update-snapshots verify
     - name: Publish Test Report
       if: ${{ always() }}
       uses: scacap/action-surefire-report@v1
