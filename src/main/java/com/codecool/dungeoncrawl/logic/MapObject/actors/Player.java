@@ -32,17 +32,19 @@ public class Player extends Actor {
         if(isEnemyCell(nextCell)){
             fightEnemy(nextCell);
         }else if(isDoor(nextCell)){
-            manageDoor();
+            manageDoor(nextCell);
         }else if (isItemCell(nextCell)){
             pickupItem(nextCell);
+
         }else if (isEmptyCell(nextCell)) {
             move(nextCell);
         }
     }
 
-    private void manageDoor(){
+    private void manageDoor(Cell nextCell){
         if(isEnoughOfKey("Key")){
-            cell.setOpen(true);
+            Door door = (Door) nextCell.getItem();
+            door.setOpen(true);
             Main.isNextMap = true;
         }
     }

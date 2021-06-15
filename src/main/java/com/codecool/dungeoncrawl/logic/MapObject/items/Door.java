@@ -10,7 +10,9 @@ public class Door extends Item{
         super(cell);
         isOpen = false;
     }
-
+    public void setOpen(boolean value){
+        this.isOpen = value;
+    }
     @Override
     public String toString() {
         return "Door";
@@ -18,6 +20,9 @@ public class Door extends Item{
 
     @Override
     public String getTileName() {
+        if (isOpen){
+            return "opendoor";
+        }
         return "door";
     }
 
