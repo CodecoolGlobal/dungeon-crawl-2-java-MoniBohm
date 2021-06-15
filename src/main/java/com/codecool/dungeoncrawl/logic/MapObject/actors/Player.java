@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.MapObject.actors;
 
+import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Door;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
@@ -42,6 +43,7 @@ public class Player extends Actor {
     private void manageDoor(){
         if(isEnoughOfKey("Key")){
             cell.setOpen(true);
+
         }
     }
 

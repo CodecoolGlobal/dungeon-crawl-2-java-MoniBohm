@@ -17,12 +17,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Main extends Application {
+    boolean isNextMap;
+    boolean isPreviousMap;
+    int currentMap = 0;
+    List<String> nameOfFiles = setMapNames();
     Stage window;
-    String mapFile1 = "/map.txt";
-    String mapFile2 = "/map2.txt";
-    GameMap map = MapLoader.loadMap(mapFile1);
+    String mapFilename = nameOfFiles.get(currentMap);
+    GameMap map = MapLoader.loadMap(mapFilename);
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -36,6 +42,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        generateScene(primaryStage);
+    }
+
+    private void generateScene(Stage primaryStage) {
         window = primaryStage;
         window.setMaxWidth(1500);
         window.setMaxHeight(1500);
@@ -100,6 +110,45 @@ public class Main extends Application {
                 refresh();
                 break;
         }
+    }
+
+    public void initNewMap(){
+        generateMapFileName();
+        generateMap();
+    }
+
+    public void generateMapFileName(){
+        if (isNextMap){
+            if(currentMap < nameOfFiles.size()-1){
+                currentMap++;
+                mapFilename = nameOfFiles.get(currentMap);
+                isNextMap = false;
+            }
+        }
+        if (isPreviousMap){
+            if(currentMap > 0){
+                currentMap--;
+                mapFilename = nameOfFiles.get(currentMap);
+                isPreviousMap = false;
+            }
+        }
+    }
+
+    private List<String> setMapNames() {
+        List<String> nameOfFiles = new ArrayList();
+        nameOfFiles.add("/map1.txt");
+        nameOfFiles.add("/map2.txt");
+        nameOfFiles.add("/map3.txt");
+        nameOfFiles.add("/map4.txt");
+        return nameOfFiles;
+    }
+
+    public void generateMap() {
+        map = MapLoader.loadMap(mapFilename);
+        canvas = new Canvas(
+                map.getWidth() * Tiles.TILE_WIDTH,
+                map.getHeight() * Tiles.TILE_WIDTH);
+        refresh();
     }
 
     private void refresh() {        // This method responsible for printing
