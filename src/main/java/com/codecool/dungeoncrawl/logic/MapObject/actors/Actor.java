@@ -20,6 +20,12 @@ public abstract class Actor implements Drawable {
         return actor instanceof Enemy;
     }
 
+
+    protected boolean isColonel(Cell nextCell) {
+        Actor actor = nextCell.getActor();
+        return actor instanceof Colonel;
+    }
+
     protected boolean isPlayerCell(Cell nextCell) {
         Actor actor = nextCell.getActor();
         return actor instanceof Player;
