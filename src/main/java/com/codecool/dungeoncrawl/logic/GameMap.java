@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.MapObject.actors.Actor;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Enemy;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;

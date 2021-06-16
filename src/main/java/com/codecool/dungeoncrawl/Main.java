@@ -103,6 +103,7 @@ public class Main extends Application {
                 borderPane.setTranslateY(borderPane.getTranslateY()+20);
 
                 map.getPlayer().initMove(Direction.UP.dx, Direction.UP.dy);
+                map.moveEnemies();
                 ChangeMapIfTrue();
                 refresh();
                 break;
@@ -111,6 +112,7 @@ public class Main extends Application {
                 borderPane.setTranslateY(borderPane.getTranslateY()-20);
 
                 map.getPlayer().initMove(Direction.DOWN.dx, Direction.DOWN.dy);
+                map.moveEnemies();
                 ChangeMapIfTrue();
                 refresh();
                 break;
@@ -119,6 +121,7 @@ public class Main extends Application {
                 borderPane.setTranslateX(borderPane.getTranslateX()+20);
 
                 map.getPlayer().initMove(Direction.LEFT.dx, Direction.LEFT.dy);
+                map.moveEnemies();
                 ChangeMapIfTrue();
                 refresh();
                 break;
@@ -127,6 +130,7 @@ public class Main extends Application {
                 borderPane.setTranslateX(borderPane.getTranslateX()-20);
 
                 map.getPlayer().initMove(Direction.RIGHT.dx, Direction.RIGHT.dy);
+                map.moveEnemies();
                 ChangeMapIfTrue();
                 refresh();
                 break;

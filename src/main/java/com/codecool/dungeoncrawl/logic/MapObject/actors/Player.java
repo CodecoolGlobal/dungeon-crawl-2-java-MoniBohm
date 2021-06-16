@@ -32,8 +32,10 @@ public class Player extends Actor {
     private void validateCell(Cell nextCell) {
         if(isEnemyCell(nextCell)){
             fightEnemy(nextCell);
+
         }else if(isDoor(nextCell)){
             manageDoor(nextCell);
+
         }else if (isItemCell(nextCell)){
             pickupItem(nextCell);
 
@@ -88,6 +90,7 @@ public class Player extends Actor {
         nextCell.setItem(null);
         nextCell.setActor(this);
         this.cell = nextCell;
+
     }
 
     public void initMove(int dx, int dy) {
@@ -134,9 +137,9 @@ public class Player extends Actor {
 
     private void move(Cell nextCell) {
         cell.setActor(null);
-        nextCell.setActor(this);
         this.cell = nextCell;
-        this.cell.getGameMap().moveEnemies();
+        nextCell.setActor(this);
+//        this.cell.getGameMap().moveEnemies();
     }
 
 
