@@ -18,7 +18,7 @@ public class InventoryBox {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("title");
+        window.setTitle("Inventory");
         window.setMinWidth(350);
 
         Label label = new Label();

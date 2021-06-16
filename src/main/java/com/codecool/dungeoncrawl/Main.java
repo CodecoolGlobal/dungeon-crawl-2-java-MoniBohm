@@ -25,6 +25,7 @@ import java.util.List;
 public class Main extends Application {
     public static boolean isNextMap;
     public static boolean isPreviousMap;
+    BorderPane borderPane;
     int currentMap = 0;
     List<String> nameOfFiles = setMapNames();
     Stage window;
@@ -43,10 +44,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        generateScene(primaryStage);
-    }
-
-    private void generateScene(Stage primaryStage) {
         window = primaryStage;
 //        window.setMaxWidth(1500);
 //        window.setMaxHeight(1500);
@@ -67,14 +64,14 @@ public class Main extends Application {
             closeApp();
         });
 
-        BorderPane borderPane = new BorderPane();  // borderPane layout
-
+        borderPane = new BorderPane();  // borderPane layout
         borderPane.setCenter(canvas);
         borderPane.setRight(ui);    // puts ui to a right pane layout
+        ui.setId("rightbar");
 
         Scene scene = new Scene(borderPane); // creating the scene filling it with layout
         scene.getStylesheets().add("style.css");
-        ui.setId("rightbar");
+
         primaryStage.setScene(scene); // put's the scene in main window
         refresh();  // printing
         scene.setOnKeyPressed(this::onKeyPressed); // Player movement - eventlistener
@@ -94,24 +91,32 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case UP:
 
-                canvas.getLayoutX();
-                System.out.println("bounds = " +canvas.getWidth());
+                borderPane.setTranslateY(borderPane.getTranslateY()+20);
 
                 map.getPlayer().initMove(Direction.UP.dx, Direction.UP.dy);
                 ChangeMapIfTrue();
                 refresh();
                 break;
             case DOWN:
+
+                borderPane.setTranslateY(borderPane.getTranslateY()-20);
+
                 map.getPlayer().initMove(Direction.DOWN.dx, Direction.DOWN.dy);
                 ChangeMapIfTrue();
                 refresh();
                 break;
             case LEFT:
+
+                borderPane.setTranslateX(borderPane.getTranslateX()+20);
+
                 map.getPlayer().initMove(Direction.LEFT.dx, Direction.LEFT.dy);
                 ChangeMapIfTrue();
                 refresh();
                 break;
             case RIGHT:
+
+                borderPane.setTranslateX(borderPane.getTranslateX()-20);
+
                 map.getPlayer().initMove(Direction.RIGHT.dx, Direction.RIGHT.dy);
                 ChangeMapIfTrue();
                 refresh();
