@@ -29,23 +29,24 @@ public class Player extends Actor {
         return sb.toString();
     }
 
-    private void validateCell(Cell nextCell) {
+    private boolean validateCell(Cell nextCell) {
         if(isColonel(nextCell)){
             fightColony(nextCell);
         }
-
         else if (isEnemyCell(nextCell)) {
             fightEnemy(nextCell);
-
+            return true;
         }else if(isDoor(nextCell)){
             manageDoor(nextCell);
-
+            return true;
         }else if (isItemCell(nextCell)){
             pickupItem(nextCell);
-
+            return true;
         }else if (isEmptyCell(nextCell)) {
             move(nextCell);
+            return true;
         }
+        return false;
     }
 
     private void manageDoor(Cell nextCell){
@@ -123,9 +124,11 @@ public class Player extends Actor {
         this.cell = nextCell;
     }
 
-    public void initMove(int dx, int dy) {
+    public boolean initMove(int dx, int dy) {
+        boolean succesfullmove = false;
         Cell nextCell = cell.getNeighbor(dx, dy);
-        validateCell(nextCell);
+        succesfullmove = validateCell(nextCell);
+        return succesfullmove;
     }
 
     private void fightEnemy(Cell nextCell){
