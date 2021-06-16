@@ -31,6 +31,7 @@ public class Bucket extends Enemy {
 
     public void move(Cell nextCell, Direction nextDirection) {
         cell.setActor(null);
+
         this.cell = nextCell;
         this.cell.setActor(this);
         currentDirection = nextDirection;

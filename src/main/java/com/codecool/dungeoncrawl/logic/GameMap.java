@@ -1,9 +1,8 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.logic.MapObject.actors.Actor;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Enemy;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.openDoor;
 
 public class GameMap {
     private int width;
@@ -56,7 +55,7 @@ public class GameMap {
     public Cell getNextDoor() {
         for ( Cell[] row : cells) {
             for ( Cell cell : row) {
-                if (cell.getItem() instanceof NextStageDoor) {
+                if (cell.getItem() instanceof openDoor) {
                     return cell;
                 }
             }
