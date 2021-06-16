@@ -1,10 +1,12 @@
 package com.codecool.dungeoncrawl.UI;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.LegArmor;
+import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealtPotion;
 import com.codecool.dungeoncrawl.util.Direction;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -55,10 +57,12 @@ public class InventoryBox {
         Button manaPotion = new Button();
         manaPotion.setText("Use\nMana");
         gridPane.add(manaPotion, 0, 0);
+        manaPotion.setOnAction(event -> turnRandomEnemyToFire());
 
         Button healthPotion = new Button();
         healthPotion.setText("Use\nHealth potion");
         gridPane.add(healthPotion, 2, 0);
+        healthPotion.setOnAction(event -> usePotion());
 
 
         if (inventory.stream().anyMatch(c -> c instanceof HeadGear)) {
@@ -145,6 +149,23 @@ public class InventoryBox {
         scene.setOnKeyPressed(this::onKeyPressed);
         window.showAndWait();
 
+    }
+
+    private void usePotion() {
+        if (inventory.stream().anyMatch(c -> c instanceof HealtPotion)) {
+            Item invItem = null;
+            for(Item item:inventory) {
+                if (item instanceof HealtPotion){
+                    invItem = item;
+                }
+            }
+            inventory.remove(invItem);
+            cell.getActor().incrementHealth();
+            window.close();
+        }
+    }
+
+    private void turnRandomEnemyToFire() {
     }
 
     private String inventoryToString(List<Item> inventory) {
