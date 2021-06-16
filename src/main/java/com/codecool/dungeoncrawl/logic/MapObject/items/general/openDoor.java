@@ -3,11 +3,11 @@ package com.codecool.dungeoncrawl.logic.MapObject.items.general;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 
-public class NextStageDoor extends Item {
+public class openDoor extends Item {
 
     public boolean isOpen;
 
-    public NextStageDoor(Cell cell) {
+    public openDoor(Cell cell) {
         super(cell);
         isOpen = false;
     }
