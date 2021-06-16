@@ -7,7 +7,6 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.util.Direction;
 import javafx.application.Application;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -30,7 +29,6 @@ public class Main extends Application {
     public static boolean isNextMap;
     public static boolean isPreviousMap;
     BorderPane borderPane;
-    BorderPane overlayPane;
     int currentMap = 0;
     List<String> nameOfFiles = setMapNames();
     Stage window;
@@ -100,7 +98,7 @@ public class Main extends Application {
 
         primaryStage.setScene(scene); // put's the scene in main window
         refresh();  // printing
-        scene.setOnKeyPressed(this::onKeyPressed); // Player movement - eventlistener
+        scene.setOnKeyPressed(this::onKeyPressed); // Player movement - event listener
 
         primaryStage.setTitle("Free-range Chicken");
         primaryStage.show();

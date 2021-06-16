@@ -1,12 +1,16 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.MapObject.actors.*;
+import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealtPotion;
+import com.codecool.dungeoncrawl.logic.MapObject.items.booster.ManaPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.LegArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Coin;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
+import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Bazooka;
+import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Uzi;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -80,6 +84,22 @@ public class MapLoader {
                         case 'E': // next stage door
                             cell.setType(CellType.FLOOR);
                             new NextStageDoor(cell);
+                            break;
+                        case 'u': // next stage door
+                            cell.setType(CellType.FLOOR);
+                            new Uzi(cell);
+                            break;
+                        case 'z': // next stage door
+                            cell.setType(CellType.FLOOR);
+                            new Bazooka(cell);
+                            break;
+                        case 'm': // next stage door
+                            cell.setType(CellType.FLOOR);
+                            new ManaPotion(cell);
+                            break;
+                        case 'j': // next stage door
+                            cell.setType(CellType.FLOOR);
+                            new HealtPotion(cell);
                             break;
                         case '@': // player
                             cell.setType(CellType.FLOOR);

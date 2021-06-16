@@ -20,6 +20,7 @@ public class Uzi extends Item implements Weapon{
 
     @Override
     public void increaseDamage() {
+
     }
 
 }
