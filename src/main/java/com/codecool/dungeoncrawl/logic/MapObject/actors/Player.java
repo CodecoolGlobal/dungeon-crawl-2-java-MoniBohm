@@ -3,7 +3,7 @@ package com.codecool.dungeoncrawl.logic.MapObject.actors;
 import com.codecool.dungeoncrawl.Main;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.openDoor;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
 
@@ -55,7 +55,7 @@ public class Player extends Actor {
     }
 
     private void openDoor(Cell nextCell) {
-        openDoor nextStageDoor = (openDoor) nextCell.getItem();
+        NextStageDoor nextStageDoor = (NextStageDoor) nextCell.getItem();
         nextStageDoor.setOpen(true);
         Main.isNextMap = true;
     }
@@ -94,7 +94,7 @@ public class Player extends Actor {
 
     private boolean isDoor(Cell nextCell){
         Item currentItem = nextCell.getItem();
-        return currentItem instanceof openDoor;
+        return currentItem instanceof NextStageDoor;
     }
 
     private void pickupItem(Cell nextCell){
@@ -105,7 +105,7 @@ public class Player extends Actor {
                GameMap map =  nextCell.getGameMap();
                Cell cell =  map.getNextDoor();
                if (cell != null){
-                   openDoor nextStageDoor = (openDoor) cell.getItem();
+                   NextStageDoor nextStageDoor = (NextStageDoor) cell.getItem();
                    nextStageDoor.setOpen(true);
                }
             }
