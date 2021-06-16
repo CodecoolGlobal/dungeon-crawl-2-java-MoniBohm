@@ -44,10 +44,24 @@ public class Tiles {
         tileMap.put("door", new Tile(6, 17));
         tileMap.put("prevdoor", new Tile(9, 17));
         tileMap.put("opendoor", new Tile(9, 17));
+        tileMap.put("dungeon_entrance", new Tile(13, 11));
+            tileMap.put("dungeon_exit", new Tile(12, 11));
         tileMap.put("uzi", new Tile(9, 31));
         tileMap.put("bazooka", new Tile(11, 31));
         tileMap.put("healtpotion", new Tile(16, 28));
         tileMap.put("manapotion", new Tile(16, 25));
+        tileMap.put("water_vertical", new Tile(7, 6));
+        tileMap.put("water_horizontal", new Tile(8, 6));
+        tileMap.put("water_corner_1", new Tile(9, 6));
+        tileMap.put("water_corner_2", new Tile(10, 6));
+        tileMap.put("water_corner_3", new Tile(11, 6));
+        tileMap.put("water_corner_4", new Tile(12, 6));
+        tileMap.put("tree_1", new Tile(0, 1));
+        tileMap.put("tree_2", new Tile(3, 1));
+        tileMap.put("tree_3", new Tile(5, 0));
+        tileMap.put("digit_1", new Tile(20, 28));
+        tileMap.put("digit_2", new Tile(21, 28));
+        tileMap.put("digit_3", new Tile(22, 28));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

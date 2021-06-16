@@ -7,10 +7,8 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.Armor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealtPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.ManaPotion;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.*;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.PrevStageDoor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Weapon;
 
 import java.util.ArrayList;
@@ -43,7 +41,10 @@ public class Player extends Actor {
         } else if (isEnemyCell(nextCell)) {
             fightEnemy(nextCell);
             return true;
-        } else if (isDoor(nextCell)) {
+        } else if (isDungeonDoor(nextCell)) {
+            manageDungeonDoor(nextCell);
+            return true;
+        }else if (isDoor(nextCell)) {
             manageDoor(nextCell);
             return true;
         } else if (isItemCell(nextCell)) {
@@ -67,10 +68,22 @@ public class Player extends Actor {
         }
        }
 
+    private void manageDungeonDoor(Cell nextCell) {
+        Item door = nextCell.getItem();
+        if (door instanceof DungeonEntrance) {
+            enterDungeon(nextCell);
+        }else {
+            exitDungeon();
+        }
+    }
+
     private void openPrevDoor() {
         Main.isPreviousMap = true;
     }
 
+    private void exitDungeon() {
+        Main.isExitingDungeon = true;
+    }
 
     private void openNextDoor(Cell nextCell) {
         NextStageDoor nextStageDoor = (NextStageDoor) nextCell.getItem();
@@ -78,6 +91,9 @@ public class Player extends Actor {
         Main.isNextMap = true;
     }
 
+    private void enterDungeon(Cell nextCell) {
+        Main.isEnteringDungeon = true;
+    }
 
     private void fightColonel(Cell nextCell) {
         if (isEnoughOfCoin("coin")) {
@@ -115,6 +131,11 @@ public class Player extends Actor {
     private boolean isDoor(Cell nextCell) {
         Item currentItem = nextCell.getItem();
         return currentItem instanceof NextStageDoor || currentItem instanceof PrevStageDoor;
+    }
+
+    private boolean isDungeonDoor(Cell nextCell) {
+        Item currentItem = nextCell.getItem();
+        return currentItem instanceof DungeonEntrance || currentItem instanceof DungeonExit;
     }
 
     private void pickupItem(Cell nextCell) {
