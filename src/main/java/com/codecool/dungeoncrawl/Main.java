@@ -45,12 +45,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
-//        window.setMaxWidth(1500);
-//        window.setMaxHeight(1500);
-//        window.setMinWidth(500);
-//        window.setMinHeight(500);
+        window.setMaxWidth(1500);
+        window.setMaxHeight(1500);
+        window.setMinWidth(1000);
+        window.setMinHeight(1000);
+
         GridPane ui = new GridPane();
-        ui.setPrefWidth(150);   // inventory width
+        ui.setPrefWidth(1000);   // inventory width
         ui.setPadding(new Insets(10));
 
         ui.add(new Label("Health: "), 0, 0);
@@ -64,12 +65,20 @@ public class Main extends Application {
             closeApp();
         });
 
-        borderPane = new BorderPane();  // borderPane layout
-        borderPane.setCenter(canvas);
-        borderPane.setRight(ui);    // puts ui to a right pane layout
-        ui.setId("rightbar");
+//        borderPane = new BorderPane();  // borderPane layout
+//        borderPane.setCenter(canvas);
+//        borderPane.setRight(ui);    // puts ui to a right pane layout
+//        ui.setId("rightbar");
+       // Scene scene = new Scene(borderPane); // creating the scene filling it with layout
 
-        Scene scene = new Scene(borderPane); // creating the scene filling it with layout
+        borderPane = new BorderPane();  // borderPane layout
+        BorderPane innerBorderPane = new BorderPane();  // borderPane layout
+        innerBorderPane.setCenter(borderPane);
+        borderPane.setCenter(canvas);
+        innerBorderPane.setTop(ui);    // puts ui to a right pane layout
+        ui.setId("rightBar");
+
+        Scene scene = new Scene(innerBorderPane); // creating the scene filling it with layout
         scene.getStylesheets().add("style.css");
 
         primaryStage.setScene(scene); // put's the scene in main window
