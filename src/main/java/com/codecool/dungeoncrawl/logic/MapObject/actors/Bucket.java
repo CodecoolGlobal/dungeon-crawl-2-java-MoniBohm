@@ -21,17 +21,21 @@ public class Bucket extends Enemy {
         if(isEmptyCell(nextCell)){
             move(nextCell, nextDirection);
         }else {
-            nextDirection = Direction.reverse(nextDirection);
-            nextCell = cell.getNeighbor(nextDirection.dx, nextDirection.dy);
-            if (isEmptyCell(nextCell)) {
-                move(nextCell, nextDirection);
-            }
+            tryToGoReverseDirection(nextDirection);
+        }
+    }
+
+    private void tryToGoReverseDirection(Direction nextDirection) {
+        Cell nextCell;
+        nextDirection = Direction.reverse(nextDirection);
+        nextCell = cell.getNeighbor(nextDirection.dx, nextDirection.dy);
+        if (isEmptyCell(nextCell)) {
+            move(nextCell, nextDirection);
         }
     }
 
     public void move(Cell nextCell, Direction nextDirection) {
         cell.setActor(null);
-
         this.cell = nextCell;
         this.cell.setActor(this);
         currentDirection = nextDirection;
