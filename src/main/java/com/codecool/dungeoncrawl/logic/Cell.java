@@ -70,4 +70,10 @@ public class Cell implements Drawable {
         return gameMap;
     }
 
+
+    public boolean isEmptyCell(Cell nextCell) {
+        return nextCell.getType() == CellType.FLOOR
+                && nextCell.getActor() == null
+                && nextCell.getItem() == null;
+    }
 }

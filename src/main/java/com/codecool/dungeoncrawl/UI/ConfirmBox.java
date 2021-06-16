@@ -18,6 +18,7 @@ public class ConfirmBox {
         Label label = new Label();
         label.setText(msg);
         label.setFont(Font.font("Verdana"));
+        label.setId("confirmmsg");
 
 
         Button yesBtn = new Button("Yes");
@@ -40,6 +41,7 @@ public class ConfirmBox {
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
+        scene.getStylesheets().add("style.css");
         window.setScene(scene);
         window.showAndWait();
 
