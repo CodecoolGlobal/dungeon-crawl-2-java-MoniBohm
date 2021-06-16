@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.UI.ConfirmBox;
+import com.codecool.dungeoncrawl.UI.GameOverBox;
 import com.codecool.dungeoncrawl.UI.InventoryBox;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;

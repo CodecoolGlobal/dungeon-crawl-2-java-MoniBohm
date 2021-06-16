@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.MapObject.actors;
 
+import com.codecool.dungeoncrawl.UI.GameOverBox;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.Cell;
@@ -75,7 +76,8 @@ public abstract class Actor implements Drawable {
             enemy.setHealth(hitEnemy(player, enemy));
             if(isActorDead(player.health)){
                 isFightOver = true;
-                gameOver = true;
+                GameOverBox.display();
+                System.exit(0);
             }
             if(isActorDead(enemy.health)){
                 isFightOver = true;

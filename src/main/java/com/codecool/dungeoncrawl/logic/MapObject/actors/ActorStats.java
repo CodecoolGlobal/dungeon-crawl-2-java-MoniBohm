@@ -2,7 +2,7 @@ package com.codecool.dungeoncrawl.logic.MapObject.actors;
 
 public enum ActorStats {
 
-    PLAYER(15, 1000, 30),
+    PLAYER(15, 100, 30),
     BUCKET(10, 30, 0),
     DRUMSTICK( 6, 20, 0),
     COLONEL(6, 20, 0);
