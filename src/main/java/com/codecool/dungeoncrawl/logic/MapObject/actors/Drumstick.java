@@ -8,6 +8,7 @@ public class Drumstick extends Enemy {
         super(cell);
         damage = ActorStats.DRUMSTICK.damage;
         health = ActorStats.DRUMSTICK.health;
+        armor = ActorStats.BUCKET.armor;
     }
 
     public void initMove() {

@@ -9,6 +9,7 @@ public abstract class Actor implements Drawable {
     protected Cell cell;
     protected int health;
     protected int damage;
+    protected int armor;
     protected boolean gameOver = false;
 
     public Actor(Cell cell) {

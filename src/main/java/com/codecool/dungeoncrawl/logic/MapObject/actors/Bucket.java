@@ -11,6 +11,7 @@ public class Bucket extends Enemy {
         super(cell);
         damage = ActorStats.BUCKET.damage;
         health = ActorStats.BUCKET.health;
+        armor = ActorStats.BUCKET.armor;
         this.currentDirection = Direction.getRandom();
     }
 

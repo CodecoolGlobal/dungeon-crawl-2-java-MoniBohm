@@ -7,6 +7,7 @@ public class Colonel extends Enemy {
         super(cell);
         damage = ActorStats.COLONEL.damage;
         health = ActorStats.COLONEL.health;
+        armor = ActorStats.BUCKET.armor;
     }
 
     @Override

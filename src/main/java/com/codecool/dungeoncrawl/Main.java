@@ -42,6 +42,8 @@ public class Main extends Application {
     GraphicsContext context = canvas.getGraphicsContext2D();
 
     Label healthLabel = new Label();    // label for health
+    Label armorLabel = new Label();    // label for health
+    Label damageLabel = new Label();    // label for health
     Label inventoryLabel = new Label(); // label for inventory
 
     public static void main(String[] args) {
@@ -64,9 +66,13 @@ public class Main extends Application {
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
-
-        ui.add(new Label("Inventory: "), 0, 20);
-        ui.add(inventoryLabel, 1, 20);
+        ui.add(new Label(" Armor: "), 2, 0);
+        ui.add(armorLabel, 25, 0);
+        ui.add(new Label(" Damage: "), 40, 0);
+        ui.add(damageLabel,45 , 0);
+//
+//        ui.add(new Label("Inventory: "), 0, 20);
+//        ui.add(inventoryLabel, 1, 20);
 
         window.setOnCloseRequest(e -> {
             e.consume();
@@ -226,7 +232,10 @@ public class Main extends Application {
                 }
             }
         }
+
         healthLabel.setText("" + map.getPlayer().getHealth()); // represents health
-        inventoryLabel.setText("" + map.getPlayer().inventoryToString()); //represents inventory
+        damageLabel.setText("" + map.getPlayer().getDamage()); // represents health
+        armorLabel.setText("" + map.getPlayer().getArmor()); // represents health
+//        inventoryLabel.setText("" + map.getPlayer().inventoryToString()); //represents inventory
     }
 }
