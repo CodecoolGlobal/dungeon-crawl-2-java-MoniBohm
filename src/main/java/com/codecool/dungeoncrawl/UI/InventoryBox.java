@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.UI;
 
+import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.util.Direction;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
@@ -10,13 +11,18 @@ import javafx.scene.control.*;
 import javafx.geometry.*;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class InventoryBox {
     Stage window;
+    List<String> nameOfElements = new ArrayList<>();
+    List<Item> inventory;
+    private Object Sets;
 
-    public void display(List inventory) {
-
+    public void display(List<Item> inventory) {
+        this.inventory = inventory;
         window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
@@ -31,29 +37,35 @@ public class InventoryBox {
         gridPane.setId("pane");
 
         //Setting size for the pane
-        gridPane.setMinSize(500, 400);
+        gridPane.setMinSize(800, 800);
 
         //Setting the padding
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
+        gridPane.setPadding(new Insets(30, 80, 0, 30));
 
         Button text1 = new Button();
         text1.setText("Use Mana");
+
         Button text2 = new Button();
         text2.setText("Drop Helmet");
+
         Button text3 = new Button();
         text3.setText("Use Health potion");
+
         Button text4 = new Button();
         text4.setText("Drop body armour");
+
         Button text5 = new Button();
         text5.setText("Drop Left leg armour");
+
         Button text6 = new Button();
         text6.setText("Drop bottom armour");
+
         Button text7 = new Button();
         text7.setText("Drop Right leg armour");
 
 
         //Setting the vertical and horizontal gaps between the columns
-        gridPane.setVgap(10);
+        gridPane.setVgap(100);
         gridPane.setHgap(10);
 
         //Setting the Grid alignment
@@ -69,20 +81,67 @@ public class InventoryBox {
         gridPane.add(text7, 2, 3);
         gridPane.setGridLinesVisible(true);
 
+        GridPane ui = new GridPane();
+        ui.setPrefWidth(250);   // inventory width
+        ui.setPadding(new Insets(20));
+
+        Label inventoryLabel = new Label(); // label for inventory
+        ui.add(new Label(""), 0, 0);
+        ui.add(inventoryLabel, 1, 0);
+        String inv = inventoryToString(inventory);
+        inventoryLabel.setText(inv);
+
+//        (int) inventory.stream()
+//                .filter(item1 -> item1.getTileName().equalsIgnoreCase(nameOfItem))
+//                .count();
+
+        BorderPane borderPane = new BorderPane();
+        borderPane.setRight(ui);    // puts ui to a right pane layout
+        borderPane.setCenter(gridPane);
+        ui.setId("inventoryList");
+
+
         Button closeButton = new Button("Close window");
         closeButton.setOnAction(e -> window.close());
 
-        VBox layout = new VBox(350);
+        VBox layout = new VBox(450);
         layout.getChildren().addAll(label, closeButton);
         layout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(gridPane);
+        Scene scene = new Scene(borderPane);
         scene.getStylesheets().add("style.css");
         window.setScene(scene);
         scene.setOnKeyPressed(this::onKeyPressed);
         window.showAndWait();
 
+
     }
+
+    private String inventoryToString(List<Item> inventory) {
+        StringBuilder sb = new StringBuilder();
+        for (Item item : inventory) {
+            sb.append(item).append("  \n");
+        }
+        return sb.toString();
+    }
+//  TODO Móóóóóni refactor
+//
+//    private void createSetFromInventory() {
+//        for (Object inv : inventory) {
+//            nameOfElements.add(inv.getTileName());
+//        }
+//        Set<String> targetSet = Sets.newHashSet(nameOfElements);
+//    }
+//
+//    private void getNumberOfELemetns(){
+//        StringBuilder inventoryToString = new StringBuilder("");
+//        for(String element : targetSet){
+//            int numberOfElement = (int) inventory.stream()
+//                    .filter(item1 -> item1.getTileName().equalsIgnoreCase(element))
+//                    .count();
+//            inventoryToString.append(element).append(": ").append(numberOfElement);
+//        }
+//    }
 
     private void onKeyPressed(KeyEvent keyEvent) { // key event
         switch (keyEvent.getCode()) {

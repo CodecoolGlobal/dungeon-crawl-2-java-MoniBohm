@@ -30,3 +30,7 @@
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
+#inventoryList{
+    -fx-font-size: 14pt;
+    -fx-font-weight: bold;
+}
