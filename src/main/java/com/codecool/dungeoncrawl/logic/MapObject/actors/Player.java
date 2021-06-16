@@ -1,10 +1,10 @@
 package com.codecool.dungeoncrawl.logic.MapObject.actors;
 
 import com.codecool.dungeoncrawl.Main;
+import com.codecool.dungeoncrawl.UI.AlertBox;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.Armor;
-import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealtPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
@@ -35,7 +35,7 @@ public class Player extends Actor {
 
     private boolean validateCell(Cell nextCell) {
         if (isColonel(nextCell)) {
-            fightColony(nextCell);
+            fightColonel(nextCell);
         } else if (isEnemyCell(nextCell)) {
             fightEnemy(nextCell);
             return true;
@@ -65,10 +65,12 @@ public class Player extends Actor {
     }
 
 
-    private void fightColony(Cell nextCell) {
+    private void fightColonel(Cell nextCell) {
         if (isEnoughOfCoin("coin")) {
             removeFromInventoryKeys();
             move(nextCell);
+        }else{
+            AlertBox.display("Colonal says", "Collect minimum 10 coins!");
         }
     }
 
