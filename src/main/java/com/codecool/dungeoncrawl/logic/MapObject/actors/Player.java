@@ -54,18 +54,18 @@ public class Player extends Actor {
         }
     }
 
+    private void openDoor(Cell nextCell) {
+        openDoor nextStageDoor = (openDoor) nextCell.getItem();
+        nextStageDoor.setOpen(true);
+        Main.isNextMap = true;
+    }
+
 
     private void fightColony(Cell nextCell){
         if(isEnoughOfCoin("coin")){
             removeFromInventoryKeys();
             openDoor(nextCell);
         }
-    }
-
-    private void openDoor(Cell nextCell) {
-        openDoor nextStageDoor = (openDoor) nextCell.getItem();
-        nextStageDoor.setOpen(true);
-        Main.isNextMap = true;
     }
 
     private int numberOfItem(String nameOfItem){
