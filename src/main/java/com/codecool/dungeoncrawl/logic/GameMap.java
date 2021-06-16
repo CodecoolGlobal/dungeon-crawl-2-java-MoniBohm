@@ -1,13 +1,18 @@
 package com.codecool.dungeoncrawl.logic;
 
+import com.codecool.dungeoncrawl.logic.MapObject.actors.Actor;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Enemy;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class GameMap {
     private int width;
     private int height;
     private Cell[][] cells;
+    private List<Actor> enemies;
 
     private Player player;
 
@@ -15,6 +20,7 @@ public class GameMap {
         this.width = width;
         this.height = height;
         cells = new Cell[width][height];
+        enemies = new LinkedList<>();
         for (int x = 0; x < width; x++) {
             getMapRow(height, defaultCellType, x);
         }
@@ -30,18 +36,31 @@ public class GameMap {
         return cells[x][y];
     }
 
-    public void moveEnemies() {
+    public void collectEnemies() {
         for ( Cell[] row : cells) {
             for ( Cell cell : row) {
                 if (cell.isEnemyCell()) {
-                    ((Enemy) cell.getActor()).initMove();
+                    enemies.add(cell.getActor());
                 }
             }
         }
     }
 
+    public void moveEnemies() {
+        for ( Actor enemy : enemies) {
+            if (enemy.getCell() != null) {
+                ((Enemy)enemy).initMove();
+            }
+
+        }
+    }
+
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void removeKilledEnemyFromEnemies(Actor killedEnemy) {
+        enemies.remove(killedEnemy);
     }
 
     public Player getPlayer() {

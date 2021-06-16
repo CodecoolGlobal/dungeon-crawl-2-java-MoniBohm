@@ -18,9 +18,9 @@ public class Bucket extends Enemy {
     public void initMove() {
         Direction nextDirection = currentDirection;
         Cell nextCell = cell.getNeighbor(nextDirection.dx, nextDirection.dy);
-        if(isEmptyCell(nextCell)){
+        if (isEmptyCell(nextCell)){
             move(nextCell, nextDirection);
-        }else {
+        } else {
             tryToGoReverseDirection(nextDirection);
         }
     }
@@ -33,6 +33,14 @@ public class Bucket extends Enemy {
             move(nextCell, nextDirection);
         }
     }
+
+    private void fightPlayer(Cell nextCell){
+        Actor enemy = cell.getActor();
+        Actor player = nextCell.getActor();
+        boolean isFightOver = false;
+        fightToTheDeath(nextCell, player, enemy, isFightOver);
+    }
+
 
     public void move(Cell nextCell, Direction nextDirection) {
         cell.setActor(null);
