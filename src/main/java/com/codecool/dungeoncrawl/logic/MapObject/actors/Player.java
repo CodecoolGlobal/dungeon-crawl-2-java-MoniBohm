@@ -55,6 +55,8 @@ public class Player extends Actor {
     private void manageDoor(Cell nextCell) {
         if (isEnoughOfKey("Key")) {
             openDoor(nextCell);
+        }else{
+            AlertBox.display("Door says", "Collect all the keys!");
         }
     }
 
