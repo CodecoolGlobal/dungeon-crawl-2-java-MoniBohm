@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.UI.InventoryBox;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
 import com.codecool.dungeoncrawl.util.Direction;
 import javafx.application.Application;
@@ -86,7 +87,7 @@ public class Main extends Application {
 
         innerBorderPane.setTop(ui);    // puts ui to a right pane layout
         borderPane.setCenter(canvas);
-        ui.setId("rightBar");
+        ui.setId("topBar");
 
         Image overlayImg = new Image("file:./src/main/resources/overlay.png");
         ImageView overlay = new ImageView();
@@ -158,7 +159,7 @@ public class Main extends Application {
                 break;
             case I:
                 InventoryBox ibox = new InventoryBox();
-                ibox.display(map.getPlayer().getInventory());
+                ibox.display(map.getPlayer().getInventory(), map.getPlayer().getCell());
                 refresh();
                 break;
         }
