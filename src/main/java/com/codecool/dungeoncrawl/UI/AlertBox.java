@@ -20,6 +20,7 @@ public class AlertBox {
         Label label = new Label();
         label.setText(msg);
         label.setFont(Font.font("Verdana"));
+        label.setId("alertmsg");
         Button closeButton = new Button("Close window");
         closeButton.setOnAction( e -> window.close());
 
@@ -28,6 +29,7 @@ public class AlertBox {
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
+        scene.getStylesheets().add("style.css");
         window.setScene(scene);
         window.showAndWait();
 

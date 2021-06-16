@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.Armor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealtPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.ManaPotion;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.Coin;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
@@ -120,7 +121,11 @@ public class Player extends Actor {
     private void pickupItem(Cell nextCell) {
         cell.setActor(null);
         Item itemType = nextCell.getItem();
+        if (itemType instanceof Coin) {
+            this.putItemToInventory(nextCell.getItem());
+            }
         if (itemType instanceof Key) {
+            this.putItemToInventory(nextCell.getItem());
             if (isEnoughOfKey("Key")) {
                 tryToOpenDoor(nextCell);
             }

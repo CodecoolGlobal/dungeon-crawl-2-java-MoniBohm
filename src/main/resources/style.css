@@ -37,7 +37,7 @@
     -fx-background-insets: 0,1,2,3;
     -fx-background-radius: 3,2,2,2;
     -fx-text-alignment: center;
-    -fx-padding: 12 30 12 30;
+    -fx-padding: 12 20 12 20;
     -fx-min-width: 250px;
     -fx-min-height: 50px;
     -fx-text-fill: white;
@@ -60,5 +60,20 @@
     -fx-column-valignment: center;
     -fx-padding: 20px;
     -fx-border-color: black;
-    -fx-grid-lines-visible: true;
+    /*-fx-grid-lines-visible: true;*/
+}
+
+#alertmsg{
+    -fx-padding: 12 30 12 30;
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+#confirmmsg{
+    -fx-padding: 12 30 12 30;
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
 }
