@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl.UI;
 
+import com.codecool.dungeoncrawl.util.Direction;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.*;
 import javafx.scene.*;
@@ -11,11 +13,11 @@ import java.io.File;
 import java.util.List;
 
 public class InventoryBox {
+    Stage window;
 
+    public void display(List inventory) {
 
-    public void display(List inventory){
-
-        Stage window = new Stage();
+        window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Inventory");
@@ -68,17 +70,25 @@ public class InventoryBox {
         gridPane.setGridLinesVisible(true);
 
         Button closeButton = new Button("Close window");
-        closeButton.setOnAction( e -> window.close());
+        closeButton.setOnAction(e -> window.close());
 
-        VBox layout = new VBox(400);
-        layout.getChildren().addAll( label, closeButton);
+        VBox layout = new VBox(350);
+        layout.getChildren().addAll(label, closeButton);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(gridPane);
         scene.getStylesheets().add("style.css");
         window.setScene(scene);
+        scene.setOnKeyPressed(this::onKeyPressed);
         window.showAndWait();
 
+    }
 
+    private void onKeyPressed(KeyEvent keyEvent) { // key event
+        switch (keyEvent.getCode()) {
+            case I:
+                window.close();
+                break;
+        }
     }
 }

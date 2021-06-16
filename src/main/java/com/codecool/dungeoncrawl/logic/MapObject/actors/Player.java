@@ -24,7 +24,7 @@ public class Player extends Actor {
     public String inventoryToString(){
         StringBuilder sb = new StringBuilder();
         for(Item item : inventory){
-            sb.append(item).append(" \n");
+            sb.append(item).append("  ");
         }
         return sb.toString();
     }
