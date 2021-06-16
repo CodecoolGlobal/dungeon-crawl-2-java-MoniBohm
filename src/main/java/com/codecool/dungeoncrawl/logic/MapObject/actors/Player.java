@@ -64,7 +64,7 @@ public class Player extends Actor {
     private void fightColony(Cell nextCell){
         if(isEnoughOfCoin("coin")){
             removeFromInventoryKeys();
-            openDoor(nextCell);
+            move(nextCell);
         }
     }
 
@@ -75,7 +75,7 @@ public class Player extends Actor {
     }
 
     private void removeFromInventoryKeys(){
-        inventory.removeIf(element -> !element.getTileName().equalsIgnoreCase("coin"));
+        inventory.removeIf(element -> element.getTileName().equalsIgnoreCase("coin"));
     }
 
     private boolean isEnoughOfKey(String itemName){
