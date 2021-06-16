@@ -12,12 +12,18 @@ public class Drumstick extends Enemy {
 
     public void initMove() {
         Cell nextCell;
-        Direction nextDirection;
         do {
-            nextDirection = Direction.getRandom();
-            nextCell = cell.getNeighbor(nextDirection.dx, nextDirection.dy);
+            nextCell = tyToMove();
         } while (!isEmptyCell(nextCell));
         move(nextCell);
+    }
+
+    private Cell tyToMove() {
+        Direction nextDirection;
+        Cell nextCell;
+        nextDirection = Direction.getRandom();
+        nextCell = cell.getNeighbor(nextDirection.dx, nextDirection.dy);
+        return nextCell;
     }
 
     public void move(Cell nextCell) {
