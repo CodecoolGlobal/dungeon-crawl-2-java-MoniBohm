@@ -30,7 +30,11 @@ public class Player extends Actor {
     }
 
     private void validateCell(Cell nextCell) {
-        if(isEnemyCell(nextCell)){
+        if(isColonel(nextCell)){
+            fightColony(nextCell);
+        }
+
+        else if (isEnemyCell(nextCell)) {
             fightEnemy(nextCell);
 
         }else if(isDoor(nextCell)){
@@ -46,12 +50,23 @@ public class Player extends Actor {
 
     private void manageDoor(Cell nextCell){
         if(isEnoughOfKey("Key")){
-            NextStageDoor nextStageDoor = (NextStageDoor) nextCell.getItem();
-            nextStageDoor.setOpen(true);
-            Main.isNextMap = true;
+            openDoor(nextCell);
         }
     }
 
+    private void openDoor(Cell nextCell) {
+        NextStageDoor nextStageDoor = (NextStageDoor) nextCell.getItem();
+        nextStageDoor.setOpen(true);
+        Main.isNextMap = true;
+    }
+
+
+    private void fightColony(Cell nextCell){
+        if(isEnoughOfCoin("coin")){
+            removeFromInventoryKeys();
+            openDoor(nextCell);
+        }
+    }
 
     private int numberOfItem(String nameOfItem){
         return (int) inventory.stream()
@@ -59,9 +74,17 @@ public class Player extends Actor {
                 .count();
     }
 
+    private void removeFromInventoryKeys(){
+        inventory.removeIf(element -> !element.getTileName().equalsIgnoreCase("coin"));
+    }
 
     private boolean isEnoughOfKey(String itemName){
         return  numberOfItem(itemName) == Key.count;
+    }
+
+
+    private boolean isEnoughOfCoin(String itemName){
+        return numberOfItem(itemName) >= 10;
     }
 
 
@@ -97,7 +120,6 @@ public class Player extends Actor {
         Cell nextCell = cell.getNeighbor(dx, dy);
         validateCell(nextCell);
     }
-
 
     private void fightEnemy(Cell nextCell){
         Actor player = cell.getActor();
@@ -139,7 +161,6 @@ public class Player extends Actor {
         cell.setActor(null);
         this.cell = nextCell;
         nextCell.setActor(this);
-//        this.cell.getGameMap().moveEnemies();
     }
 
 
