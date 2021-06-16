@@ -31,6 +31,7 @@ public class Player extends Actor {
 
     private void validateCell(Cell nextCell) {
         if(isColonel(nextCell)){
+            fightColony(nextCell);
         }
 
         else if (isEnemyCell(nextCell)) {
@@ -56,12 +57,21 @@ public class Player extends Actor {
     }
 
 
+    private void fightColony(Cell nextCell){
+        if(isEnoughOfKey("key")){
+            Actor player = cell.getActor();
+        }
+    }
+
     private int numberOfItem(String nameOfItem){
         return (int) inventory.stream()
                 .filter(item1 -> item1.getTileName().equalsIgnoreCase(nameOfItem))
                 .count();
     }
 
+    private void removeFromInventoryKeys(){
+        inventory.removeIf(element -> element.getTileName().equalsIgnoreCase("key"));
+    }
 
     private boolean isEnoughOfKey(String itemName){
         return  numberOfItem(itemName) == Key.count;
