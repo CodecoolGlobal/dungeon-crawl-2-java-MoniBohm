@@ -16,9 +16,13 @@ public class GameMap {
         this.height = height;
         cells = new Cell[width][height];
         for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                cells[x][y] = new Cell(this, x, y, defaultCellType);
-            }
+            getMapRow(height, defaultCellType, x);
+        }
+    }
+
+    private void getMapRow(int height, CellType defaultCellType, int x) {
+        for (int y = 0; y < height; y++) {
+            cells[x][y] = new Cell(this, x, y, defaultCellType);
         }
     }
 
