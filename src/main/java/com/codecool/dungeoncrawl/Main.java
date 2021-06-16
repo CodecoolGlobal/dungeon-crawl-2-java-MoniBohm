@@ -26,6 +26,7 @@ import java.util.List;
 
 
 public class Main extends Application {
+    public static final int PIXEL_OFFSET = 32;
     public static boolean isNextMap;
     public static boolean isPreviousMap;
     BorderPane borderPane;
@@ -70,17 +71,13 @@ public class Main extends Application {
             closeApp();
         });
 
-//        borderPane = new BorderPane();  // borderPane layout
-//        borderPane.setCenter(canvas);
-//        borderPane.setRight(ui);    // puts ui to a right pane layout
-//        ui.setId("rightbar");
-       // Scene scene = new Scene(borderPane); // creating the scene filling it with layout
-
         borderPane = new BorderPane();  // borderPane layout
         BorderPane innerBorderPane = new BorderPane();  // borderPane layout
+
         innerBorderPane.setCenter(borderPane);
-        borderPane.setCenter(canvas);
+
         innerBorderPane.setTop(ui);    // puts ui to a right pane layout
+        borderPane.setCenter(canvas);
         ui.setId("rightBar");
 
         Image overlayImg = new Image("file:./src/main/resources/overlay.png");
@@ -109,39 +106,44 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) { // key event
+        boolean succesfullmove = false;
         switch (keyEvent.getCode()) {
             case UP:
 
-                borderPane.setTranslateY(borderPane.getTranslateY()+30);
-
-                map.getPlayer().initMove(Direction.UP.dx, Direction.UP.dy);
+                succesfullmove = map.getPlayer().initMove(Direction.UP.dx, Direction.UP.dy);
+                if (succesfullmove) {
+                    borderPane.setTranslateY(borderPane.getTranslateY()+PIXEL_OFFSET);
+                }
                 map.moveEnemies();
                 ChangeMapIfTrue();
                 refresh();
                 break;
             case DOWN:
 
-                borderPane.setTranslateY(borderPane.getTranslateY()-30);
-
-                map.getPlayer().initMove(Direction.DOWN.dx, Direction.DOWN.dy);
+                succesfullmove = map.getPlayer().initMove(Direction.DOWN.dx, Direction.DOWN.dy);
+                if (succesfullmove) {
+                    borderPane.setTranslateY(borderPane.getTranslateY()-PIXEL_OFFSET);
+                }
                 map.moveEnemies();
                 ChangeMapIfTrue();
                 refresh();
                 break;
             case LEFT:
 
-                borderPane.setTranslateX(borderPane.getTranslateX()+30);
-
-                map.getPlayer().initMove(Direction.LEFT.dx, Direction.LEFT.dy);
+                succesfullmove = map.getPlayer().initMove(Direction.LEFT.dx, Direction.LEFT.dy);
+                if (succesfullmove) {
+                    borderPane.setTranslateX(borderPane.getTranslateX()+ PIXEL_OFFSET);
+                }
                 map.moveEnemies();
                 ChangeMapIfTrue();
                 refresh();
                 break;
             case RIGHT:
 
-                borderPane.setTranslateX(borderPane.getTranslateX()-30);
-
-                map.getPlayer().initMove(Direction.RIGHT.dx, Direction.RIGHT.dy);
+                succesfullmove =  map.getPlayer().initMove(Direction.RIGHT.dx, Direction.RIGHT.dy);
+                if (succesfullmove) {
+                    borderPane.setTranslateX(borderPane.getTranslateX()-PIXEL_OFFSET);
+                }
                 map.moveEnemies();
                 ChangeMapIfTrue();
                 refresh();
@@ -152,6 +154,7 @@ public class Main extends Application {
                 refresh();
                 break;
         }
+
     }
 
     private void ChangeMapIfTrue() {
