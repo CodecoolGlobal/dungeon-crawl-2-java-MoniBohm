@@ -102,18 +102,25 @@ public class Player extends Actor {
         this.putItemToInventory(nextCell.getItem());
         if(nextCell.getItem() instanceof Key){
             if(isEnoughOfKey("Key")){
-               GameMap map =  nextCell.getGameMap();
-               Cell cell =  map.getNextDoor();
-               if (cell != null){
-                   NextStageDoor nextStageDoor = (NextStageDoor) cell.getItem();
-                   nextStageDoor.setOpen(true);
-               }
+                tryToOpenDoor(nextCell);
             }
         }
+        moveToItemPosition(nextCell);
+    }
+
+    private void tryToOpenDoor(Cell nextCell) {
+        GameMap map =  nextCell.getGameMap();
+        Cell cell =  map.getNextDoor();
+        if (cell != null){
+            NextStageDoor nextStageDoor = (NextStageDoor) cell.getItem();
+            nextStageDoor.setOpen(true);
+        }
+    }
+
+    private void moveToItemPosition(Cell nextCell) {
         nextCell.setItem(null);
         nextCell.setActor(this);
         this.cell = nextCell;
-
     }
 
     public void initMove(int dx, int dy) {
