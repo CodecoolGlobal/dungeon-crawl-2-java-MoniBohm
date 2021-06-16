@@ -42,6 +42,7 @@ public class Tiles {
         tileMap.put("bodyarmor", new Tile(3, 23));
         tileMap.put("legarmor", new Tile(7, 23));
         tileMap.put("door", new Tile(6, 17));
+        tileMap.put("prevdoor", new Tile(9, 17));
         tileMap.put("opendoor", new Tile(9, 17));
         tileMap.put("uzi", new Tile(9, 31));
         tileMap.put("bazooka", new Tile(11, 31));

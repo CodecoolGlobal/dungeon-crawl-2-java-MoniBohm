@@ -10,12 +10,14 @@ import com.codecool.dungeoncrawl.logic.MapObject.items.booster.ManaPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.PrevStageDoor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Weapon;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Actor {
+    public static final int MINIMUM_NR_COIN = 2;
     private List<Item> inventory;
 
 
@@ -55,14 +57,22 @@ public class Player extends Actor {
     }
 
     private void manageDoor(Cell nextCell) {
-        if (isEnoughOfKey("Key")) {
-            openDoor(nextCell);
+       Item door = nextCell.getItem();
+       if (door instanceof PrevStageDoor) {
+            openPrevDoor();
+       }else if (isEnoughOfKey("Key")) {
+            openNextDoor(nextCell);
         }else{
             AlertBox.display("Door says", "Collect all the keys!");
         }
+       }
+
+    private void openPrevDoor() {
+        Main.isPreviousMap = true;
     }
 
-    private void openDoor(Cell nextCell) {
+
+    private void openNextDoor(Cell nextCell) {
         NextStageDoor nextStageDoor = (NextStageDoor) nextCell.getItem();
         nextStageDoor.setOpen(true);
         Main.isNextMap = true;
@@ -94,7 +104,7 @@ public class Player extends Actor {
 
 
     private boolean isEnoughOfCoin(String itemName) {
-        return numberOfItem(itemName) >= 10;
+        return numberOfItem(itemName) >= MINIMUM_NR_COIN;
     }
 
 
@@ -104,7 +114,7 @@ public class Player extends Actor {
 
     private boolean isDoor(Cell nextCell) {
         Item currentItem = nextCell.getItem();
-        return currentItem instanceof NextStageDoor;
+        return currentItem instanceof NextStageDoor || currentItem instanceof PrevStageDoor;
     }
 
     private void pickupItem(Cell nextCell) {
