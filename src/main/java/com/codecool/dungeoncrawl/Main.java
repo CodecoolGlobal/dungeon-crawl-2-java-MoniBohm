@@ -50,6 +50,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        map.collectEnemies();
+
         window = primaryStage;
         window.setMaxWidth(1200);
         window.setMaxHeight(800);

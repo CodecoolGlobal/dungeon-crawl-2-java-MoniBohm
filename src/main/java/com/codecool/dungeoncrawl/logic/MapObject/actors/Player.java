@@ -138,41 +138,8 @@ public class Player extends Actor {
         fightToTheDeath(nextCell, player, enemy, isFightOver);
     }
 
-    private void fightToTheDeath(Cell nextCell, Actor player, Actor enemy, boolean isFightOver) {
-        while (!isFightOver){
-            player.setHealth(hitPlayer(player, enemy));
-            enemy.setHealth(hitEnemy(player, enemy));
-            if(isActorDead(player.health)){
-                isFightOver = true;
-                gameOver = true;
-            }
-            if(isActorDead(enemy.health)){
-                isFightOver = true;
-                move(nextCell);
-            }
-        }
-    }
-
-    private int hitEnemy(Actor player, Actor enemy) {
-        return (enemy.getHealth()) - player.damage;
-    }
-
-    private int hitPlayer(Actor player, Actor enemy) {
-        return (player.getHealth()) - enemy.damage;
-    }
-
     protected boolean isActorAlive(int actorHealth) {
         return actorHealth > 0;
-    }
-
-    protected boolean isActorDead(int actorHealth) {
-        return actorHealth <= 0;
-    }
-
-    private void move(Cell nextCell) {
-        cell.setActor(null);
-        this.cell = nextCell;
-        nextCell.setActor(this);
     }
 
 

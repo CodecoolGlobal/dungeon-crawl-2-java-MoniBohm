@@ -3,6 +3,7 @@ package com.codecool.dungeoncrawl.logic.MapObject.actors;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.GameMap;
 
 public abstract class Actor implements Drawable {
     protected Cell cell;
@@ -55,8 +56,47 @@ public abstract class Actor implements Drawable {
         return this.damage;
     }
 
+    public boolean isActorDead(int actorHealth) {
+        return actorHealth <= 0;
+    }
 
-    protected Cell getCell() {
+    public int hitEnemy(Actor player, Actor enemy) {
+        return (enemy.getHealth()) - player.damage;
+    }
+
+    public int hitPlayer(Actor player, Actor enemy) {
+        return (player.getHealth()) - enemy.damage;
+    }
+
+    public void fightToTheDeath(Cell nextCell, Actor player, Actor enemy, boolean isFightOver) {
+        while (!isFightOver){
+            player.setHealth(hitPlayer(player, enemy));
+            enemy.setHealth(hitEnemy(player, enemy));
+            if(isActorDead(player.health)){
+                isFightOver = true;
+                gameOver = true;
+            }
+            if(isActorDead(enemy.health)){
+                isFightOver = true;
+                removeEnemy(enemy);
+                move(nextCell);
+            }
+        }
+    }
+
+    private void removeEnemy(Actor enemy) {
+        GameMap map = cell.getGameMap();
+        map.removeKilledEnemyFromEnemies(enemy);
+    }
+
+    protected void move(Cell nextCell) {
+        cell.setActor(null);
+        nextCell.setActor(null);
+        this.cell = nextCell;
+        nextCell.setActor(this);
+    }
+
+    public Cell getCell() {
         return cell;
     }
 
