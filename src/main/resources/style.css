@@ -2,7 +2,7 @@
     -fx-font-size: 10pt;
     -fx-font-family: "Courier New", Arial, sans-serif;
     -fx-base: rgb(132, 145, 47);
-    -fx-background: rgb(58, 45, 71);
+    -fx-background: rgb(0, 0, 0);
 }
 
 #pane {
@@ -12,11 +12,10 @@
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
 }
-#rightBar{
+#rightbar{
     -fx-font-family: monospace;
-    -fx-font-size: 18px;
-    -fx-effect: dropshadow(three-pass-box, silver, 20, 0.3, 0, 0);
-    -fx-background-color : silver;
+    -fx-font-size: 10pt;
+    -fx-effect: dropshadow(three-pass-box, darkgrey, 10, 0.1, 0, 0);
     -fx-text-fill: red;
     -fx-border-color: black;
     -fx-font-weight: bold;

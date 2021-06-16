@@ -13,9 +13,12 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public class Main extends Application {
     public static boolean isNextMap;
     public static boolean isPreviousMap;
     BorderPane borderPane;
+    BorderPane overlayPane;
     int currentMap = 0;
     List<String> nameOfFiles = setMapNames();
     Stage window;
@@ -35,6 +39,7 @@ public class Main extends Application {
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
+
     Label healthLabel = new Label();    // label for health
     Label inventoryLabel = new Label(); // label for inventory
 
@@ -45,14 +50,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         window = primaryStage;
-        window.setMaxWidth(1500);
-        window.setMaxHeight(1500);
-        window.setMinWidth(1000);
-        window.setMinHeight(1000);
+        window.setMaxWidth(1200);
+        window.setMaxHeight(800);
+        window.setMinWidth(1200);
+        window.setMinHeight(800);
 
         GridPane ui = new GridPane();
-        ui.setPrefWidth(1000);   // inventory width
-        ui.setPadding(new Insets(10));
+        ui.setPrefWidth(1200);   // inventory width
+        ui.setPadding(new Insets(20));
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
@@ -78,6 +83,13 @@ public class Main extends Application {
         innerBorderPane.setTop(ui);    // puts ui to a right pane layout
         ui.setId("rightBar");
 
+        Image overlayImg = new Image("file:./src/main/resources/overlay.png");
+        ImageView overlay = new ImageView();
+        overlay.setImage(overlayImg);
+        HBox box = new HBox();
+        box.getChildren().add(overlay);
+        innerBorderPane.getChildren().add(box);
+
         Scene scene = new Scene(innerBorderPane); // creating the scene filling it with layout
         scene.getStylesheets().add("style.css");
 
@@ -85,7 +97,7 @@ public class Main extends Application {
         refresh();  // printing
         scene.setOnKeyPressed(this::onKeyPressed); // Player movement - eventlistener
 
-        primaryStage.setTitle("Dungeon Crawl");
+        primaryStage.setTitle("Free-range Chicken");
         primaryStage.show();
     }
 
@@ -100,7 +112,7 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case UP:
 
-                borderPane.setTranslateY(borderPane.getTranslateY()+20);
+                borderPane.setTranslateY(borderPane.getTranslateY()+30);
 
                 map.getPlayer().initMove(Direction.UP.dx, Direction.UP.dy);
                 map.moveEnemies();
@@ -109,7 +121,7 @@ public class Main extends Application {
                 break;
             case DOWN:
 
-                borderPane.setTranslateY(borderPane.getTranslateY()-20);
+                borderPane.setTranslateY(borderPane.getTranslateY()-30);
 
                 map.getPlayer().initMove(Direction.DOWN.dx, Direction.DOWN.dy);
                 map.moveEnemies();
@@ -118,7 +130,7 @@ public class Main extends Application {
                 break;
             case LEFT:
 
-                borderPane.setTranslateX(borderPane.getTranslateX()+20);
+                borderPane.setTranslateX(borderPane.getTranslateX()+30);
 
                 map.getPlayer().initMove(Direction.LEFT.dx, Direction.LEFT.dy);
                 map.moveEnemies();
@@ -127,7 +139,7 @@ public class Main extends Application {
                 break;
             case RIGHT:
 
-                borderPane.setTranslateX(borderPane.getTranslateX()-20);
+                borderPane.setTranslateX(borderPane.getTranslateX()-30);
 
                 map.getPlayer().initMove(Direction.RIGHT.dx, Direction.RIGHT.dy);
                 map.moveEnemies();
