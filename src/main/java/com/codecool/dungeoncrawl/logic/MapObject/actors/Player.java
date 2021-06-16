@@ -132,7 +132,10 @@ public class Player extends Actor {
         Actor player = cell.getActor();
         Actor enemy = nextCell.getActor();
         boolean isFightOver = false;
+        fightToTheDeath(nextCell, player, enemy, isFightOver);
+    }
 
+    private void fightToTheDeath(Cell nextCell, Actor player, Actor enemy, boolean isFightOver) {
         while (!isFightOver){
             player.setHealth(hitPlayer(player, enemy));
             enemy.setHealth(hitEnemy(player, enemy));
@@ -145,7 +148,6 @@ public class Player extends Actor {
                 move(nextCell);
             }
         }
-
     }
 
     private int hitEnemy(Actor player, Actor enemy) {
