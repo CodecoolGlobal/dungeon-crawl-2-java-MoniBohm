@@ -168,8 +168,11 @@ public class Main extends Application {
     }
 
     public void initNewMap(){
+        borderPane.setTranslateX(0);
+        borderPane.setTranslateY(0);
         generateMapFileName();
         generateMap();
+
     }
 
     public void generateMapFileName(){
