@@ -30,28 +30,7 @@ class ActorTest {
         assertEquals(1, player.getY());
     }
 
-    @Test
-    void cannotMoveOutOfMap() {
-        Player player = new Player(gameMap.getCell(2, 1));
 
-        player.initMove(1, 0);
-
-        assertEquals(2, player.getX());
-        assertEquals(1, player.getY());
-    }
-
-    @Test
-    void cannotMoveIntoAnotherActor() {
-        Player player = new Player(gameMap.getCell(1, 1));
-        Bucket colonel = new Bucket(gameMap.getCell(2, 1));
-        player.initMove(1, 0);
-
-        assertEquals(1, player.getX());
-        assertEquals(1, player.getY());
-        assertEquals(2, colonel.getX());
-        assertEquals(1, colonel.getY());
-        assertEquals(colonel, gameMap.getCell(2, 1).getActor());
-    }
 
 //    @Test
 //    void healthChange_WhenPlayerMeetWithEnemy_ThenHealthDecrease(){

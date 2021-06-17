@@ -91,6 +91,10 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Drumstick(cell);
                             break;
+                        case 'G':
+                            cell.setType(CellType.FLOOR);
+                            new GhostChicken(cell);
+                            break;
                         case 'c': // enemy: colonel
                             cell.setType(CellType.FLOOR);
                             new Colonel(cell);
