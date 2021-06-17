@@ -240,6 +240,10 @@ public class Player extends Actor {
         this.health+=increaseValue;
     }
 
+    public void setCheatHealthToMin(int newValue) {
+        this.health=newValue;
+    }
+
     public int getArmor() {
         return this.armor;
     }
