@@ -155,10 +155,10 @@ public class Player extends Actor {
                 tryToOpenDoor(nextCell);
             }
         } else if (itemType instanceof Armor) {
-            setArmor();
+            setArmor(10);
             this.putItemToInventory(nextCell.getItem());
         } else if (itemType instanceof Weapon) {
-            setDamage();
+            setDamage(10);
             this.putItemToInventory(nextCell.getItem());
         } else if (itemType instanceof HealtPotion) {
             this.putItemToInventory(nextCell.getItem());
@@ -213,16 +213,16 @@ public class Player extends Actor {
         return "player";
     }
 
-    public void setArmor() {
-        this.armor++;
+    public void setArmor(int increaseValue) {
+        this.armor+=increaseValue;
     }
 
-    public void setDamage() {
-        this.damage++;
+    public void setDamage(int increaseValue) {
+        this.damage+=increaseValue;
     }
 
-    public void setHealth() {
-        this.health++;
+    public void setHealth(int increaseValue) {
+        this.health+=increaseValue;
     }
 
 
