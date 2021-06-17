@@ -19,7 +19,7 @@ public class Bucket extends Enemy {
     public void initMove() {
         Direction nextDirection = currentDirection;
         Cell nextCell = cell.getNeighbor(nextDirection.dx, nextDirection.dy);
-        if (isEmptyCell(nextCell)){
+        if (isEmptyCellOrPlayerCell(nextCell)){
             move(nextCell, nextDirection);
         } else {
             tryToGoReverseDirection(nextDirection);
