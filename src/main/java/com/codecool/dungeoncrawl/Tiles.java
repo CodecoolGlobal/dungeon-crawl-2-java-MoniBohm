@@ -35,6 +35,7 @@ public class Tiles {
         tileMap.put("player", new Tile(26, 7));
         tileMap.put("bucket", new Tile(27, 7));
         tileMap.put("drumstick", new Tile(28, 7));
+        tileMap.put("ghost", new Tile(10, 10));
         tileMap.put("colonel", new Tile(27, 8));
         tileMap.put("key", new Tile(16, 23));
         tileMap.put("coin", new Tile(9, 25));

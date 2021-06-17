@@ -2,7 +2,7 @@ package com.codecool.dungeoncrawl.util;
 
 import java.util.Random;
 
-class RandomHelper {
+public class RandomHelper {
 
     private static final Random RANDOM = new Random();
 
