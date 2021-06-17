@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ActorTest {
+class generalActorTest {
     GameMap gameMap = new GameMap(3, 3, CellType.FLOOR);
 
     @Test
