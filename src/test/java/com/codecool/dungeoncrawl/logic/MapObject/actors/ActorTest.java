@@ -13,7 +13,6 @@ class ActorTest {
     GameMap gameMap = new GameMap(3, 3, CellType.FLOOR);
     Player testPlayer;
     Enemy testEnemy;
-    Cell testCell;
 
     @BeforeEach
     void setUp() {
@@ -67,7 +66,6 @@ class ActorTest {
         assertEquals(excepted, testPlayer.isActorDead(actorHealth));
     }
 
-//    (enemy.getHealth()) - player.damage;
 
     @Test
     void hitEnemy() {
@@ -82,5 +80,6 @@ class ActorTest {
         testPlayer.damage = 10;
         assertEquals(0, testPlayer.hitPlayer(testPlayer, testEnemy));
     }
+
 
 }
