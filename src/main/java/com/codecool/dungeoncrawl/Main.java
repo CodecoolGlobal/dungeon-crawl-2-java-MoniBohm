@@ -1,9 +1,6 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.UI.CheatMenu;
-import com.codecool.dungeoncrawl.UI.ConfirmBox;
-import com.codecool.dungeoncrawl.UI.GetPlayerNameAlertBox;
-import com.codecool.dungeoncrawl.UI.InventoryBox;
+import com.codecool.dungeoncrawl.UI.*;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
@@ -35,6 +32,8 @@ public class Main extends Application {
     public static boolean isExitingDungeon;
     public static boolean isPreviousMap;
     public static String playerName;
+    private String lastMap = "/map3.txt";
+    private boolean isLasRound = false;
     BorderPane borderPane;
     int currentMap = 0;
     List<String> nameOfFiles = setMapNames();
@@ -215,9 +214,13 @@ public class Main extends Application {
 
     public void generateMapFileName(){
         if (isNextMap){
+            if(isLasRound){winGame();}
             if(currentMap < nameOfFiles.size()-1){
                 currentMap++;
                 mapFilename = nameOfFiles.get(currentMap);
+                if(mapFilename.equals(lastMap)){
+                    isLasRound = true;
+                }
                 isNextMap = false;
             }
         }
@@ -246,7 +249,6 @@ public class Main extends Application {
         nameOfFiles.add("/map1.txt");
         nameOfFiles.add("/map2.txt");
         nameOfFiles.add("/map3.txt");
-        nameOfFiles.add("/map4.txt");
         return nameOfFiles;
     }
 
@@ -288,6 +290,11 @@ public class Main extends Application {
         damageLabel.setText("" + map.getPlayer().getDamage() + " Dp "); // represents health
         armorLabel.setText("" + map.getPlayer().getArmor() + " "); // represents health
         coinLabel.setText("" + map.getPlayer().getCoin() + " "); // represents health
-//        playerNameInventory.setText("" + playerName + "  "); // playerName
+    }
+
+
+    private void winGame(){
+        WinGameBox.display();
+        System.exit(0);
     }
 }
