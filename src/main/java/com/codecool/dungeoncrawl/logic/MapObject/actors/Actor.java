@@ -46,12 +46,18 @@ public abstract class Actor implements Drawable {
                 && nextCell.getItem() == null;
     }
 
+    protected boolean isEmptyCellOrPlayerCell(Cell nextCell) {
+        return nextCell.getType() == CellType.FLOOR
+                && (nextCell.getActor() instanceof Player || nextCell.getActor() == null)
+                && nextCell.getItem() == null;
+    }
+
     public int getHealth() {
         return health;
     }
 
     protected void setHealth(int newHealth) {
-        this.health = newHealth;
+        this.health = Math.max(newHealth, 0);
     }
 
     public void incrementHealth(){
@@ -63,7 +69,7 @@ public abstract class Actor implements Drawable {
     }
 
     public boolean isActorDead(int actorHealth) {
-        return actorHealth <= 0;
+        return actorHealth == 0;
     }
 
     public int hitEnemy(Actor player, Actor enemy) {
@@ -77,12 +83,12 @@ public abstract class Actor implements Drawable {
     public void fightToTheDeath(Cell nextCell, Actor player, Actor enemy, boolean isFightOver) {
         while (!isFightOver){
             player.setHealth(hitPlayer(player, enemy));
-            enemy.setHealth(hitEnemy(player, enemy));
             if(isActorDead(player.health)){
                 isFightOver = true;
                 GameOverBox.display();
                 System.exit(0);
             }
+            enemy.setHealth(hitEnemy(player, enemy));
             if(isActorDead(enemy.health)){
                 isFightOver = true;
                 removeEnemy(enemy);
