@@ -31,7 +31,10 @@ public class InventoryBox {
     public void display(List<Item> inventory, Cell cell) {
         this.inventory = inventory;
         this.cell = cell;
-
+        GridPane gridPane;
+        Label inventoryLabel;
+        GridPane ui;
+        BorderPane borderPane;
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Inventory");
@@ -40,76 +43,61 @@ public class InventoryBox {
         Label label = new Label();
         label.setText("Inventory");
 
-        //Creating a Grid Pane
-        GridPane gridPane = new GridPane();
-        gridPane.setId("inventoryGrid");
-        //Setting the vertical and horizontal gaps between the columns
-        gridPane.setVgap(100);
-        gridPane.setHgap(10);
-        //Setting the Grid alignment
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setMinSize(800, 800);
-        gridPane.setMaxSize(800, 800);
-        gridPane.setMinWidth(800);
-        gridPane.setMinHeight(800);
-        gridPane.setMaxWidth(800);
-        gridPane.setMaxHeight(800);
-        gridPane.setPadding(new Insets(30, 80, 0, 30));
+        gridPane = initGridPane();
+        createManaButton(gridPane);
+        createHealtbutton(gridPane);
+        createHeadgearButtonIfExists(inventory, gridPane);
+        createBodyArmorButtonIfExists(inventory, gridPane);
+        createRightLegArmorButtonIfExists(inventory, gridPane);
+        createLeftLegArmorButtonIfExists(inventory, gridPane);
 
+        ui = initUi();
+        borderPane = initBorderPane(gridPane, ui);
+        Button closeButton = initCloseButton();
+        initVBox(label, closeButton);
 
-        Button manaPotion = new Button();
-        manaPotion.setText("Use\nMana");
-        gridPane.add(manaPotion, 0, 0);
-        manaPotion.setOnAction(event -> turnRandomEnemyToFire());
+        Scene scene = new Scene(borderPane);
+        scene.getStylesheets().add("style.css");
+        window.setScene(scene);
+        scene.setOnKeyPressed(this::onKeyPressed);
+        window.showAndWait();
 
-        Button healthPotion = new Button();
-        healthPotion.setText("Use\nHealth potion");
-        gridPane.add(healthPotion, 2, 0);
-        healthPotion.setOnAction(event -> usePotion());
+    }
 
+    private void initVBox(Label label, Button closeButton) {
+        VBox layout = new VBox(450);
+        layout.getChildren().addAll(label, closeButton);
+        layout.setAlignment(Pos.CENTER);
+    }
 
-        if (inventory.stream().anyMatch(c -> c instanceof HeadGear)) {
-            Item invItem = null;
-            for(Item item:inventory) {
-                if (item instanceof HeadGear){
-                    invItem = item;
-                }
-            }
-            Button helmet = new Button();
-            helmet.setText("Drop\nHelmet");
-            gridPane.add(helmet, 1, 0);
-            Item finalInvItem = invItem;
-            helmet.setOnAction(event -> removeItem(finalInvItem));
-        }
+    private Button initCloseButton() {
+        Button closeButton = new Button("Close window");
+        closeButton.setOnAction(e -> window.close());
+        return closeButton;
+    }
 
-        if (inventory.stream().anyMatch(c -> c instanceof BodyArmor)) {
-            Item invItem = null;
-            for(Item item:inventory) {
-                if (item instanceof BodyArmor){
-                    invItem = item;
-                }
-            }
-            Button bodyArmor = new Button();
-            bodyArmor.setText("Drop\nBody armor");
-            gridPane.add(bodyArmor, 1, 1);
-            Item finalInvItem = invItem;
-            bodyArmor.setOnAction(event -> removeItem(finalInvItem));
-        }
+    private BorderPane initBorderPane(GridPane gridPane, GridPane ui) {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setRight(ui);    // puts ui to a right pane layout
+        borderPane.setCenter(gridPane);
+        return borderPane;
+    }
 
-        if (inventory.stream().anyMatch(c -> c instanceof LegArmor)) {
-            Item invItem = null;
-            for(Item item:inventory) {
-                if (item instanceof LegArmor){
-                    invItem = item;
-                }
-            }
-            Button lLegArmor = new Button();
-            lLegArmor.setText("Drop\nLeft leg armor");
-            gridPane.add(lLegArmor, 0, 3);
-            Item finalInvItem = invItem;
-            lLegArmor.setOnAction(event -> removeItem(finalInvItem));
-        }
+    private GridPane initUi() {
+        Label inventoryLabel;
+        GridPane ui;
+        inventoryLabel = new Label();
+        inventoryLabel.setText(getNumberOfElements());
+        ui = new GridPane();
+        ui.setPrefWidth(300);   // inventory width
+        ui.setPadding(new Insets(50));
+        ui.add(new Label(""), 0, 0);
+        ui.add(inventoryLabel, 1, 0);
+        ui.setId("inventoryList");
+        return ui;
+    }
 
+    private void createLeftLegArmorButtonIfExists(List<Item> inventory, GridPane gridPane) {
         if (inventory.stream().anyMatch(c -> c instanceof LegArmor)) {
             Item invItem = null;
             for(Item item:inventory) {
@@ -123,36 +111,92 @@ public class InventoryBox {
             Item finalInvItem = invItem;
             rLegArmor.setOnAction(event -> removeItem(finalInvItem));
         }
+    }
 
-        GridPane ui = new GridPane();
-        ui.setPrefWidth(300);   // inventory width
-        ui.setPadding(new Insets(50));
+    private void createRightLegArmorButtonIfExists(List<Item> inventory, GridPane gridPane) {
+        if (inventory.stream().anyMatch(c -> c instanceof LegArmor)) {
+            Item invItem = null;
+            for(Item item:inventory) {
+                if (item instanceof LegArmor){
+                    invItem = item;
+                }
+            }
+            Button lLegArmor = new Button();
+            lLegArmor.setText("Drop\nLeft leg armor");
+            gridPane.add(lLegArmor, 0, 3);
+            Item finalInvItem = invItem;
+            lLegArmor.setOnAction(event -> removeItem(finalInvItem));
+        }
+    }
 
-        Label inventoryLabel = new Label(); // label for inventory
-        ui.add(new Label(""), 0, 0);
-        ui.add(inventoryLabel, 1, 0);
-//        String inv = inventoryToString(inventory);
+    private void createBodyArmorButtonIfExists(List<Item> inventory, GridPane gridPane) {
+        if (inventory.stream().anyMatch(c -> c instanceof BodyArmor)) {
+            Item invItem = null;
+            for(Item item: inventory) {
+                if (item instanceof BodyArmor){
+                    invItem = item;
+                }
+            }
+            Button bodyArmor = new Button();
+            bodyArmor.setText("Drop\nBody armor");
+            gridPane.add(bodyArmor, 1, 1);
+            Item finalInvItem = invItem;
+            bodyArmor.setOnAction(event -> removeItem(finalInvItem));
+        }
+    }
 
-        inventoryLabel.setText(getNumberOfElements());
-        BorderPane borderPane = new BorderPane();
-        borderPane.setRight(ui);    // puts ui to a right pane layout
-        borderPane.setCenter(gridPane);
-        ui.setId("inventoryList");
+    private void createHeadgearButtonIfExists(List<Item> inventory, GridPane gridPane) {
+        if (inventory.stream().anyMatch(c -> c instanceof HeadGear)) {
+            Item invItem = null;
+            for(Item item: inventory) {
+                if (item instanceof HeadGear){
+                    invItem = item;
+                }
+            }
+            initHeadgearButtonEventListener(gridPane, invItem);
+        }
+    }
 
+    private void initHeadgearButtonEventListener(GridPane gridPane, Item invItem) {
+        Button helmet = new Button();
+        helmet.setText("Drop\nHelmet");
+        gridPane.add(helmet, 1, 0);
+        Item finalInvItem = invItem;
+        helmet.setOnAction(event -> removeItem(finalInvItem));
+    }
 
-        Button closeButton = new Button("Close window");
-        closeButton.setOnAction(e -> window.close());
+    private void createManaButton(GridPane gridPane) {
+        Button manaPotion = new Button();
+        manaPotion.setText("Use\nMana");
+        gridPane.add(manaPotion, 0, 0);
+        manaPotion.setOnAction(event -> turnRandomEnemyToFire());
+    }
 
-        VBox layout = new VBox(450);
-        layout.getChildren().addAll(label, closeButton);
-        layout.setAlignment(Pos.CENTER);
+    private void createHealtbutton(GridPane gridPane) {
+        Button healthPotion = new Button();
+        healthPotion.setText("Use\nHealth potion");
+        gridPane.add(healthPotion, 2, 0);
+        healthPotion.setOnAction(event -> usePotion());
+    }
 
-        Scene scene = new Scene(borderPane);
-        scene.getStylesheets().add("style.css");
-        window.setScene(scene);
-        scene.setOnKeyPressed(this::onKeyPressed);
-        window.showAndWait();
-
+    private GridPane initGridPane() {
+        GridPane gridPane;
+        //Creating a Grid Pane
+        gridPane = new GridPane();
+        gridPane.setId("inventoryGrid");
+        //Setting the vertical and horizontal gaps between the columns
+        gridPane.setVgap(100);
+        gridPane.setHgap(10);
+        //Setting the Grid alignment
+        gridPane.setAlignment(Pos.CENTER);
+        gridPane.setMinSize(800, 800);
+        gridPane.setMaxSize(800, 800);
+        gridPane.setMinWidth(800);
+        gridPane.setMinHeight(800);
+        gridPane.setMaxWidth(800);
+        gridPane.setMaxHeight(800);
+        gridPane.setPadding(new Insets(30, 80, 0, 30));
+        return gridPane;
     }
 
     private void usePotion() {
@@ -179,7 +223,6 @@ public class InventoryBox {
         }
         return sb.toString();
     }
-//  TODO Móóóóóni bocsi nagyon csúnya lett az egész :(
 
     private Set<String> createSetFromInventory() {
         List<String> nameOfElements = new ArrayList<>();
@@ -214,13 +257,12 @@ public class InventoryBox {
         int dx;
         int dy;
         inventory.remove(item);
-        boolean successfulDrop = false;
-        while(!successfulDrop){
+        for (int i = 0; i < 10; i++) {
             dx = Direction.getRandom().dx;
             dy = Direction.getRandom().dy;
             if (cell.isEmptyCell(cell.getNeighbor(dx, dy))){
-                successfulDrop = true;
                 cell.getNeighbor(dx,dy).setItem(item);
+                break;
             }
         }
         window.close();

@@ -315,7 +315,7 @@ public class Main extends Application {
         nameOfFiles.add("/map1dungeon.txt");
         nameOfFiles.add("/map2dungeon.txt");
         nameOfFiles.add("/map3dungeon.txt");
-        nameOfFiles.add("/map4dungeon.txt");
+//        nameOfFiles.add("/map4dungeon.txt");
         return nameOfFiles;
     }
 
