@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.UI.ConfirmBox;
-import com.codecool.dungeoncrawl.UI.GameOverBox;
 import com.codecool.dungeoncrawl.UI.InventoryBox;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -30,10 +29,13 @@ import java.util.List;
 public class Main extends Application {
     public static final int PIXEL_OFFSET = 32;
     public static boolean isNextMap;
+    public static boolean isEnteringDungeon;
+    public static boolean isExitingDungeon;
     public static boolean isPreviousMap;
     BorderPane borderPane;
     int currentMap = 0;
     List<String> nameOfFiles = setMapNames();
+    List<String> nameOfDungeonFiles = setMapDungeonNames();
     Stage window;
     String mapFilename = nameOfFiles.get(currentMap);
     GameMap map = MapLoader.loadMap(mapFilename);
@@ -171,10 +173,17 @@ public class Main extends Application {
         if (isNewMap()) {
             initNewMap();
         }
+        if (isDungeonMovement()) {
+            initDungeon();
+        }
     }
 
     private boolean isNewMap(){
         return isNextMap || isPreviousMap;
+    }
+
+    private boolean isDungeonMovement(){
+        return isEnteringDungeon || isExitingDungeon;
     }
 
     public void initNewMap(){
@@ -182,6 +191,15 @@ public class Main extends Application {
         borderPane.setTranslateX(0);
         borderPane.setTranslateY(0);
         generateMapFileName();
+        generateMap();
+
+    }
+
+    public void initDungeon(){
+        Key.count = 0;
+        borderPane.setTranslateX(0);
+        borderPane.setTranslateY(0);
+        generateDungeonFileName();
         generateMap();
 
     }
@@ -203,6 +221,17 @@ public class Main extends Application {
         }
     }
 
+    public void generateDungeonFileName(){
+        if (isEnteringDungeon){
+            mapFilename = nameOfDungeonFiles.get(currentMap);
+            isEnteringDungeon = false;
+        }
+        if (isExitingDungeon){
+            mapFilename = nameOfFiles.get(currentMap);
+            isExitingDungeon = false;
+        }
+    }
+
     private List<String> setMapNames() {
         List<String> nameOfFiles = new ArrayList();
         nameOfFiles.add("/map1.txt");
@@ -212,8 +241,18 @@ public class Main extends Application {
         return nameOfFiles;
     }
 
+    private List<String> setMapDungeonNames() {
+        List<String> nameOfFiles = new ArrayList();
+        nameOfFiles.add("/map1dungeon.txt");
+        nameOfFiles.add("/map2dungeon.txt");
+        nameOfFiles.add("/map3dungeon.txt");
+        nameOfFiles.add("/map4dungeon.txt");
+        return nameOfFiles;
+    }
+
     public void generateMap() {
         map = MapLoader.loadMap(mapFilename);
+        map.collectEnemies();
         canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
                 map.getHeight() * Tiles.TILE_WIDTH);

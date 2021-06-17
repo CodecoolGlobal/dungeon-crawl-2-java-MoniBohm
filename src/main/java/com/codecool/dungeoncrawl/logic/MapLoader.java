@@ -3,13 +3,10 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.*;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealtPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.ManaPotion;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.*;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.LegArmor;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.Coin;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.PrevStageDoor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Bazooka;
 import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Uzi;
 
@@ -43,6 +40,42 @@ public class MapLoader {
                             break;
                         case 'x': // corpse
                             cell.setType(CellType.CORPSE);
+                            break;
+                        case '║': // water
+                            cell.setType(CellType.WATER_VERTICAL);
+                            break;
+                        case '═': // water
+                            cell.setType(CellType.WATER_HORIZONTAL);
+                            break;
+                        case '╗': // water
+                            cell.setType(CellType.WATER_CORNER_1);
+                            break;
+                        case '╝': // water
+                            cell.setType(CellType.WATER_CORNER_2);
+                            break;
+                        case '╚': // water
+                            cell.setType(CellType.WATER_CORNER_3);
+                            break;
+                        case '╔': // water
+                            cell.setType(CellType.WATER_CORNER_4);
+                            break;
+                        case 't': // tree
+                            cell.setType(CellType.TREE_1);
+                            break;
+                        case 'T': // tree
+                            cell.setType(CellType.TREE_2);
+                            break;
+                        case '┬': // tree
+                            cell.setType(CellType.TREE_3);
+                            break;
+                        case '1': // 1
+                            cell.setType(CellType.DIGIT_1);
+                            break;
+                        case '2': // 2
+                            cell.setType(CellType.DIGIT_2);
+                            break;
+                        case '3': // 3
+                            cell.setType(CellType.DIGIT_3);
                             break;
                         case '#': // wall
                             cell.setType(CellType.WALL);
@@ -89,6 +122,14 @@ public class MapLoader {
                        case 'p': // prev stage door
                             cell.setType(CellType.FLOOR);
                             new PrevStageDoor(cell);
+                            break;
+                        case 'Æ': // dungeon entrance
+                            cell.setType(CellType.FLOOR);
+                            new DungeonEntrance(cell);
+                            break;
+                        case 'æ': // dungeon exit
+                            cell.setType(CellType.FLOOR);
+                            new DungeonExit(cell);
                             break;
                         case 'u':
                             cell.setType(CellType.FLOOR);
