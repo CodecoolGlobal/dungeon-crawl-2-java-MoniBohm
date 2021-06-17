@@ -1,7 +1,6 @@
 package com.codecool.dungeoncrawl.UI;
 
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
@@ -19,7 +18,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class InventoryBox {
     Stage window;
@@ -176,23 +178,28 @@ public class InventoryBox {
         return sb.toString();
     }
 //  TODO Móóóóóni bocsi nagyon csúnya lett az egész :(
-//
-//    private void createSetFromInventory() {
-//        for (Object inv : inventory) {
-//            nameOfElements.add(inv.getTileName());
-//        }
-//        Set<String> targetSet = Sets.newHashSet(nameOfElements);
-//    }
-//
-//    private void getNumberOfELemetns(){
-//        StringBuilder inventoryToString = new StringBuilder("");
-//        for(String element : targetSet){
-//            int numberOfElement = (int) inventory.stream()
-//                    .filter(item1 -> item1.getTileName().equalsIgnoreCase(element))
-//                    .count();
-//            inventoryToString.append(element).append(": ").append(numberOfElement);
-//        }
-//    }
+
+    private void createSetFromInventory() {
+        List<String> nameOfElements = new ArrayList<>();
+        for (Item inv : inventory) {
+            String name = inv.getTileName();
+            nameOfElements.add(name);
+        }
+        Set targetSet = Set.copyOf(nameOfElements);
+        getNumberOfELements(targetSet);
+    }
+
+    private StringBuilder getNumberOfELements(Set targetSet){
+        StringBuilder inventoryToString = new StringBuilder("");
+        for(Object element : targetSet){
+            int numberOfElement = (int) inventory.stream()
+                    .filter(item1 -> item1.getTileName() == (element))
+                    .count();
+            inventoryToString.append(element).append(": ").append(numberOfElement);
+        }
+        return  inventoryToString;
+    }
+
 
     private void onKeyPressed(KeyEvent keyEvent) { // key event
         switch (keyEvent.getCode()) {
