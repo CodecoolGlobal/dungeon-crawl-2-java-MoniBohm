@@ -141,8 +141,11 @@ public class Player extends Actor {
     private void pickupItem(Cell nextCell) {
         cell.setActor(null);
         Item itemType = nextCell.getItem();
-        this.putItemToInventory(nextCell.getItem());
+        if (itemType instanceof Coin) {
+            this.putItemToInventory(nextCell.getItem());
+            }
         if (itemType instanceof Key) {
+            this.putItemToInventory(nextCell.getItem());
             if (isEnoughOfKey("Key")) {
                 tryToOpenDoor(nextCell);
             }

@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.UI.InventoryBox;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
 import com.codecool.dungeoncrawl.util.Direction;
 import javafx.application.Application;
@@ -64,15 +65,16 @@ public class Main extends Application {
 
         GridPane ui = new GridPane();
         ui.setPrefWidth(1200);   // inventory width
+        ui.setPrefHeight(100);   // inventory width
         ui.setPadding(new Insets(20));
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
         ui.add(new Label(" Armor: "), 2, 0);
-        ui.add(armorLabel, 25, 0);
-        ui.add(new Label(" Damage: "), 40, 0);
-        ui.add(damageLabel,45 , 0);
-//
+        ui.add(armorLabel, 3, 0);
+        ui.add(new Label(" Damage: "), 4, 0);
+        ui.add(damageLabel,5 , 0);
+        ui.add(new Label(" Inventory: press I "), 40, 0);
 //        ui.add(new Label("Inventory: "), 0, 20);
 //        ui.add(inventoryLabel, 1, 20);
 
@@ -88,7 +90,7 @@ public class Main extends Application {
 
         innerBorderPane.setTop(ui);    // puts ui to a right pane layout
         borderPane.setCenter(canvas);
-        ui.setId("rightBar");
+        ui.setId("topBar");
 
         Image overlayImg = new Image("file:./src/main/resources/overlay.png");
         ImageView overlay = new ImageView();
@@ -160,7 +162,7 @@ public class Main extends Application {
                 break;
             case I:
                 InventoryBox ibox = new InventoryBox();
-                ibox.display(map.getPlayer().getInventory());
+                ibox.display(map.getPlayer().getInventory(), map.getPlayer().getCell());
                 refresh();
                 break;
         }
@@ -273,9 +275,9 @@ public class Main extends Application {
             }
         }
 
-        healthLabel.setText("" + map.getPlayer().getHealth()); // represents health
-        damageLabel.setText("" + map.getPlayer().getDamage()); // represents health
-        armorLabel.setText("" + map.getPlayer().getArmor()); // represents health
+        healthLabel.setText("" + map.getPlayer().getHealth() + " Hp "); // represents health
+        damageLabel.setText("" + map.getPlayer().getDamage() + " Dp "); // represents health
+        armorLabel.setText("" + map.getPlayer().getArmor() + " "); // represents health
 //        inventoryLabel.setText("" + map.getPlayer().inventoryToString()); //represents inventory
     }
 }
