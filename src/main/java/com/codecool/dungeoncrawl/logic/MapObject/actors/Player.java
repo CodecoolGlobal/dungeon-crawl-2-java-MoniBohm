@@ -27,6 +27,10 @@ public class Player extends Actor {
         armor = ActorStats.BUCKET.armor;
     }
 
+    public void setCell(Cell newCell) {
+        cell = newCell;
+    }
+
     public String inventoryToString() {
         StringBuilder sb = new StringBuilder();
         for (Item item : inventory) {
@@ -62,6 +66,7 @@ public class Player extends Actor {
        if (door instanceof PrevStageDoor) {
             openPrevDoor();
        }else if (isEnoughOfKey("Key")) {
+            removeFromInventory("key");
             openNextDoor(nextCell);
         }else{
             AlertBox.display("Door says", "Collect all the keys!");
@@ -97,10 +102,10 @@ public class Player extends Actor {
 
     private void fightColonel(Cell nextCell) {
         if (isEnoughOfCoin("coin")) {
-            removeFromInventoryKeys();
+            removeFromInventory("coin");
             move(nextCell);
         }else{
-            AlertBox.display("Colonal says", "Collect minimum 10 coins!");
+            AlertBox.display("Colonal says", "Collect minimum " + MINIMUM_NR_COIN + " coins!");
         }
     }
 
@@ -110,12 +115,12 @@ public class Player extends Actor {
                 .count();
     }
 
-    private void removeFromInventoryKeys() {
-        inventory.removeIf(element -> element.getTileName().equalsIgnoreCase("coin"));
+    private void removeFromInventory(String item) {
+        inventory.removeIf(element -> element.getTileName().equalsIgnoreCase(item));
     }
 
     private boolean isEnoughOfKey(String itemName) {
-        return numberOfItem(itemName) == Key.count;
+        return numberOfItem(itemName) >= Key.count;
     }
 
 

@@ -36,6 +36,7 @@ public class GameMap {
         return cells[x][y];
     }
 
+
     public void collectEnemies() {
         for ( Cell[] row : cells) {
             for ( Cell cell : row) {
