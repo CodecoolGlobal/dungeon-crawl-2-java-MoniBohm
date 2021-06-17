@@ -19,7 +19,8 @@ public enum CellType {
     FIRE("fire"),
     GRAVE("grave"),
     CORPSE("corpse"),
-    CAGE("cage");
+    CAGE("cage"),
+    DUCK("duck");
 
     private final String tileName;
 

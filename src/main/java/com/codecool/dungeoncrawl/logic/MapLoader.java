@@ -35,6 +35,9 @@ public class MapLoader {
                         case 'f': // fire
                             cell.setType(CellType.FIRE);
                             break;
+                        case 'D': // fire
+                            cell.setType(CellType.DUCK);
+                            break;
                         case 'g': // grave
                             cell.setType(CellType.GRAVE);
                             break;
