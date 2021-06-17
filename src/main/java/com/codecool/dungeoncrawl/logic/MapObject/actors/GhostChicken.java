@@ -29,17 +29,21 @@ public class GhostChicken extends Enemy {
     }
 
     public void initMove() {
-        Cell nextCell;
         if (tryMoveAgain()) {
-            do {
-                nextCell = getRandomCell();
-            } while (!isEmptyCellOrPlayerCell(nextCell));
-            move(nextCell);
-            count = 0;
+            doWhileDontFindNewPosition();
         } else {
             tryToMoveRandom();
             count++;
         }
+    }
+
+    private void doWhileDontFindNewPosition() {
+        Cell nextCell;
+        do {
+            nextCell = getRandomCell();
+        } while (!isEmptyCellOrPlayerCell(nextCell));
+        move(nextCell);
+        count = 0;
     }
 
     private void tryToMoveRandom() {
@@ -54,12 +58,9 @@ public class GhostChicken extends Enemy {
     }
 
     private Cell getRandomCell() {
-        Cell nextCell;
-        int randomX;
-        int randomY;
-        randomX = RandomHelper.getRandomInt(WIDTH_LOWER_BOUND, WIDTH_UPPER_BOUND);
-        randomY = RandomHelper.getRandomInt(HEIGHT_LOWER_BOUND, HEIGHT_UPPER_BOUND);
-        nextCell = cell.getGameMap().getCell(randomX, randomY);
+        int randomX = RandomHelper.getRandomInt(WIDTH_LOWER_BOUND, WIDTH_UPPER_BOUND);
+        int randomY = RandomHelper.getRandomInt(HEIGHT_LOWER_BOUND, HEIGHT_UPPER_BOUND);
+        Cell nextCell = cell.getGameMap().getCell(randomX, randomY);
         return nextCell;
     }
 
@@ -77,14 +78,22 @@ public class GhostChicken extends Enemy {
 
     public void move(Cell nextCell) {
         if (nextCell.getActor() instanceof Player) {
-            AlertBox.display("Sudden Death", "Bad luck a ghost just killed you randomly :( ");
-            gameOver = true;
-            GameOverBox.display();
+            gameOver();
         } else {
-            cell.setActor(null);
-            this.cell = nextCell;
-            nextCell.setActor(this);
+            moveNextCell(nextCell);
         }
+    }
+
+    private void moveNextCell(Cell nextCell) {
+        cell.setActor(null);
+        this.cell = nextCell;
+        nextCell.setActor(this);
+    }
+
+    private void gameOver() {
+        AlertBox.display("Sudden Death", "Bad luck a ghost just killed you randomly :( ");
+        gameOver = true;
+        GameOverBox.display();
     }
 
     @Override
