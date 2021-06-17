@@ -41,14 +41,6 @@ class ActorTest {
         assertEquals(excepted, testPlayer.getHealth());
     }
 
-
-    @Test
-    void playerDamageIsMinus() {
-        testPlayer.damage = -1;
-        int excepted = -1;
-        assertEquals(excepted, testPlayer.getHealth());
-    }
-
     @Test
     void givenPlayerHealthIsNull_ThenDead() {
         testPlayer.health = 0;
