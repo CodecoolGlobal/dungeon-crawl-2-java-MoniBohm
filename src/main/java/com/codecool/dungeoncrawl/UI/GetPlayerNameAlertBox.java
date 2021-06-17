@@ -21,32 +21,19 @@ public class GetPlayerNameAlertBox {
         AtomicReference<String> result = new AtomicReference<>("");
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Hi!");
+        window.setTitle("Start New Game");
         window.setMinWidth(250);
 
         Label label = new Label();
+        label.setText("Enter your name please : ");
         label.setFont(Font.font("Verdana"));
         label.setId("alertmsg");
-        Button closeButton = new Button("Close window");
-        closeButton.setOnAction( e -> window.close());
-        closeButton.setFont(Font.font("Verdana"));
-
-
-        GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        grid.setVgap(5);
-        grid.setHgap(5);
-
 
         final TextField name = new TextField();
+        final TextField ask = new TextField();
         name.setPrefColumnCount(15);
-        name.setPromptText("Enter your name: \n");
-        GridPane.setConstraints(name, 0, 2);
-        grid.getChildren().add(name);
 
         Button submit = new Button("Start");
-        GridPane.setConstraints(submit, 1, 0);
-        grid.getChildren().add(submit);
         submit.setOnAction(event -> {
                 result.set(name.getText());
                 window.close();
@@ -54,11 +41,13 @@ public class GetPlayerNameAlertBox {
 
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll( label, closeButton);
         layout.setAlignment(Pos.CENTER);
+        layout.getChildren().add(label);
+        layout.getChildren().add(name);
+        layout.getChildren().add(submit);
 
 
-        Scene scene = new Scene(grid);
+        Scene scene = new Scene(layout);
         scene.getStylesheets().add("style.css");
         window.setScene(scene);
         window.showAndWait();

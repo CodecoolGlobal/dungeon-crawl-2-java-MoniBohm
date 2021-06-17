@@ -71,7 +71,7 @@ public class Main extends Application {
 
         GridPane ui = new GridPane();
         ui.setPrefWidth(1200);   // inventory width
-        ui.setPrefHeight(100);   // inventory width
+        ui.setPrefHeight(80);   // inventory height
         ui.setPadding(new Insets(20));
 
         Label player = new Label(playerName + " | ");

@@ -77,3 +77,8 @@
     -fx-text-fill: white;
     -fx-font-size: 20px;
 }
+
+#playerName{
+    -fx-text-fill: yellow;
+    -fx-font-size: 30px;
+}
