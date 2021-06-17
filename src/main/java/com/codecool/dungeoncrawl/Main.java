@@ -2,6 +2,7 @@ package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.UI.CheatMenu;
 import com.codecool.dungeoncrawl.UI.ConfirmBox;
+import com.codecool.dungeoncrawl.UI.GetPlayerNameAlertBox;
 import com.codecool.dungeoncrawl.UI.InventoryBox;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
@@ -34,6 +35,7 @@ public class Main extends Application {
     public static boolean isEnteringDungeon;
     public static boolean isExitingDungeon;
     public static boolean isPreviousMap;
+    public static String playerName;
     BorderPane borderPane;
     int currentMap = 0;
     List<String> nameOfFiles = setMapNames();
@@ -50,7 +52,7 @@ public class Main extends Application {
     Label healthLabel = new Label();    // label for health
     Label armorLabel = new Label();    // label for health
     Label damageLabel = new Label();    // label for health
-    Label inventoryLabel = new Label(); // label for inventory
+    Label playerNameInventory = new Label(); // label for inventory
 
     public static void main(String[] args) {
         launch(args);
@@ -58,6 +60,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        playerName = GetPlayerNameAlertBox.display();
         map.collectEnemies();
 
         window = primaryStage;
@@ -71,15 +74,17 @@ public class Main extends Application {
         ui.setPrefHeight(100);   // inventory width
         ui.setPadding(new Insets(20));
 
-        ui.add(new Label("Health: "), 0, 0);
-        ui.add(healthLabel, 1, 0);
-        ui.add(new Label(" Armor: "), 2, 0);
-        ui.add(armorLabel, 3, 0);
-        ui.add(new Label(" Damage: "), 4, 0);
-        ui.add(damageLabel,5 , 0);
+        Label player = new Label(playerName + " | ");
+        player.setId("playerName");
+        ui.add(player, 1, 0);
+        ui.add(new Label("Health: "), 2, 0);
+        ui.add(healthLabel, 3, 0);
+        ui.add(new Label(" Armor: "), 4, 0);
+        ui.add(armorLabel, 5, 0);
+        ui.add(new Label(" Damage: "), 6, 0);
+        ui.add(damageLabel,7 , 0);
         ui.add(new Label(" Inventory: press I "), 40, 0);
-//        ui.add(new Label("Inventory: "), 0, 20);
-//        ui.add(inventoryLabel, 1, 20);
+
 
         window.setOnCloseRequest(e -> {
             e.consume();
@@ -280,6 +285,6 @@ public class Main extends Application {
         healthLabel.setText("" + map.getPlayer().getHealth() + " Hp "); // represents health
         damageLabel.setText("" + map.getPlayer().getDamage() + " Dp "); // represents health
         armorLabel.setText("" + map.getPlayer().getArmor() + " "); // represents health
-//        inventoryLabel.setText("" + map.getPlayer().inventoryToString()); //represents inventory
+//        playerNameInventory.setText("" + playerName + "  "); // playerName
     }
 }

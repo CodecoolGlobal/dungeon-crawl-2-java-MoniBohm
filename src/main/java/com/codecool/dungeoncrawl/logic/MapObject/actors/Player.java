@@ -157,11 +157,14 @@ public class Player extends Actor {
         } else if (itemType instanceof Armor) {
             setArmor(10);
             this.putItemToInventory(nextCell.getItem());
+
         } else if (itemType instanceof Weapon) {
             setDamage(10);
             this.putItemToInventory(nextCell.getItem());
+
         } else if (itemType instanceof HealtPotion) {
             this.putItemToInventory(nextCell.getItem());
+
         } else if (itemType instanceof ManaPotion) {
             this.putItemToInventory(nextCell.getItem());
         }
