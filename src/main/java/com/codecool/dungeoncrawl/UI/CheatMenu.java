@@ -19,14 +19,15 @@ public class CheatMenu {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Cheat Menu");
-        window.setMinWidth(250);
+        window.setMinWidth(350);
+        window.setMinHeight(350);
         Label label = new Label();
         label.setText("Choose an option");
         label.setId("confirmmsg");
 
-        Button infiniteLive = new Button("IDDQD");
-        Button allStats = new Button("IDKFA");
-        Button allKeysAndCoins = new Button("IDBEHOLDA");
+        Button infiniteLive = new Button("IDDQD ++Health++");
+        Button allStats = new Button("IDKFA ++Damage++");
+        Button allKeysAndCoins = new Button("IDBEHOLDA ++Keys&coins++");
         Button setHealthToMin = new Button("Dont Push!");
 
         infiniteLive.setOnAction( e -> {
