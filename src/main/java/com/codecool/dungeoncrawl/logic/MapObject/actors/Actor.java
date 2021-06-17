@@ -29,11 +29,6 @@ public abstract class Actor implements Drawable {
         return actor instanceof Colonel;
     }
 
-    protected boolean isPlayerCell(Cell nextCell) {
-        Actor actor = nextCell.getActor();
-        return actor instanceof Player;
-    }
-
 
     protected boolean isItemCell(Cell nextCell) {
         return nextCell.getItem() != null;
@@ -84,17 +79,25 @@ public abstract class Actor implements Drawable {
         while (!isFightOver){
             player.setHealth(hitPlayer(player, enemy));
             if(isActorDead(player.health)){
-                isFightOver = true;
-                GameOverBox.display();
-                System.exit(0);
+                isFightOver = gameOver();
             }
             enemy.setHealth(hitEnemy(player, enemy));
             if(isActorDead(enemy.health)){
-                isFightOver = true;
-                removeEnemy(enemy);
-                move(nextCell);
+                isFightOver = enemyDead(nextCell, enemy);
             }
         }
+    }
+
+    private boolean enemyDead(Cell nextCell, Actor enemy) {
+        removeEnemy(enemy);
+        move(nextCell);
+        return true;
+    }
+
+    private boolean gameOver() {
+        GameOverBox.display();
+        System.exit(0);
+        return true;
     }
 
     private void removeEnemy(Actor enemy) {
