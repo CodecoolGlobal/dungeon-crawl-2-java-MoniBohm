@@ -17,7 +17,9 @@ import java.util.List;
 public class Player extends Actor {
     public static final int MINIMUM_NR_COIN = 7;
     private List<Item> inventory;
-    private final int healthPotion = 20;
+    private final int healthIncrease = 20;
+    private final int armorIncrease = 20;
+    private final int weaponIncrease = 20;
 
 
     public Player(Cell cell) {
@@ -62,14 +64,18 @@ public class Player extends Actor {
             removeFromInventory("key");
             openNextDoor(nextCell);
         }else{
-            AlertBox.display("Door says", "Collect all the keys!");
+            interactionWithDoor();
         }
        }
+
+    private void interactionWithDoor() {
+        AlertBox.display("Door says", "Collect all the keys!");
+    }
 
     private void manageDungeonDoor(Cell nextCell) {
         Item door = nextCell.getItem();
         if (door instanceof DungeonEntrance) {
-            enterDungeon(nextCell);
+            enterDungeon();
         }else {
             exitDungeon();
         }
@@ -98,8 +104,12 @@ public class Player extends Actor {
             removeFromInventory("coin");
             move(nextCell);
         }else{
-            AlertBox.display("Colonal says", "Collect minimum " + MINIMUM_NR_COIN + " coins!");
+            interactionWithColonal();
         }
+    }
+
+    private void interactionWithColonal() {
+        AlertBox.display("Colonal says", "Collect minimum " + MINIMUM_NR_COIN + " coins!");
     }
 
     private int numberOfItem(String nameOfItem) {
@@ -135,30 +145,46 @@ public class Player extends Actor {
     private void pickupItem(Cell nextCell) {
         cell.setActor(null);
         Item itemType = nextCell.getItem();
-        if (itemType instanceof Coin) {
-            this.putItemToInventory(nextCell.getItem());
-            }
-        if (itemType instanceof Key) {
-            this.putItemToInventory(nextCell.getItem());
-            if (isEnoughOfKey("Key")) {
-                tryToOpenDoor(nextCell);
-            }
-        } else if (itemType instanceof Armor) {
-            setArmor(10);
-            this.putItemToInventory(nextCell.getItem());
 
+        if (itemType instanceof Coin) {
+            putItemToInventory(nextCell);
+        }
+        if (itemType instanceof Key) {
+            setKeys(nextCell);
+        } else if (itemType instanceof Armor) {
+            setArmor(nextCell);
         } else if (itemType instanceof Weapon) {
-            setDamage(10);
-            this.putItemToInventory(nextCell.getItem());
+            setWeapons(nextCell);
 
         } else if (itemType instanceof HealthPotion) {
-            this.putItemToInventory(nextCell.getItem());
-            setHealth(this.health + healthPotion);
+            putItemToInventory(nextCell);
+            setHealth(this.health + healthIncrease);
 
         } else if (itemType instanceof ManaPotion) {
-            this.putItemToInventory(nextCell.getItem());
+            putItemToInventory(nextCell);
         }
         moveToItemPosition(nextCell);
+    }
+
+    private void setWeapons(Cell nextCell) {
+        setDamage(weaponIncrease);
+        putItemToInventory(nextCell);
+    }
+
+    private void setArmor(Cell nextCell) {
+        setArmor(armorIncrease);
+        putItemToInventory(nextCell);
+    }
+
+    private void setKeys(Cell nextCell) {
+        putItemToInventory(nextCell);
+        if (isEnoughOfKey("Key")) {
+            tryToOpenDoor(nextCell);
+        }
+    }
+
+    private void putItemToInventory(Cell nextCell) {
+        this.putItemToInventory(nextCell.getItem());
     }
 
     private void tryToOpenDoor(Cell nextCell) {
@@ -177,10 +203,10 @@ public class Player extends Actor {
     }
 
     public boolean initMove(int dx, int dy) {
-        boolean succesfullmove = false;
+        boolean successfulMove;
         Cell nextCell = cell.getNeighbor(dx, dy);
-        succesfullmove = validateCell(nextCell);
-        return succesfullmove;
+        successfulMove = validateCell(nextCell);
+        return successfulMove;
     }
 
     private void fightEnemy(Cell nextCell) {
@@ -214,11 +240,9 @@ public class Player extends Actor {
         this.health+=increaseValue;
     }
 
-
     public int getArmor() {
         return this.armor;
     }
-
 
     public int getCoin(){
         return numberOfItem("coin");
