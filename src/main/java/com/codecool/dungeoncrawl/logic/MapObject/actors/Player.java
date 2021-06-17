@@ -17,6 +17,7 @@ import java.util.List;
 public class Player extends Actor {
     public static final int MINIMUM_NR_COIN = 7;
     private List<Item> inventory;
+    private final int healthPotion = 20;
 
 
     public Player(Cell cell) {
@@ -29,14 +30,6 @@ public class Player extends Actor {
 
     public void setCell(Cell newCell) {
         cell = newCell;
-    }
-
-    public String inventoryToString() {
-        StringBuilder sb = new StringBuilder();
-        for (Item item : inventory) {
-            sb.append(item).append("  ");
-        }
-        return sb.toString();
     }
 
     private boolean validateCell(Cell nextCell) {
@@ -96,7 +89,7 @@ public class Player extends Actor {
         Main.isNextMap = true;
     }
 
-    private void enterDungeon(Cell nextCell) {
+    private void enterDungeon() {
         Main.isEnteringDungeon = true;
     }
 
@@ -129,10 +122,6 @@ public class Player extends Actor {
     }
 
 
-    private boolean isEnoughOfCoin(String itemName, int numberOfCoin) {
-        return numberOfItem(itemName) == numberOfCoin;
-    }
-
     private boolean isDoor(Cell nextCell) {
         Item currentItem = nextCell.getItem();
         return currentItem instanceof NextStageDoor || currentItem instanceof PrevStageDoor;
@@ -164,6 +153,7 @@ public class Player extends Actor {
 
         } else if (itemType instanceof HealthPotion) {
             this.putItemToInventory(nextCell.getItem());
+            setHealth(this.health + healthPotion);
 
         } else if (itemType instanceof ManaPotion) {
             this.putItemToInventory(nextCell.getItem());
@@ -198,10 +188,6 @@ public class Player extends Actor {
         Actor enemy = nextCell.getActor();
         boolean isFightOver = false;
         fightToTheDeath(nextCell, player, enemy, isFightOver);
-    }
-
-    protected boolean isActorAlive(int actorHealth) {
-        return actorHealth > 0;
     }
 
     protected void putItemToInventory(Item item) {
