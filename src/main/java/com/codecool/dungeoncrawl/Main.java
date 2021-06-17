@@ -8,6 +8,7 @@ import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
 import com.codecool.dungeoncrawl.util.Direction;
+import com.codecool.dungeoncrawl.util.SaveState;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -39,6 +40,7 @@ public class Main extends Application {
     Stage window;
     String mapFilename = nameOfFiles.get(currentMap);
     GameMap map = MapLoader.loadMap(mapFilename);
+    SaveState saveState = new SaveState();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -171,10 +173,10 @@ public class Main extends Application {
 
     private void ChangeMapIfTrue() {
         if (isNewMap()) {
-            initNewMap();
+            initNewMap(false);
         }
         if (isDungeonMovement()) {
-            initDungeon();
+            initNewMap(true);
         }
     }
 
@@ -186,22 +188,17 @@ public class Main extends Application {
         return isEnteringDungeon || isExitingDungeon;
     }
 
-    public void initNewMap(){
+    public void initNewMap(Boolean isDungeon){
         Key.count = 0;
         borderPane.setTranslateX(0);
         borderPane.setTranslateY(0);
-        generateMapFileName();
+        saveState.setPlayer(map.getPlayer());
+        if (isDungeon) generateDungeonFileName();
+        else generateMapFileName();
         generateMap();
-
-    }
-
-    public void initDungeon(){
-        Key.count = 0;
-        borderPane.setTranslateX(0);
-        borderPane.setTranslateY(0);
-        generateDungeonFileName();
-        generateMap();
-
+        Cell newCell = map.getPlayer().getCell();
+        map.setPlayer(saveState.getPlayer());
+        map.getPlayer().setCell(newCell);
     }
 
     public void generateMapFileName(){
