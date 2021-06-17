@@ -33,7 +33,7 @@ public class GameMap {
     }
 
     public Cell getCell(int x, int y) {
-        if(isIndexInRange(x, true) && isIndexInRange(y, false)){
+        if (isIndexInRange(x, true) && isIndexInRange(y, false)) {
             return cells[x][y];
         }
         return null;
@@ -46,21 +46,24 @@ public class GameMap {
 
 
     public void collectEnemies() {
-        for ( Cell[] row : cells) {
-            for ( Cell cell : row) {
-                if (cell.isEnemyCell()) {
-                    enemies.add(cell.getActor());
-                }
+        for (Cell[] row : cells) {
+            addEnemiesToCell(row);
+        }
+    }
+
+    private void addEnemiesToCell(Cell[] row) {
+        for (Cell cell : row) {
+            if (cell.isEnemyCell()) {
+                enemies.add(cell.getActor());
             }
         }
     }
 
     public void moveEnemies() {
-        for ( Actor enemy : enemies) {
+        for (Actor enemy : enemies) {
             if (enemy.getCell() != null) {
-                ((Enemy)enemy).initMove();
+                ((Enemy) enemy).initMove();
             }
-
         }
     }
 
@@ -85,13 +88,23 @@ public class GameMap {
     }
 
     public Cell getNextDoor() {
-        for ( Cell[] row : cells) {
-            for ( Cell cell : row) {
-                if (cell.getItem() instanceof NextStageDoor) {
-                    return cell;
-                }
-            }
-    }
+        for (Cell[] row : cells) {
+            Cell currentCell = findDoorInRow(row);
+            if (currentCell != null) return currentCell;
+        }
         return null;
+    }
+
+    private Cell findDoorInRow(Cell[] row) {
+        for (Cell cell : row) {
+            if (isNextDoor(cell)) {
+                return cell;
+            }
+        }
+        return null;
+    }
+
+    private boolean isNextDoor(Cell cell) {
+        return cell.getItem() instanceof NextStageDoor;
     }
 }
