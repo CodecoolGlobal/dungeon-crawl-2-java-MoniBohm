@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl;
 
+import com.codecool.dungeoncrawl.UI.CheatMenu;
 import com.codecool.dungeoncrawl.UI.ConfirmBox;
 import com.codecool.dungeoncrawl.UI.InventoryBox;
 import com.codecool.dungeoncrawl.logic.Cell;
@@ -165,6 +166,10 @@ public class Main extends Application {
             case I:
                 InventoryBox ibox = new InventoryBox();
                 ibox.display(map.getPlayer().getInventory(), map.getPlayer().getCell());
+                refresh();
+                break;
+            case C:
+                CheatMenu.display(map.getPlayer());
                 refresh();
                 break;
         }
