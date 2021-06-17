@@ -35,13 +35,6 @@ public class Bucket extends Enemy {
         }
     }
 
-    private void fightPlayer(Cell nextCell){
-        Actor enemy = cell.getActor();
-        Actor player = nextCell.getActor();
-        boolean isFightOver = false;
-        fightToTheDeath(nextCell, player, enemy, isFightOver);
-    }
-
 
     public void move(Cell nextCell, Direction nextDirection) {
         cell.setActor(null);
