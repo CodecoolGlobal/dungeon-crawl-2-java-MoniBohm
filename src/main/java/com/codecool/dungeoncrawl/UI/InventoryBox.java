@@ -31,6 +31,7 @@ public class InventoryBox {
     public void display(List<Item> inventory, Cell cell) {
         this.inventory = inventory;
         this.cell = cell;
+
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Inventory");
@@ -124,14 +125,15 @@ public class InventoryBox {
         }
 
         GridPane ui = new GridPane();
-        ui.setPrefWidth(250);   // inventory width
+        ui.setPrefWidth(300);   // inventory width
         ui.setPadding(new Insets(50));
 
         Label inventoryLabel = new Label(); // label for inventory
         ui.add(new Label(""), 0, 0);
         ui.add(inventoryLabel, 1, 0);
-        String inv = inventoryToString(inventory);
-        inventoryLabel.setText(inv);
+//        String inv = inventoryToString(inventory);
+
+        inventoryLabel.setText(getNumberOfElements());
         BorderPane borderPane = new BorderPane();
         borderPane.setRight(ui);    // puts ui to a right pane layout
         borderPane.setCenter(gridPane);
@@ -179,25 +181,25 @@ public class InventoryBox {
     }
 //  TODO Móóóóóni bocsi nagyon csúnya lett az egész :(
 
-    private void createSetFromInventory() {
+    private Set<String> createSetFromInventory() {
         List<String> nameOfElements = new ArrayList<>();
         for (Item inv : inventory) {
             String name = inv.getTileName();
             nameOfElements.add(name);
         }
-        Set targetSet = Set.copyOf(nameOfElements);
-        getNumberOfELements(targetSet);
+        return Set.copyOf(nameOfElements);
     }
 
-    private StringBuilder getNumberOfELements(Set targetSet){
+    private String getNumberOfElements(){
+        Set<String> targetSet = createSetFromInventory();
         StringBuilder inventoryToString = new StringBuilder("");
         for(Object element : targetSet){
             int numberOfElement = (int) inventory.stream()
                     .filter(item1 -> item1.getTileName() == (element))
                     .count();
-            inventoryToString.append(element).append(": ").append(numberOfElement);
+            inventoryToString.append(element).append(": ").append(numberOfElement).append("\n");
         }
-        return  inventoryToString;
+        return  inventoryToString.toString();
     }
 
 
