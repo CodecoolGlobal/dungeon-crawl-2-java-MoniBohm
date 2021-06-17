@@ -33,7 +33,15 @@ public class GameMap {
     }
 
     public Cell getCell(int x, int y) {
-        return cells[x][y];
+        if(isIndexInRange(x, true) && isIndexInRange(y, false)){
+            return cells[x][y];
+        }
+        return null;
+    }
+
+    private boolean isIndexInRange(int index, boolean isWidth) {
+        if (isWidth) return index >= 0 && index < cells[0][0].getGameMap().getWidth();
+        return index >= 0 && index < cells[0][0].getGameMap().getHeight();
     }
 
 

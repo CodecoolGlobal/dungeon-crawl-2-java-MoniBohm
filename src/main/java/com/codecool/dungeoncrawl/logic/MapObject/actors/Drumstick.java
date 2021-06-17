@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.util.Direction;
 
 public class Drumstick extends Enemy {
+    private static final int MAX_TRY = 10;
+
     public Drumstick(Cell cell) {
         super(cell);
         damage = ActorStats.DRUMSTICK.damage;
@@ -13,13 +15,16 @@ public class Drumstick extends Enemy {
 
     public void initMove() {
         Cell nextCell;
-        do {
-            nextCell = tyToMove();
-        } while (!isEmptyCell(nextCell));
-        move(nextCell);
+        for (int i = 0; i < MAX_TRY; i++) {
+            nextCell = getRandomNextCell();
+            if(isEmptyCell(nextCell)){
+                move(nextCell);
+                break;
+            }
+        }
     }
 
-    private Cell tyToMove() {
+    private Cell getRandomNextCell() {
         Direction nextDirection;
         Cell nextCell;
         nextDirection = Direction.getRandom();

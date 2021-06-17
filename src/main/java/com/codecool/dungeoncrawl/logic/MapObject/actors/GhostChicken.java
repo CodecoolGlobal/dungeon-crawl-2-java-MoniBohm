@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl.logic.MapObject.actors;
 
+import com.codecool.dungeoncrawl.UI.AlertBox;
+import com.codecool.dungeoncrawl.UI.GameOverBox;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.util.Direction;
@@ -35,8 +37,7 @@ public class GhostChicken extends Enemy{
                     randomX = RandomHelper.getRandomInt(WIDTH_LOWER_BOUND, WIDTH_UPPER_BOUND);
                     randomY = RandomHelper.getRandomInt(HEIGHT_LOWER_BOUND, HEIGHT_UPPER_BOUND);
                     nextCell = cell.getGameMap().getCell(randomX, randomY);
-                } while (isEmptyCell(nextCell));
-
+                } while (isEmptyCellOrPlayerCell(nextCell));
                 move(nextCell);
                 count = 0;
             }else{
@@ -50,12 +51,11 @@ public class GhostChicken extends Enemy{
                 count++;
             }
         }
-
-        private boolean isGhostProofCell(Cell nextCell) {
-        return nextCell.getType() == CellType.FLOOR || nextCell.getType() == CellType.WALL
-                && nextCell.getActor() == null
-                && nextCell.getItem() == null;
-        }
+        private boolean isEmptyCellOrPlayerCell(Cell nextCell){
+                return nextCell.getType() == CellType.FLOOR
+                        && (nextCell.getActor() instanceof Player || nextCell.getActor() == null)
+                        && nextCell.getItem() == null;
+            }
 
         private Cell getRandomNextCell() {
             Direction nextDirection;
@@ -66,9 +66,15 @@ public class GhostChicken extends Enemy{
         }
 
         public void move(Cell nextCell) {
-            cell.setActor(null);
-            this.cell = nextCell;
-            nextCell.setActor(this);
+            if (nextCell.getActor() instanceof Player ){
+                AlertBox.display("Sudden Death","Bad luck a ghost just killed you randomly :( ");
+                gameOver=true;
+                GameOverBox.display();
+            }else{
+                cell.setActor(null);
+                this.cell = nextCell;
+                nextCell.setActor(this);
+            }
         }
 
         @Override
