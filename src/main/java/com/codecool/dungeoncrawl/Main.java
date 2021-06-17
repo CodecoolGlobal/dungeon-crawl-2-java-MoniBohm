@@ -52,7 +52,7 @@ public class Main extends Application {
     Label healthLabel = new Label();    // label for health
     Label armorLabel = new Label();    // label for health
     Label damageLabel = new Label();    // label for health
-    Label playerNameInventory = new Label(); // label for inventory
+    Label coinLabel = new Label(); // label for coin
 
     public static void main(String[] args) {
         launch(args);
@@ -83,6 +83,9 @@ public class Main extends Application {
         ui.add(armorLabel, 5, 0);
         ui.add(new Label(" Damage: "), 6, 0);
         ui.add(damageLabel,7 , 0);
+        ui.add(new Label(" Coin: "), 8, 0);
+        ui.add(coinLabel,9 , 0);
+
         ui.add(new Label(" Inventory: press I "), 40, 0);
 
 
@@ -285,6 +288,7 @@ public class Main extends Application {
         healthLabel.setText("" + map.getPlayer().getHealth() + " Hp "); // represents health
         damageLabel.setText("" + map.getPlayer().getDamage() + " Dp "); // represents health
         armorLabel.setText("" + map.getPlayer().getArmor() + " "); // represents health
+        coinLabel.setText("" + map.getPlayer().getCoin() + " "); // represents health
 //        playerNameInventory.setText("" + playerName + "  "); // playerName
     }
 }

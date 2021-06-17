@@ -232,6 +232,11 @@ public class Player extends Actor {
     public int getArmor() {
         return this.armor;
     }
+
+
+    public int getCoin(){
+        return numberOfItem("coin");
+    }
 }
 
 
