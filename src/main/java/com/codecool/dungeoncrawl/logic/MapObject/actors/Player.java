@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.UI.AlertBox;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.Armor;
-import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealtPotion;
+import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealthPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.ManaPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.*;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
@@ -162,7 +162,7 @@ public class Player extends Actor {
             setDamage(10);
             this.putItemToInventory(nextCell.getItem());
 
-        } else if (itemType instanceof HealtPotion) {
+        } else if (itemType instanceof HealthPotion) {
             this.putItemToInventory(nextCell.getItem());
 
         } else if (itemType instanceof ManaPotion) {

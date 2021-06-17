@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.LegArmor;
-import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealtPotion;
+import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealthPotion;
 import com.codecool.dungeoncrawl.util.Direction;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -156,10 +156,10 @@ public class InventoryBox {
     }
 
     private void usePotion() {
-        if (inventory.stream().anyMatch(c -> c instanceof HealtPotion)) {
+        if (inventory.stream().anyMatch(c -> c instanceof HealthPotion)) {
             Item invItem = null;
             for(Item item:inventory) {
-                if (item instanceof HealtPotion){
+                if (item instanceof HealthPotion){
                     invItem = item;
                 }
             }

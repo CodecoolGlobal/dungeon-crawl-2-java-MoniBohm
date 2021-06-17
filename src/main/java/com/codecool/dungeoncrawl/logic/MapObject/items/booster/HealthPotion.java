@@ -3,20 +3,20 @@ package com.codecool.dungeoncrawl.logic.MapObject.items.booster;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 
-public class HealtPotion extends Item {
+public class HealthPotion extends Item {
 
-    public HealtPotion(Cell cell) {
+    public HealthPotion(Cell cell) {
         super(cell);
     }
 
     @Override
     public String toString() {
-        return "HealtPotion";
+        return "Health Potion";
     }
 
     @Override
     public String getTileName() {
-        return "healtpotion";
+        return "healthpotion";
     }
 
     public void increaseHealth() {

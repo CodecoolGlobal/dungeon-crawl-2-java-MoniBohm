@@ -1,12 +1,10 @@
 package com.codecool.dungeoncrawl.UI;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -30,7 +28,6 @@ public class GetPlayerNameAlertBox {
         label.setId("alertmsg");
 
         final TextField name = new TextField();
-        final TextField ask = new TextField();
         name.setPrefColumnCount(15);
 
         Button submit = new Button("Start");

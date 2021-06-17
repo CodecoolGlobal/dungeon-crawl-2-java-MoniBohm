@@ -11,7 +11,7 @@ public class ManaPotion extends Item {
 
     @Override
     public String toString() {
-        return "ManaPotion";
+        return "Mana Potion";
     }
 
     @Override

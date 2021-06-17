@@ -11,7 +11,7 @@ public class LegArmor extends Item implements Armor{
 
     @Override
     public String toString() {
-        return "LegArmor";
+        return "Leg Armor";
     }
 
     @Override

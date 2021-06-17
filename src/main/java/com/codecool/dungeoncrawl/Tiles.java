@@ -49,7 +49,7 @@ public class Tiles {
         tileMap.put("dungeon_exit", new Tile(12, 11));
         tileMap.put("uzi", new Tile(9, 31));
         tileMap.put("bazooka", new Tile(11, 31));
-        tileMap.put("healtpotion", new Tile(16, 28));
+        tileMap.put("healthpotion", new Tile(16, 28));
         tileMap.put("manapotion", new Tile(16, 25));
         tileMap.put("water_vertical", new Tile(7, 6));
         tileMap.put("water_horizontal", new Tile(8, 6));

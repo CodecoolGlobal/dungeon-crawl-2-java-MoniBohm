@@ -11,7 +11,7 @@ public class BodyArmor extends Item implements Armor{
 
     @Override
     public String toString() {
-        return "BodyArmor";
+        return "Body Armor";
     }
 
     @Override

@@ -11,7 +11,7 @@ public class HeadGear extends Item implements Armor{
 
     @Override
     public String toString() {
-        return "HeadGear";
+        return "Head Gear";
     }
 
     @Override

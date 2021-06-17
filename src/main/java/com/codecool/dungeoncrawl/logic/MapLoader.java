@@ -1,7 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.MapObject.actors.*;
-import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealtPotion;
+import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealthPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.ManaPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.*;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
@@ -149,7 +149,7 @@ public class MapLoader {
                             break;
                         case 'j':
                             cell.setType(CellType.FLOOR);
-                            new HealtPotion(cell);
+                            new HealthPotion(cell);
                             break;
                         case '@': // player
                             cell.setType(CellType.FLOOR);
