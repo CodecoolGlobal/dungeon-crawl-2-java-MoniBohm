@@ -3,7 +3,6 @@ package com.codecool.dungeoncrawl.logic.MapObject.actors;
 import com.codecool.dungeoncrawl.UI.AlertBox;
 import com.codecool.dungeoncrawl.UI.GameOverBox;
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.RandomHelper;
 
@@ -30,27 +29,42 @@ public class GhostChicken extends Enemy {
     }
 
     public void initMove() {
-        int randomX;
-        int randomY;
         Cell nextCell;
-        if (count >= 5) {
+        if (tryMoveAgain()) {
             do {
-                randomX = RandomHelper.getRandomInt(WIDTH_LOWER_BOUND, WIDTH_UPPER_BOUND);
-                randomY = RandomHelper.getRandomInt(HEIGHT_LOWER_BOUND, HEIGHT_UPPER_BOUND);
-                nextCell = cell.getGameMap().getCell(randomX, randomY);
+                nextCell = getRandomCell();
             } while (!isEmptyCellOrPlayerCell(nextCell));
             move(nextCell);
             count = 0;
         } else {
-            for (int i = 0; i < MAX_TRY; i++) {
-                nextCell = getRandomNextCell();
-                if (isEmptyCellOrPlayerCell(nextCell)) {
-                    move(nextCell);
-                    break;
-                }
-            }
+            tryToMoveRandom();
             count++;
         }
+    }
+
+    private void tryToMoveRandom() {
+        Cell nextCell;
+        for (int i = 0; i < MAX_TRY; i++) {
+            nextCell = getRandomNextCell();
+            if (isEmptyCellOrPlayerCell(nextCell)) {
+                move(nextCell);
+                break;
+            }
+        }
+    }
+
+    private Cell getRandomCell() {
+        Cell nextCell;
+        int randomX;
+        int randomY;
+        randomX = RandomHelper.getRandomInt(WIDTH_LOWER_BOUND, WIDTH_UPPER_BOUND);
+        randomY = RandomHelper.getRandomInt(HEIGHT_LOWER_BOUND, HEIGHT_UPPER_BOUND);
+        nextCell = cell.getGameMap().getCell(randomX, randomY);
+        return nextCell;
+    }
+
+    private boolean tryMoveAgain() {
+        return count >= 5;
     }
 
     private Cell getRandomNextCell() {
