@@ -35,7 +35,7 @@ public class Tiles {
         tileMap.put("player", new Tile(26, 7));
         tileMap.put("bucket", new Tile(27, 7));
         tileMap.put("drumstick", new Tile(28, 7));
-        tileMap.put("ghost", new Tile(10, 10));
+        tileMap.put("ghost", new Tile(28, 8));
         tileMap.put("colonel", new Tile(27, 8));
         tileMap.put("key", new Tile(16, 23));
         tileMap.put("coin", new Tile(9, 25));
@@ -46,7 +46,7 @@ public class Tiles {
         tileMap.put("prevdoor", new Tile(9, 17));
         tileMap.put("opendoor", new Tile(9, 17));
         tileMap.put("dungeon_entrance", new Tile(13, 11));
-            tileMap.put("dungeon_exit", new Tile(12, 11));
+        tileMap.put("dungeon_exit", new Tile(12, 11));
         tileMap.put("uzi", new Tile(9, 31));
         tileMap.put("bazooka", new Tile(11, 31));
         tileMap.put("healtpotion", new Tile(16, 28));
