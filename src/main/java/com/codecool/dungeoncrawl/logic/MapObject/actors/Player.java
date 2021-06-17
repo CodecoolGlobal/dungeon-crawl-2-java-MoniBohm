@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Actor {
-    public static final int MINIMUM_NR_COIN = 2;
+    public static final int MINIMUM_NR_COIN = 7;
     private List<Item> inventory;
 
 
@@ -224,7 +224,7 @@ public class Player extends Actor {
         this.damage+=increaseValue;
     }
 
-    public void setHealth(int increaseValue) {
+    public void setCheatHealth(int increaseValue) {
         this.health+=increaseValue;
     }
 

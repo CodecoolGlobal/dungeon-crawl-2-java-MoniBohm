@@ -53,7 +53,7 @@ public abstract class Actor implements Drawable {
     }
 
     public int getHealth() {
-        return health;
+        return this.health;
     }
 
     protected void setHealth(int newHealth) {

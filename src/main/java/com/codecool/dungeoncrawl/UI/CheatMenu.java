@@ -25,7 +25,7 @@ public class CheatMenu {
         Button allStats = new Button("IDKFA");
 
         infiniteLive.setOnAction( e -> {
-            player.setHealth(1000);
+            player.setCheatHealth(1000);
             window.close();
         });
 

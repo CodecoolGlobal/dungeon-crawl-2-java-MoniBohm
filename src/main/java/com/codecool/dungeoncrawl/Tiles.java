@@ -63,6 +63,7 @@ public class Tiles {
         tileMap.put("digit_1", new Tile(20, 28));
         tileMap.put("digit_2", new Tile(21, 28));
         tileMap.put("digit_3", new Tile(22, 28));
+        tileMap.put("cage", new Tile(5, 3));
     }
 
     public static void drawTile(GraphicsContext context, Drawable d, int x, int y) {

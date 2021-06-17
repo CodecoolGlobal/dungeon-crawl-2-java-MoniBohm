@@ -18,7 +18,8 @@ public enum CellType {
     DIGIT_3("digit_3"),
     FIRE("fire"),
     GRAVE("grave"),
-    CORPSE("corpse");
+    CORPSE("corpse"),
+    CAGE("cage");
 
     private final String tileName;
 
