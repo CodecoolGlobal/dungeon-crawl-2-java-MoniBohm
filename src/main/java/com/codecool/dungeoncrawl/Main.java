@@ -21,6 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +35,8 @@ public class Main extends Application {
     public static String playerName;
     private String lastMap = "/map3.txt";
     private boolean isLasRound = false;
+    private int currentMap = 0;
     BorderPane borderPane;
-    int currentMap = 0;
     List<String> nameOfFiles = setMapNames();
     List<String> nameOfDungeonFiles = setMapDungeonNames();
     Stage window;
@@ -46,11 +47,10 @@ public class Main extends Application {
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
-
-    Label healthLabel = new Label();    // label for health
-    Label armorLabel = new Label();    // label for health
-    Label damageLabel = new Label();    // label for health
-    Label coinLabel = new Label(); // label for coin
+    Label healthLabel = new Label();
+    Label armorLabel = new Label();
+    Label damageLabel = new Label();
+    Label coinLabel = new Label();
 
     public static void main(String[] args) {
         launch(args);
@@ -60,18 +60,70 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         playerName = GetPlayerNameAlertBox.display();
         map.collectEnemies();
+        GridPane ui = initUI(primaryStage);
+        BorderPane innerBorderPane = getBorderPane();
+        addTopBar(ui, innerBorderPane);
+        addOverLayToMap(innerBorderPane);
+        Scene scene = adCSS(innerBorderPane);
+        addEventListenerToPlayerMovement(primaryStage, scene);
+        setTitle(primaryStage);
+    }
 
-        window = primaryStage;
-        window.setMaxWidth(1200);
-        window.setMaxHeight(800);
-        window.setMinWidth(1200);
-        window.setMinHeight(800);
+    private BorderPane getBorderPane() {
+        borderPane = new BorderPane();
+        BorderPane innerBorderPane = new BorderPane();
+        innerBorderPane.setCenter(borderPane);
+        return innerBorderPane;
+    }
 
-        GridPane ui = new GridPane();
-        ui.setPrefWidth(1200);   // inventory width
-        ui.setPrefHeight(80);   // inventory height
-        ui.setPadding(new Insets(20));
+    private void addTopBar(GridPane ui, BorderPane innerBorderPane) {
+        innerBorderPane.setTop(ui);
+        borderPane.setCenter(canvas);
+        ui.setId("topBar");
+    }
 
+    private void addOverLayToMap(BorderPane innerBorderPane) {
+        Image overlayImg = new Image("file:./src/main/resources/overlay.png");
+        ImageView overlay = new ImageView();
+        overlay.setImage(overlayImg);
+        HBox box = new HBox();
+        box.getChildren().add(overlay);
+        innerBorderPane.getChildren().add(box);
+    }
+
+    private Scene adCSS(BorderPane innerBorderPane) {
+        Scene scene = new Scene(innerBorderPane);
+        scene.getStylesheets().add("style.css");
+        return scene;
+    }
+
+    private void addEventListenerToPlayerMovement(Stage primaryStage, Scene scene) {
+        primaryStage.setScene(scene);
+        refreshGameMap();
+        scene.setOnKeyPressed(this::onKeyPressed);
+    }
+
+    private void setTitle(Stage primaryStage) {
+        primaryStage.setTitle("Free-range Chicken");
+        primaryStage.show();
+    }
+
+    private void initCloseButton() {
+        window.setOnCloseRequest(e -> {
+            e.consume();
+            closeApp();
+        });
+    }
+
+    private GridPane initUI(Stage primaryStage) {
+        setWindow(primaryStage);
+        GridPane ui = initInventory();
+        setInventory(ui);
+        initCloseButton();
+        return ui;
+    }
+
+    private void setInventory(GridPane ui) {
         Label player = new Label(playerName + " | ");
         player.setId("playerName");
         ui.add(player, 1, 0);
@@ -80,104 +132,88 @@ public class Main extends Application {
         ui.add(new Label(" Armor: "), 4, 0);
         ui.add(armorLabel, 5, 0);
         ui.add(new Label(" Damage: "), 6, 0);
-        ui.add(damageLabel,7 , 0);
+        ui.add(damageLabel, 7, 0);
         ui.add(new Label(" Coin: "), 8, 0);
-        ui.add(coinLabel,9 , 0);
-
+        ui.add(coinLabel, 9, 0);
         ui.add(new Label(" Inventory: press I "), 40, 0);
-
-
-        window.setOnCloseRequest(e -> {
-            e.consume();
-            closeApp();
-        });
-
-        borderPane = new BorderPane();  // borderPane layout
-        BorderPane innerBorderPane = new BorderPane();  // borderPane layout
-
-        innerBorderPane.setCenter(borderPane);
-
-        innerBorderPane.setTop(ui);    // puts ui to a right pane layout
-        borderPane.setCenter(canvas);
-        ui.setId("topBar");
-
-        Image overlayImg = new Image("file:./src/main/resources/overlay.png");
-        ImageView overlay = new ImageView();
-        overlay.setImage(overlayImg);
-        HBox box = new HBox();
-        box.getChildren().add(overlay);
-        innerBorderPane.getChildren().add(box);
-
-        Scene scene = new Scene(innerBorderPane); // creating the scene filling it with layout
-        scene.getStylesheets().add("style.css");
-
-        primaryStage.setScene(scene); // put's the scene in main window
-        refresh();  // printing
-        scene.setOnKeyPressed(this::onKeyPressed); // Player movement - event listener
-
-        primaryStage.setTitle("Free-range Chicken");
-        primaryStage.show();
     }
 
-    private void closeApp() {   // modal window for closing
+    private GridPane initInventory() {
+        GridPane ui = new GridPane();
+        ui.setPrefWidth(1200);
+        ui.setPrefHeight(80);
+        ui.setPadding(new Insets(20));
+        return ui;
+    }
+
+    private void setWindow(Stage primaryStage) {
+        window = primaryStage;
+        window.setMaxWidth(1200);
+        window.setMaxHeight(800);
+        window.setMinWidth(1200);
+        window.setMinHeight(800);
+    }
+
+    private void closeApp() {
         Boolean answer = ConfirmBox.display("Exit", "Do you want to exit?");
         if (answer) {
             window.close();
         }
     }
 
-    private void onKeyPressed(KeyEvent keyEvent) { // key event
-        boolean succesfullmove = false;
+    private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case UP:
-
-                succesfullmove = map.getPlayer().initMove(Direction.UP.dx, Direction.UP.dy);
-                if (succesfullmove) {
-                    borderPane.setTranslateY(borderPane.getTranslateY()+PIXEL_OFFSET);
-                }
-                map.moveEnemies();
-                ChangeMapIfTrue();
-                refresh();
+                manageMovement(Direction.UP);
                 break;
             case DOWN:
-
-                succesfullmove = map.getPlayer().initMove(Direction.DOWN.dx, Direction.DOWN.dy);
-                if (succesfullmove) {
-                    borderPane.setTranslateY(borderPane.getTranslateY()-PIXEL_OFFSET);
-                }
-                map.moveEnemies();
-                ChangeMapIfTrue();
-                refresh();
+                manageMovement(Direction.DOWN);
                 break;
             case LEFT:
-
-                succesfullmove = map.getPlayer().initMove(Direction.LEFT.dx, Direction.LEFT.dy);
-                if (succesfullmove) {
-                    borderPane.setTranslateX(borderPane.getTranslateX()+ PIXEL_OFFSET);
-                }
-                map.moveEnemies();
-                ChangeMapIfTrue();
-                refresh();
+                manageMovement(Direction.LEFT);
                 break;
             case RIGHT:
-
-                succesfullmove =  map.getPlayer().initMove(Direction.RIGHT.dx, Direction.RIGHT.dy);
-                if (succesfullmove) {
-                    borderPane.setTranslateX(borderPane.getTranslateX()-PIXEL_OFFSET);
-                }
-                map.moveEnemies();
-                ChangeMapIfTrue();
-                refresh();
+                manageMovement(Direction.RIGHT);
                 break;
             case I:
-                InventoryBox ibox = new InventoryBox();
-                ibox.display(map.getPlayer().getInventory(), map.getPlayer().getCell());
-                refresh();
+                getInventory();
                 break;
             case C:
-                CheatMenu.display(map.getPlayer());
-                refresh();
+                getCheat();
                 break;
+        }
+
+    }
+
+    private void getCheat() {
+        CheatMenu.display(map.getPlayer());
+        refreshGameMap();
+    }
+
+    private void getInventory() {
+        InventoryBox ibox = new InventoryBox();
+        ibox.display(map.getPlayer().getInventory(), map.getPlayer().getCell());
+        refreshGameMap();
+    }
+
+
+    private void manageMovement(Direction direction){
+        boolean successfulMove;
+        successfulMove = map.getPlayer().initMove(direction.dx, direction.dy);
+        if (successfulMove) {
+            setFollowCamera(direction);
+        }
+        map.moveEnemies();
+        ChangeMapIfTrue();
+        refreshGameMap();
+    }
+
+    private void setFollowCamera(Direction direction) {
+        switch (direction){
+            case UP ->  borderPane.setTranslateY(borderPane.getTranslateY() + PIXEL_OFFSET);
+            case DOWN ->  borderPane.setTranslateY(borderPane.getTranslateY() - PIXEL_OFFSET);
+            case LEFT ->  borderPane.setTranslateX(borderPane.getTranslateX() + PIXEL_OFFSET);
+            case RIGHT ->  borderPane.setTranslateX(borderPane.getTranslateX() - PIXEL_OFFSET);
         }
 
     }
@@ -191,15 +227,15 @@ public class Main extends Application {
         }
     }
 
-    private boolean isNewMap(){
+    private boolean isNewMap() {
         return isNextMap || isPreviousMap;
     }
 
-    private boolean isDungeonMovement(){
+    private boolean isDungeonMovement() {
         return isEnteringDungeon || isExitingDungeon;
     }
 
-    public void initNewMap(Boolean isDungeon){
+    public void initNewMap(Boolean isDungeon) {
         Key.count = 0;
         borderPane.setTranslateX(0);
         borderPane.setTranslateY(0);
@@ -212,36 +248,58 @@ public class Main extends Application {
         map.getPlayer().setCell(newCell);
     }
 
-    public void generateMapFileName(){
-        if (isNextMap){
-            if(isLasRound){winGame();}
-            if(currentMap < nameOfFiles.size()-1){
-                currentMap++;
-                mapFilename = nameOfFiles.get(currentMap);
-                if(mapFilename.equals(lastMap)){
-                    isLasRound = true;
-                }
-                isNextMap = false;
+    public void generateMapFileName() {
+        if (isNextMap) {
+            if (isLasRound) {
+                winGame();
+            }
+            if (currentMap < nameOfFiles.size() - 1) {
+                moveToNextMap();
             }
         }
-        if (isPreviousMap){
-            if(currentMap > 0){
-                currentMap--;
-                mapFilename = nameOfFiles.get(currentMap);
-                isPreviousMap = false;
+        if (isPreviousMap) {
+            if (currentMap > 0) {
+                moveToPreviousMap();
             }
         }
     }
 
-    public void generateDungeonFileName(){
-        if (isEnteringDungeon){
-            mapFilename = nameOfDungeonFiles.get(currentMap);
-            isEnteringDungeon = false;
+    private void moveToNextMap() {
+        currentMap++;
+        mapFilename = nameOfFiles.get(currentMap);
+        if (isLastMap()) {
+            isLasRound = true;
         }
-        if (isExitingDungeon){
-            mapFilename = nameOfFiles.get(currentMap);
-            isExitingDungeon = false;
+        isNextMap = false;
+    }
+
+    private boolean isLastMap() {
+        return mapFilename.equals(lastMap);
+    }
+
+    private void moveToPreviousMap() {
+        currentMap--;
+        mapFilename = nameOfFiles.get(currentMap);
+        isPreviousMap = false;
+    }
+
+    public void generateDungeonFileName() {
+        if (isEnteringDungeon) {
+            enterDungeon();
         }
+        if (isExitingDungeon) {
+            exitDungeon();
+        }
+    }
+
+    private void enterDungeon() {
+        mapFilename = nameOfDungeonFiles.get(currentMap);
+        isEnteringDungeon = false;
+    }
+
+    private void exitDungeon() {
+        mapFilename = nameOfFiles.get(currentMap);
+        isExitingDungeon = false;
     }
 
     private List<String> setMapNames() {
@@ -267,33 +325,52 @@ public class Main extends Application {
         canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
                 map.getHeight() * Tiles.TILE_WIDTH);
-        refresh();
+        refreshGameMap();
     }
 
-    private void refresh() {        // This method responsible for printing
+    private void refreshGameMap() {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
-            for (int y = 0; y < map.getHeight(); y++) {
-                Cell cell = map.getCell(x, y);
-                if (cell.getActor() != null) {
-                    Tiles.drawTile(context, cell.getActor(), x, y); // draws player on ui
-                } else if (cell.getItem() != null) {        // draws items on ui
-                    Tiles.drawTile(context, cell.getItem(), x, y);
-                } else {
-                    Tiles.drawTile(context, cell, x, y); // draws empty on ui
-                }
-            }
+                fillRow(x);
         }
+        setInventoryLabels();
+    }
 
-        healthLabel.setText("" + map.getPlayer().getHealth() + " Hp "); // represents health
-        damageLabel.setText("" + map.getPlayer().getDamage() + " Dp "); // represents health
-        armorLabel.setText("" + map.getPlayer().getArmor() + " "); // represents health
-        coinLabel.setText("" + map.getPlayer().getCoin() + " "); // represents health
+    private void fillRow(int x) {
+        for (int y = 0; y < map.getHeight(); y++) {
+            Cell cell = map.getCell(x, y);
+            getCellIcon(x, y, cell);
+        }
+    }
+
+    private void setInventoryLabels() {
+        healthLabel.setText("" + map.getPlayer().getHealth() + " Hp ");
+        damageLabel.setText("" + map.getPlayer().getDamage() + " Dp ");
+        armorLabel.setText("" + map.getPlayer().getArmor() + " ");
+        coinLabel.setText("" + map.getPlayer().getCoin() + " ");
+    }
+
+    private void getCellIcon(int x, int y, Cell cell) {
+        if (isActor(cell)) {
+            Tiles.drawTile(context, cell.getActor(), x, y);
+        } else if (isItem(cell)) {
+            Tiles.drawTile(context, cell.getItem(), x, y);
+        } else {
+            Tiles.drawTile(context, cell, x, y);
+        }
+    }
+
+    private boolean isItem(Cell cell) {
+        return cell.getItem() != null;
+    }
+
+    private boolean isActor(Cell cell) {
+        return cell.getActor() != null;
     }
 
 
-    private void winGame(){
+    private void winGame() {
         WinGameBox.display();
         System.exit(0);
     }
