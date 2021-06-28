@@ -1,0 +1,93 @@
+.root {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Courier New", Arial, sans-serif;
+    -fx-base: rgb(132, 145, 47);
+    -fx-background: rgb(0, 0, 0);
+}
+
+#topBar{
+    -fx-font-family: monospace;
+    -fx-font-size: 14pt;
+    -fx-background-color: black;
+    -fx-effect: dropshadow(three-pass-box, #ff0000, 40, 0.5, 0, 0);
+    -fx-text-fill: red;
+    -fx-border-color: black;
+    -fx-font-weight: bold;
+    -fx-padding: 20px 20px;
+}
+
+#gameOver{
+    -fx-background-image: url("gameover.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 80% 80%;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+#inventoryList{
+    -fx-font-size: 14pt;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, darkgrey, 10, 0.1, 0, 0);
+}
+.button{
+    -fx-background-color:
+            #000000,
+            linear-gradient(#7ebcea, #2f4b8f),
+            linear-gradient(#426ab7, #263e75),
+            linear-gradient(#395cab, #223768);
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-text-alignment: center;
+    -fx-padding: 12 20 12 20;
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
+}
+.button:hover {
+    -fx-background-color: orange;
+}
+
+#inventoryGrid{
+    -fx-cell-size: 3;
+    -fx-background-image: url("inv.jpeg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+    -fx-alignment: center;
+    -fx-column-halignment: center;
+    -fx-column-valignment: center;
+    -fx-padding: 20px;
+    -fx-border-color: black;
+    /*-fx-grid-lines-visible: true;*/
+}
+
+#alertmsg{
+    -fx-padding: 12 30 12 30;
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+#confirmmsg{
+    -fx-padding: 12 30 12 30;
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+#playerName{
+    -fx-text-fill: yellow;
+    -fx-font-size: 30px;
+}
+
+#winGame{
+    -fx-background-image: url("gamewon_copy.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 80% 80%;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+
+}
