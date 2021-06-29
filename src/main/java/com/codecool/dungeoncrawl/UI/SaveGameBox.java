@@ -16,7 +16,7 @@ import java.util.List;
 
 public class SaveGameBox {
    static String answer = null;
-
+    private static TextField textField;
     public static String display(List<GameState> gameStates){
         Stage window = new Stage();
         int counter = 1;
@@ -25,7 +25,7 @@ public class SaveGameBox {
         VBox basicLayout = new VBox(10);
         basicLayout.setId("layout");
         basicLayout.setAlignment(Pos.CENTER);
-        TextField textField = generateTopTextField(basicLayout);
+        textField = generateTopTextField(basicLayout);
 
         generateSavedGamesToCenterLayout(gameStates, counter, basicLayout);
         createButtonsForSave(window, basicLayout, textField);
@@ -53,7 +53,7 @@ public class SaveGameBox {
 
     private static TextField generateTopTextField(VBox basicLayout) {
         VBox topLayout = new VBox(10);
-        Label label = new Label("Please enter a name for save file:");
+        Label label = new Label("Please enter a name for save file\nor choose a file to overwrite:");
         label.setId("message");
         TextField textField = new TextField ();
         textField.setId("textField");
@@ -83,6 +83,10 @@ public class SaveGameBox {
             savedGameBtn.setFont(Font.font("Verdana"));
             savedGameBtn.setId("savedGameBtn");
             layout.getChildren().add(savedGameBtn);
+            savedGameBtn.setOnAction( e -> {
+                answer = state.getSaveName();
+                textField.setText(state.getSaveName());
+            });
             counter++;
         }
     }
