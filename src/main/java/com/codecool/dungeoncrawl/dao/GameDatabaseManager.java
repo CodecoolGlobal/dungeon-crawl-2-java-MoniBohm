@@ -40,24 +40,32 @@ public class GameDatabaseManager {
         return dataSource;
     }
 
-    public void savePlayer(PlayerModel player) {
-        playerDao.add(player);
+    public void saveGameState(GameMap map, String mapFilename, int currentMap) {
+        Player player = map.getPlayer();
+        PlayerModel playerModel = new PlayerModel(player);
+        savePlayer(playerModel);
+        saveGameMap(map, mapFilename, currentMap, playerModel);
     }
 
-    public void saveGameMap(GameMap map, String mapFilename, PlayerModel player) {
+    public void saveGameMap(GameMap map, String mapFilename, int currentMap, PlayerModel playerModel) {
 //        java.sql.Date date=new java.sql.Date(millis);
         long millis=System.currentTimeMillis();
         java.sql.Date date=new java.sql.Date(millis);
-        GameState model = new GameState(mapFilename, date, player);
+        GameState model = new GameState(mapFilename, currentMap, date, playerModel);
         gameStateDao.add(model);
 
     }
 
-    public void saveGameState(GameMap map, String mapFilename, int currentMap) {
-        Player player = map.getPlayer();
-        PlayerModel playerModel = new PlayerModel(player);
-        saveGameMap(map, mapFilename, playerModel);
+    public void savePlayer(PlayerModel playerModel) {
+        if (playerAlreadyInDatabase(playerModel.getPlayerHash())) {
+            playerDao.update(playerModel);
+        } else {
+            playerDao.add(playerModel);
+        }
 
-        savePlayer(playerModel);
+    }
+
+    private boolean playerAlreadyInDatabase(int playerHash) {
+        return playerDao.isPlayerInDb(playerHash);
     }
 }

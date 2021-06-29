@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 
 public class PlayerModel extends BaseModel {
     private String playerName;
+    private int playerHash;
     private int hp;
     private int x;
     private int y;
@@ -17,15 +18,23 @@ public class PlayerModel extends BaseModel {
 
     public PlayerModel(Player player) {
         this.playerName = player.getName();
+        this.playerHash = this.playerName.hashCode();
         this.x = player.getX();
         this.y = player.getY();
-
         this.hp = player.getHealth();
 
     }
 
     public String getPlayerName() {
         return playerName;
+    }
+
+    public int getPlayerHash() {
+        return playerHash;
+    }
+
+    public void setPlayerHash(int playerHash) {
+        this.playerHash = playerHash;
     }
 
     public void setPlayerName(String playerName) {

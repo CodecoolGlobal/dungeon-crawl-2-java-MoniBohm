@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap(String mapFile) {
+    public static GameMap loadMap(String mapFile, String playerName) {
         InputStream is = MapLoader.class.getResourceAsStream(mapFile);
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
@@ -156,7 +156,7 @@ public class MapLoader {
                             break;
                         case '@': // player
                             cell.setType(CellType.FLOOR);
-                            map.setPlayer(new Player(cell, "name"));
+                            map.setPlayer(new Player(cell, playerName));
                             break;
                         case 'K': // player
                             cell.setType(CellType.CAGE);

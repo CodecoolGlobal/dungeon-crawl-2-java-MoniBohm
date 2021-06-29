@@ -5,7 +5,6 @@ import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
-import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.SaveState;
@@ -48,7 +47,7 @@ public class Main extends Application {
     List<String> nameOfDungeonFiles = setMapDungeonNames();
     Stage window;
     String mapFilename = nameOfFiles.get(currentMap);
-    GameMap map = MapLoader.loadMap(mapFilename);
+    GameMap map = MapLoader.loadMap(mapFilename, playerName);
     SaveState saveState = new SaveState();
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
@@ -66,7 +65,7 @@ public class Main extends Application {
         launch(args);
     }
 
-    public void testConnection() {
+    public void testDatabaseConnection() {
         try {
             gameDatabaseManager.setup();
         } catch (SQLException throwables) {
@@ -77,8 +76,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        testConnection();
+        testDatabaseConnection();
         playerName = GetPlayerNameAlertBox.display();
+        map.getPlayer().setName(playerName);
         map.collectEnemies();
         GridPane ui = initUI(primaryStage);
         BorderPane innerBorderPane = getBorderPane();
@@ -360,7 +360,7 @@ public class Main extends Application {
     }
 
     public void generateMap() {
-        map = MapLoader.loadMap(mapFilename);
+        map = MapLoader.loadMap(mapFilename, playerName);
         map.collectEnemies();
         canvas = new Canvas(
                 map.getWidth() * Tiles.TILE_WIDTH,
