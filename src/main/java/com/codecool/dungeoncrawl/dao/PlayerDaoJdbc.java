@@ -27,10 +27,6 @@ public class PlayerDaoJdbc implements PlayerDao {
             statement.setInt(5, player.getY());
             statement.executeUpdate();
 
-            ResultSet resultSet = statement.getGeneratedKeys();
-            resultSet.next();
-            player.setPlayerHash(resultSet.getInt(1));
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -38,7 +34,20 @@ public class PlayerDaoJdbc implements PlayerDao {
 
     @Override
     public void update(PlayerModel player) {
-        System.out.println("update");
+        try (Connection conn = dataSource.getConnection()){
+            System.out.println("update");
+            String sql = "UPDATE player SET player_name=?, hp=?, x=?, y=? WHERE player.id=?";
+            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, player.getPlayerName());
+            statement.setInt(2, player.getHp());
+            statement.setInt(3, player.getX());
+            statement.setInt(4, player.getY());
+            statement.setInt(5, player.getPlayerHash());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     public boolean isPlayerInDb(int hashcode) {
