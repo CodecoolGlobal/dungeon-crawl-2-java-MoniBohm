@@ -37,16 +37,16 @@ public class GameDatabaseManager {
         return dataSource;
     }
 
-    public void saveGame(GameMap map, String mapFilename, int currentMap) {
+    public void saveGame(String saveName, GameMap map, String mapFilename, int currentMap) {
         Player player = map.getPlayer();
         PlayerModel playerModel = new PlayerModel(player);
         savePlayer(playerModel);
-        saveGameMap(mapFilename, currentMap, playerModel);
+        saveGameMap(saveName ,mapFilename, currentMap, playerModel);
     }
 
-    public void saveGameMap(String mapFilename, int currentMap, PlayerModel playerModel) {
+    public void saveGameMap(String saveName, String mapFilename, int currentMap, PlayerModel playerModel) {
         Date date = getDate();
-        GameState model = new GameState(mapFilename, currentMap, date, playerModel);
+        GameState model = new GameState(saveName, mapFilename, currentMap, date, playerModel);
         gameStateDao.add(model);
 
     }

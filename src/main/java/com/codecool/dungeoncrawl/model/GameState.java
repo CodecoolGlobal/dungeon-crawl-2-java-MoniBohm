@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class GameState extends BaseModel {
+    private String saveName;
     private Date savedAt;
     private String mapFilename;
     private int currentMap;
@@ -12,9 +13,10 @@ public class GameState extends BaseModel {
     private PlayerModel player;
 
     // Loading constructor
-    public GameState(int id, String mapFilename, int currentMap, Date savedAt, PlayerModel player) {
+    public GameState(int id, String saveName, String mapFilename, int currentMap, Date savedAt, PlayerModel player) {
         this.id = id;
         this.mapFilename = mapFilename;
+        this.saveName = saveName;
         this.currentMap = currentMap;
         this.savedAt = savedAt;
         this.player = player;
@@ -22,11 +24,20 @@ public class GameState extends BaseModel {
 
 
     // Saving constructor
-    public GameState(String mapFilename, int currentMap, Date savedAt, PlayerModel player) {
+    public GameState(String saveName, String mapFilename, int currentMap, Date savedAt, PlayerModel player) {
         this.mapFilename = mapFilename;
+        this.saveName = saveName;
         this.currentMap = currentMap;
         this.savedAt = savedAt;
         this.player = player;
+    }
+
+    public String getSaveName() {
+        return saveName;
+    }
+
+    public void setSaveName(String saveName) {
+        this.saveName = saveName;
     }
 
     public Date getSavedAt() {

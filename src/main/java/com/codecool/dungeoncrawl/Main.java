@@ -208,8 +208,12 @@ public class Main extends Application {
     private void getSaveBox() {
         int playerId = map.getPlayer().getHash();
         List<GameState> gameStates = gameDatabaseManager.getGameStateDao().getAll(playerId);
-        SaveBox.display(gameStates);
-        gameDatabaseManager.saveGame(map, mapFilename, currentMap);
+        String saveName = SaveGameBox.display(gameStates);
+        System.out.println(saveName);
+        if(saveName != null){
+            gameDatabaseManager.saveGame(saveName ,map, mapFilename, currentMap);
+        }
+
     }
 
     private void getCheat() {
