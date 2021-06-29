@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
+import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.SaveState;
 import javafx.application.Application;
@@ -70,7 +71,6 @@ public class Main extends Application {
             gameDatabaseManager.setup();
         } catch (SQLException throwables) {
             System.err.println("Could not connect to the database.");
-            return;
         }
     }
 
@@ -123,6 +123,7 @@ public class Main extends Application {
         scene.setOnKeyPressed(this::onKeyPressed);
         scene.setOnKeyReleased(this::onKeyReleased);
     }
+
     private void onKeyReleased(KeyEvent keyEvent) {
         KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
         KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
@@ -132,7 +133,6 @@ public class Main extends Application {
             exit();
         }
     }
-
 
     private void setTitle(Stage primaryStage) {
         primaryStage.setTitle("Free-range Chicken");
@@ -193,35 +193,21 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-//        if (keyCombinationCTRLS.match(keyEvent)) {
-//            gameDatabaseManager.savePlayer(map.getPlayer());
-//            System.out.println("CTRL + S Pressed");
-//
-//        }
         switch (keyEvent.getCode()) {
-            case UP:
-                manageMovement(Direction.UP);
-                break;
-            case DOWN:
-                manageMovement(Direction.DOWN);
-                break;
-            case LEFT:
-                manageMovement(Direction.LEFT);
-                break;
-            case RIGHT:
-                manageMovement(Direction.RIGHT);
-                break;
-            case I:
-                getInventory();
-                break;
-            case C:
-                getCheat();
-                break;
-            case S:
-                gameDatabaseManager.saveGameState(map, mapFilename, currentMap);
-                break;
+            case UP -> manageMovement(Direction.UP);
+            case DOWN -> manageMovement(Direction.DOWN);
+            case LEFT -> manageMovement(Direction.LEFT);
+            case RIGHT -> manageMovement(Direction.RIGHT);
+            case I -> getInventory();
+            case C -> getCheat();
+            case S -> getSaveBox();
+//            case S -> gameDatabaseManager.saveGame(map, mapFilename, currentMap);
         }
+    }
 
+    private void getSaveBox() {
+        int playerId = map.getPlayer().getId();
+        List<GameState> gameStates = gameDatabaseManager.getGameStateDao().getAll(playerId);
     }
 
     private void getCheat() {
@@ -236,7 +222,7 @@ public class Main extends Application {
     }
 
 
-    private void manageMovement(Direction direction){
+    private void manageMovement(Direction direction) {
         boolean successfulMove;
         successfulMove = map.getPlayer().initMove(direction.dx, direction.dy);
         if (successfulMove) {
@@ -248,11 +234,11 @@ public class Main extends Application {
     }
 
     private void setFollowCamera(Direction direction) {
-        switch (direction){
-            case UP ->  borderPane.setTranslateY(borderPane.getTranslateY() + PIXEL_OFFSET);
-            case DOWN ->  borderPane.setTranslateY(borderPane.getTranslateY() - PIXEL_OFFSET);
-            case LEFT ->  borderPane.setTranslateX(borderPane.getTranslateX() + PIXEL_OFFSET);
-            case RIGHT ->  borderPane.setTranslateX(borderPane.getTranslateX() - PIXEL_OFFSET);
+        switch (direction) {
+            case UP -> borderPane.setTranslateY(borderPane.getTranslateY() + PIXEL_OFFSET);
+            case DOWN -> borderPane.setTranslateY(borderPane.getTranslateY() - PIXEL_OFFSET);
+            case LEFT -> borderPane.setTranslateX(borderPane.getTranslateX() + PIXEL_OFFSET);
+            case RIGHT -> borderPane.setTranslateX(borderPane.getTranslateX() - PIXEL_OFFSET);
         }
 
     }
@@ -372,7 +358,7 @@ public class Main extends Application {
         context.setFill(Color.BLACK);
         context.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (int x = 0; x < map.getWidth(); x++) {
-                fillRow(x);
+            fillRow(x);
         }
         setInventoryLabels();
     }

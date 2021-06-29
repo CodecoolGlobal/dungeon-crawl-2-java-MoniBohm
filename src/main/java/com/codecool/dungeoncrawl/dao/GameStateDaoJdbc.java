@@ -24,7 +24,7 @@ public class GameStateDaoJdbc implements GameStateDao {
             statement.setString(1, state.getMapFilename());
             statement.setInt(2, state.getCurrentMap());
             statement.setDate(3, state.getSavedAt());
-            statement.setInt(4, state.getPlayer().getPlayerHash());
+            statement.setInt(4, state.getPlayer().getPlayerId());
 
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
@@ -34,36 +34,76 @@ public class GameStateDaoJdbc implements GameStateDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
     public void update(GameState state) {
-//        try (Connection conn = dataSource.getConnection()){
-//            String sql = "UPDATE player " +
-//                    "SET player_name=?, hp=?, x=?, y=? " +
-//                    "WHERE player.id=?";
-//
-//            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-//            statement.setString(1, player.getPlayerName());
-//            statement.setInt(2, player.getHp());
-//            statement.setInt(3, player.getX());
-//            statement.setInt(4, player.getY());
-//            statement.setInt(5, player.getPlayerHash());
-//            statement.executeUpdate();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "UPDATE game_state " +
+                    "SET map_filename=?, current_map=?, saved_at=?, player_id=?" +
+                    "WHERE game_state.id=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
 
+            statement.setString(1, state.getMapFilename());
+            statement.setInt(2, state.getCurrentMap());
+            statement.setDate(3, state.getSavedAt());
+            statement.setInt(4, state.getPlayer().getPlayerId());
+            statement.setInt(5, state.getId());
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public GameState get(int id) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT gs.id, gs.map_filename, gs.current_map, gs.saved_at, " +
+                         "p.id, p.player_name, p.hp, p.damage, p.armor, p.x, p.y, p.inventory" +
+                         " FROM game_state gs INNER JOIN player p ON p.id = gs.player_id WHERE gs.id=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            return convertToGameStates(resultSet).get(0);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public List<GameState> getAll() {
-        return null;
+    public List<GameState> getAll(int playerId) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT * FROM game_state gs INNER JOIN player p ON p.id = gs.player_id WHERE p.id=? ORDER BY saved_at DESC";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, playerId);
+            ResultSet resultSet = statement.executeQuery();
+            return convertToGameStates(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<GameState> convertToGameStates(ResultSet resultSet) throws SQLException {
+        List<GameState> result = new ArrayList<>();
+        while (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            String mapFilename = resultSet.getString(2);
+            int currentMap = resultSet.getInt(3);
+            Date savedAt = resultSet.getDate(4);
+            int playerId = resultSet.getInt(5);
+            String playerName = resultSet.getString(6);
+            int hp = resultSet.getInt(7);
+            int damage = resultSet.getInt(8);
+            int armor = resultSet.getInt(9);
+            int x = resultSet.getInt(10);
+            int y = resultSet.getInt(11);
+            String inventory = resultSet.getString(12);
+            PlayerModel player = new PlayerModel(playerId, playerName, hp, damage, armor, x, y, inventory);
+
+            result.add(new GameState(id, mapFilename, currentMap, savedAt, player));
+        }
+        return result;
     }
 }

@@ -2,7 +2,6 @@ package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
-import com.codecool.dungeoncrawl.model.BaseModel;
 import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 import org.postgresql.ds.PGSimpleDataSource;
@@ -10,8 +9,6 @@ import org.postgresql.ds.PGSimpleDataSource;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.sql.Date;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 public class GameDatabaseManager {
     private PlayerDao playerDao;
@@ -36,28 +33,30 @@ public class GameDatabaseManager {
         System.out.println("Trying to connect");
         dataSource.getConnection().close();
         System.out.println("Connection ok.");
-        System.out.println(dataSource);
         return dataSource;
     }
 
-    public void saveGameState(GameMap map, String mapFilename, int currentMap) {
+    public void saveGame(GameMap map, String mapFilename, int currentMap) {
         Player player = map.getPlayer();
         PlayerModel playerModel = new PlayerModel(player);
         savePlayer(playerModel);
-        saveGameMap(map, mapFilename, currentMap, playerModel);
+        saveGameMap(mapFilename, currentMap, playerModel);
     }
 
-    public void saveGameMap(GameMap map, String mapFilename, int currentMap, PlayerModel playerModel) {
-//        java.sql.Date date=new java.sql.Date(millis);
-        long millis=System.currentTimeMillis();
-        java.sql.Date date=new java.sql.Date(millis);
+    public void saveGameMap(String mapFilename, int currentMap, PlayerModel playerModel) {
+        Date date = getDate();
         GameState model = new GameState(mapFilename, currentMap, date, playerModel);
         gameStateDao.add(model);
 
     }
 
+    private Date getDate() {
+        long millis=System.currentTimeMillis();
+        return new Date(millis);
+    }
+
     public void savePlayer(PlayerModel playerModel) {
-        if (playerAlreadyInDatabase(playerModel.getPlayerHash())) {
+        if (playerAlreadyInDatabase(playerModel.getPlayerId())) {
             playerDao.update(playerModel);
         } else {
             playerDao.add(playerModel);
@@ -67,5 +66,13 @@ public class GameDatabaseManager {
 
     private boolean playerAlreadyInDatabase(int playerHash) {
         return playerDao.isPlayerInDb(playerHash);
+    }
+
+    public PlayerDao getPlayerDao() {
+        return playerDao;
+    }
+
+    public GameStateDao getGameStateDao() {
+        return gameStateDao;
     }
 }

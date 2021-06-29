@@ -11,6 +11,17 @@ public class GameState extends BaseModel {
     private List<String> discoveredMaps = new ArrayList<>();
     private PlayerModel player;
 
+    // Loading constructor
+    public GameState(int id, String mapFilename, int currentMap, Date savedAt, PlayerModel player) {
+        this.id = id;
+        this.mapFilename = mapFilename;
+        this.currentMap = currentMap;
+        this.savedAt = savedAt;
+        this.player = player;
+    }
+
+
+    // Saving constructor
     public GameState(String mapFilename, int currentMap, Date savedAt, PlayerModel player) {
         this.mapFilename = mapFilename;
         this.currentMap = currentMap;
