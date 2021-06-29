@@ -59,11 +59,51 @@ public class GameStateDaoJdbc implements GameStateDao {
 
     @Override
     public GameState get(int id) {
-        return null;
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT gs.id, gs.map_filename, gs.current_map, gs.saved_at, " +
+                         "p.id, p.player_name, p.hp, p.damage, p.armor, p.x, p.y, p.inventory" +
+                         " FROM game_state gs INNER JOIN player p ON p.id = gs.player_id WHERE gs.id=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            return convertToGameStates(resultSet).get(0);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public List<GameState> getAll() {
-        return null;
+    public List<GameState> getAll(int playerId) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT * FROM game_state gs INNER JOIN player p ON p.id = gs.player_id WHERE p.id=? ORDER BY saved_at DESC";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, playerId);
+            ResultSet resultSet = statement.executeQuery();
+            return convertToGameStates(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<GameState> convertToGameStates(ResultSet resultSet) throws SQLException {
+        List<GameState> result = new ArrayList<>();
+        while (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            String mapFilename = resultSet.getString(2);
+            int currentMap = resultSet.getInt(3);
+            Date savedAt = resultSet.getDate(4);
+            int playerId = resultSet.getInt(5);
+            String playerName = resultSet.getString(6);
+            int hp = resultSet.getInt(7);
+            int damage = resultSet.getInt(8);
+            int armor = resultSet.getInt(9);
+            int x = resultSet.getInt(10);
+            int y = resultSet.getInt(11);
+            String inventory = resultSet.getString(12);
+            PlayerModel player = new PlayerModel(playerId, playerName, hp, damage, armor, x, y, inventory);
+
+            result.add(new GameState(id, mapFilename, currentMap, savedAt, player));
+        }
+        return result;
     }
 }

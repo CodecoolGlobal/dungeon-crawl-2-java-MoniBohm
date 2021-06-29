@@ -16,7 +16,7 @@ public class PlayerModel extends BaseModel {
     private int y;
     private String inventory;
 
-
+    // Loading constructor
     public PlayerModel(int playerHash, String playerName, int hp, int damage, int armor, int x, int y, String inventory) {
         this.playerName = playerName;
         this.playerHash = playerHash;
@@ -28,9 +28,10 @@ public class PlayerModel extends BaseModel {
         this.inventory = inventory;
     }
 
+    // Saving constructor
     public PlayerModel(Player player) {
         this.playerName = player.getName();
-        this.playerHash = this.playerName.hashCode();
+        this.playerHash = Math.abs(this.playerName.hashCode());
         this.x = player.getX();
         this.y = player.getY();
         this.hp = player.getHealth();

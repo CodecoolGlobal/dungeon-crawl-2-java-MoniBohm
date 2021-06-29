@@ -229,7 +229,7 @@ public class Player extends Actor {
         inventory.add(item);
     }
 
-    public List getInventory() {
+    public List<Item> getInventory() {
         return inventory;
     }
 
