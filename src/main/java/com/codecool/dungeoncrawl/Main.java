@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.SaveState;
@@ -32,7 +33,7 @@ import java.util.List;
 
 
 public class Main extends Application {
-    GameDatabaseManager db = new GameDatabaseManager();
+    GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
     public static final int PIXEL_OFFSET = 32;
     public static boolean isNextMap;
     public static boolean isEnteringDungeon;
@@ -66,7 +67,7 @@ public class Main extends Application {
     }
     public void testConnection() {
         try {
-            db.setup();
+            gameDatabaseManager.setup();
         } catch (SQLException throwables) {
             System.err.println("Could not connect to the database.");
             return;
@@ -118,7 +119,18 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refreshGameMap();
         scene.setOnKeyPressed(this::onKeyPressed);
+        scene.setOnKeyReleased(this::onKeyReleased);
     }
+    private void onKeyReleased(KeyEvent keyEvent) {
+        KeyCombination exitCombinationMac = new KeyCodeCombination(KeyCode.W, KeyCombination.SHORTCUT_DOWN);
+        KeyCombination exitCombinationWin = new KeyCodeCombination(KeyCode.F4, KeyCombination.ALT_DOWN);
+        if (exitCombinationMac.match(keyEvent)
+                || exitCombinationWin.match(keyEvent)
+                || keyEvent.getCode() == KeyCode.ESCAPE) {
+            exit();
+        }
+    }
+
 
     private void setTitle(Stage primaryStage) {
         primaryStage.setTitle("Free-range Chicken");
@@ -179,9 +191,11 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-        if (keyCombinationCTRLS.match(keyEvent)) {
-            System.out.println("CTRL + S Pressed");
-        }
+//        if (keyCombinationCTRLS.match(keyEvent)) {
+//            gameDatabaseManager.savePlayer(map.getPlayer());
+//            System.out.println("CTRL + S Pressed");
+//
+//        }
         switch (keyEvent.getCode()) {
             case UP:
                 manageMovement(Direction.UP);
@@ -200,6 +214,10 @@ public class Main extends Application {
                 break;
             case C:
                 getCheat();
+                break;
+            case S:
+                Player player = map.getPlayer();
+                gameDatabaseManager.savePlayer(player);
                 break;
         }
 
@@ -393,6 +411,15 @@ public class Main extends Application {
 
     private void winGame() {
         WinGameBox.display();
+        System.exit(0);
+    }
+
+    private void exit() {
+        try {
+            stop();
+        } catch (Exception e) {
+            System.exit(1);
+        }
         System.exit(0);
     }
 }
