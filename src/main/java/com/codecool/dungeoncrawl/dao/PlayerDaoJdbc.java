@@ -36,15 +36,18 @@ public class PlayerDaoJdbc implements PlayerDao {
     public void update(PlayerModel player) {
         try (Connection conn = dataSource.getConnection()){
             String sql = "UPDATE player " +
-                         "SET player_name=?, hp=?, x=?, y=? " +
+                         "SET player_name=?, hp=?, damage=?,armor=?, x=?, y=?, inventory=?" +
                          "WHERE player.id=?";
 
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, player.getPlayerName());
             statement.setInt(2, player.getHp());
-            statement.setInt(3, player.getX());
-            statement.setInt(4, player.getY());
-            statement.setInt(5, player.getPlayerHash());
+            statement.setInt(3, player.getDamage());
+            statement.setInt(4, player.getArmor());
+            statement.setInt(5, player.getX());
+            statement.setInt(6, player.getY());
+            statement.setInt(7, player.getPlayerHash());
+            statement.setString(8, player.getInventory());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

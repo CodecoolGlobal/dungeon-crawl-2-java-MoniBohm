@@ -216,14 +216,6 @@ public class InventoryBox {
     private void turnRandomEnemyToFire() {
     }
 
-    private String inventoryToString(List<Item> inventory) {
-        StringBuilder sb = new StringBuilder();
-        for (Item item : inventory) {
-            sb.append(item).append("  \n");
-        }
-        return sb.toString();
-    }
-
     private Set<String> createSetFromInventory() {
         List<String> nameOfElements = new ArrayList<>();
         for (Item inv : inventory) {

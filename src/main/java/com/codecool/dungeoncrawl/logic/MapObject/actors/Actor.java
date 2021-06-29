@@ -124,4 +124,10 @@ public abstract class Actor implements Drawable {
         return cell.getY();
     }
 
+    //TODO
+    public void setCellCoordinates(int x, int y)
+    {
+
+    }
+
 }
