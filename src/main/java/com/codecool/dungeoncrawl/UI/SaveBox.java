@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.UI;
 
+import com.codecool.dungeoncrawl.model.GameState;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,17 +10,20 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class SaveBox {
    static Boolean answer;
 
-    public static Boolean display(String title, String msg){
+    public static Boolean display(List<GameState> gameStates){
+        System.out.println(gameStates);
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(title);
+        window.setTitle("Save games");
         window.setMinWidth(350);
         window.setMinHeight(350);
         Label label = new Label();
-        label.setText(msg);
+        label.setText("msg");
         label.setFont(Font.font("Verdana"));
         label.setId("confirmmsg");
 

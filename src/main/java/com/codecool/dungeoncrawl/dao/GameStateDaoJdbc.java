@@ -93,13 +93,13 @@ public class GameStateDaoJdbc implements GameStateDao {
             int currentMap = resultSet.getInt(3);
             Date savedAt = resultSet.getDate(4);
             int playerId = resultSet.getInt(5);
-            String playerName = resultSet.getString(6);
-            int hp = resultSet.getInt(7);
-            int damage = resultSet.getInt(8);
-            int armor = resultSet.getInt(9);
-            int x = resultSet.getInt(10);
-            int y = resultSet.getInt(11);
-            String inventory = resultSet.getString(12);
+            String playerName = resultSet.getString(7);
+            int hp = resultSet.getInt(8);
+            int damage = resultSet.getInt(9);
+            int armor = resultSet.getInt(10);
+            int x = resultSet.getInt(11);
+            int y = resultSet.getInt(12);
+            String inventory = resultSet.getString(13);
             PlayerModel player = new PlayerModel(playerId, playerName, hp, damage, armor, x, y, inventory);
 
             result.add(new GameState(id, mapFilename, currentMap, savedAt, player));

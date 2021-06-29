@@ -39,7 +39,7 @@ public class Main extends Application {
     public static boolean isEnteringDungeon;
     public static boolean isExitingDungeon;
     public static boolean isPreviousMap;
-    public static String playerName;
+    public static String playerName = "defauasdsadlt";
     private String lastMap = "/map3.txt";
     private boolean isLasRound = false;
     private int currentMap = 0;
@@ -206,8 +206,10 @@ public class Main extends Application {
     }
 
     private void getSaveBox() {
-        int playerId = map.getPlayer().getId();
+        int playerId = map.getPlayer().getHash();
         List<GameState> gameStates = gameDatabaseManager.getGameStateDao().getAll(playerId);
+        SaveBox.display(gameStates);
+        gameDatabaseManager.saveGame(map, mapFilename, currentMap);
     }
 
     private void getCheat() {

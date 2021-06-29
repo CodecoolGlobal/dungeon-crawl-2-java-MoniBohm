@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Player extends Actor {
     private String name;
-    private int id;
+    private int Hash;
     public static final int MINIMUM_NR_COIN = 7;
     private List<Item> inventory;
     private static final int HEALTH_INCREASE = 20;
@@ -31,7 +31,7 @@ public class Player extends Actor {
         health = ActorStats.PLAYER.health;
         armor = ActorStats.BUCKET.armor;
         this.name = name;
-        this.id = Math.abs(name.hashCode());
+        this.Hash = Math.abs(this.name.hashCode());
     }
     public String getName() {
         return name;
@@ -39,6 +39,7 @@ public class Player extends Actor {
 
     public void setName(String name) {
         this.name = name;
+        this.Hash = Math.abs(this.name.hashCode());
     }
 
     public void setCell(Cell newCell) {
@@ -263,8 +264,8 @@ public class Player extends Actor {
         return numberOfItem("coin");
     }
 
-    public int getId() {
-        return id;
+    public int getHash() {
+        return Hash;
     }
 }
 

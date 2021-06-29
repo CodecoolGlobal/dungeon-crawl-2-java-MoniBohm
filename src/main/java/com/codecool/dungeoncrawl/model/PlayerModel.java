@@ -31,7 +31,7 @@ public class PlayerModel extends BaseModel {
     // Saving constructor
     public PlayerModel(Player player) {
         this.playerName = player.getName();
-        this.playerId = player.getId();
+        this.playerId = player.getHash();
         this.x = player.getX();
         this.y = player.getY();
         this.hp = player.getHealth();
