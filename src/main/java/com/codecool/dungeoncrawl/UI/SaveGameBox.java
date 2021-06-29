@@ -25,7 +25,7 @@ public class SaveGameBox {
         VBox basicLayout = new VBox(10);
         basicLayout.setId("layout");
         basicLayout.setAlignment(Pos.CENTER);
-        TextField textField = generateTopTextfield(basicLayout, gameStates.get(0).getPlayer().getPlayerName());
+        TextField textField = generateTopTextField(basicLayout);
 
         generateSavedGamesToCenterLayout(gameStates, counter, basicLayout);
         createButtonsForSave(window, basicLayout, textField);
@@ -51,9 +51,9 @@ public class SaveGameBox {
         sp.setFitToWidth(true);
     }
 
-    private static TextField generateTopTextfield(VBox basicLayout, String playerName) {
+    private static TextField generateTopTextField(VBox basicLayout) {
         VBox topLayout = new VBox(10);
-        Label label = new Label("Please enter a name for save file:"+"\n"+"Player: " + playerName);
+        Label label = new Label("Please enter a name for save file:");
         label.setId("message");
         TextField textField = new TextField ();
         textField.setId("textField");
