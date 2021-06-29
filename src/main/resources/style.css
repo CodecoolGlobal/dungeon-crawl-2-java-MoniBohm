@@ -7,23 +7,23 @@
 #savedGameBtn{
     -fx-background-color:
             #000000,
-            linear-gradient(#9932b4, #d00909),
-            linear-gradient(#9932b4, #d00909),
-            linear-gradient(#9932b4, #0e2a58);
-
+            linear-gradient(#7ebcea, #2f4b8f),
+            linear-gradient(#426ab7, #263e75),
+            linear-gradient(rgba(186, 117, 0, 0.96), rgb(224, 136, 28));
     -fx-background-insets: 0,1,2,3;
-    -fx-background-radius: 3,2,2,2;
+    -fx-background-radius: 6,4,4,4;
     -fx-text-alignment: center;
     -fx-padding: 12 20 12 20;
     -fx-min-width: 250px;
     -fx-min-height: 50px;
     -fx-text-fill: white;
-    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
     -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.8) , 0, 0.0 , 0 , 1);
 }
 #topBar{
     -fx-font-family: monospace;
-    -fx-font-size: 14pt;
+    -fx-font-size: 16pt;
     -fx-background-color: black;
     -fx-effect: dropshadow(three-pass-box, #ff0000, 40, 0.5, 0, 0);
     -fx-text-fill: red;
@@ -79,24 +79,22 @@
     -fx-grid-lines-visible: true;
 }
 
-#alertmsg{
+#message{
     -fx-padding: 12 30 12 30;
     -fx-min-width: 250px;
     -fx-min-height: 50px;
     -fx-text-fill: white;
-    -fx-font-size: 20px;
-}
-#confirmmsg{
-    -fx-padding: 12 30 12 30;
-    -fx-min-width: 250px;
-    -fx-min-height: 50px;
-    -fx-text-fill: white;
-    -fx-font-size: 20px;
+    -fx-font-size: 24px;
 }
 
 #playerName{
     -fx-text-fill: yellow;
     -fx-font-size: 30px;
+}
+#textField{
+    -fx-padding: 20px;
+    -fx-font-size: 20px;
+    -fx-border-radius: 10px;
 }
 
 #winGame{
@@ -105,5 +103,43 @@
     -fx-background-size: 80% 80%;
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+#scrollPane{
+    -fx-padding: 20px;
+}
+#centerLayout{
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
+#layout{
+    -fx-padding: 20px;
+}
 
+.scroll-pane{
+    -fx-border-color: #5606a7;
+}
+
+.thumb{
+    -fx-background-color:
+            #000000,
+            linear-gradient(#6c1ca5, #9801f6),
+            linear-gradient(#ffffff, #ffffff),
+            linear-gradient(rgba(226, 146, 23, 0.96), rgb(236, 205, 149));
+    -fx-padding: 10px;
+}
+
+.scroll-bar:vertical{
+    -fx-background-color:
+            #000000,
+            linear-gradient(#7ebcea, #2f4b8f),
+            linear-gradient(#426ab7, #263e75),
+            linear-gradient(#395cab, #223768);
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+}
+.scroll-bar:vertical .thumb:hover{
+    -fx-background-color :derive(#4D4C4F,10.0%);
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
 }
