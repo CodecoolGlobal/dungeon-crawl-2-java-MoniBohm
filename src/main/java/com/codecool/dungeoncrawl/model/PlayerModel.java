@@ -10,26 +10,22 @@ public class PlayerModel extends BaseModel {
     private String playerName;
     private int playerHash;
     private int hp;
+    private int armor;
+    private int damage;
     private int x;
     private int y;
-    private int armor;
-    private int  damage;
     private String inventory;
 
-    public PlayerModel(String playerName, int x, int y) {
-        this.playerName = playerName;
-        this.x = x;
-        this.y = y;
-    }
 
-
-
-    public PlayerModel(int playerHash, String playerName,int hp,  int x, int y) {
+    public PlayerModel(int playerHash, String playerName, int hp, int damage, int armor, int x, int y, String inventory) {
         this.playerName = playerName;
         this.playerHash = playerHash;
-        this.x =x;
+        this.x = x;
         this.y = y;
         this.hp = hp;
+        this.armor = damage;
+        this.damage = armor;
+        this.inventory = inventory;
     }
 
     public PlayerModel(Player player) {
