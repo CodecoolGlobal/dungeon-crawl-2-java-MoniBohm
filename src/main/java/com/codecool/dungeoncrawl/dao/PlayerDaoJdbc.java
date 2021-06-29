@@ -1,10 +1,10 @@
 package com.codecool.dungeoncrawl.dao;
 
-import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerDaoJdbc implements PlayerDao {
@@ -35,8 +35,10 @@ public class PlayerDaoJdbc implements PlayerDao {
     @Override
     public void update(PlayerModel player) {
         try (Connection conn = dataSource.getConnection()){
-            System.out.println("update");
-            String sql = "UPDATE player SET player_name=?, hp=?, x=?, y=? WHERE player.id=?";
+            String sql = "UPDATE player " +
+                         "SET player_name=?, hp=?, x=?, y=? " +
+                         "WHERE player.id=?";
+
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, player.getPlayerName());
             statement.setInt(2, player.getHp());
@@ -56,15 +58,8 @@ public class PlayerDaoJdbc implements PlayerDao {
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, hashcode);
             ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
 
-            if (!resultSet.next()) {
-                System.out.println("false");
-                return false;
-            } else {
-                System.out.println("else ág");
-                System.out.println(resultSet.getInt(1));
-                return true;
-            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -73,11 +68,42 @@ public class PlayerDaoJdbc implements PlayerDao {
 
     @Override
     public PlayerModel get(int id) {
-        return null;
+        try (Connection conn = dataSource.getConnection()){
+            String sql = "SELECT * " +
+                         "FROM player " +
+                         "WHERE id=? " +
+                         "ORDER BY player_name";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            return convertToPlayerModel(resultSet).get(0);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public List<PlayerModel> getAll() {
-        return null;
+        try (Connection conn = dataSource.getConnection()){
+            String sql = "SELECT * FROM player ORDER BY player_name";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            return convertToPlayerModel(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private List<PlayerModel> convertToPlayerModel(ResultSet resultSet) throws SQLException {
+        List result = new ArrayList();
+        while(resultSet.next()){
+            int playerId = resultSet.getInt(1);
+            String playerName = resultSet.getString(2);
+            int hp = resultSet.getInt(3);
+            int x = resultSet.getInt(4);
+            int y = resultSet.getInt(5);
+            result.add(new PlayerModel(playerId, playerName, hp, x, y));
+        }
+        return result;
     }
 }

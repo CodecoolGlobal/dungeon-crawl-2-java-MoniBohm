@@ -16,6 +16,16 @@ public class PlayerModel extends BaseModel {
         this.y = y;
     }
 
+
+
+    public PlayerModel(int playerHash, String playerName,int hp,  int x, int y) {
+        this.playerName = playerName;
+        this.playerHash = playerHash;
+        this.x =x;
+        this.y = y;
+        this.hp = hp;
+    }
+
     public PlayerModel(Player player) {
         this.playerName = player.getName();
         this.playerHash = this.playerName.hashCode();
