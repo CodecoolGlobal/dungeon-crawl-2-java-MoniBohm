@@ -23,11 +23,12 @@ public class GetPlayerNameAlertBox {
         window.setMinWidth(250);
 
         Label label = new Label();
-        label.setText("Enter your name please : ");
+        label.setText("Enter your name please: ");
         label.setFont(Font.font("Verdana"));
-        label.setId("alertmsg");
+        label.setId("message");
 
         final TextField name = new TextField();
+        name.setId("textField");
         name.setPrefColumnCount(15);
 
         Button submit = new Button("Start");
@@ -38,6 +39,7 @@ public class GetPlayerNameAlertBox {
 
 
         VBox layout = new VBox(10);
+        layout.setId("layout");
         layout.setAlignment(Pos.CENTER);
         layout.getChildren().add(label);
         layout.getChildren().add(name);

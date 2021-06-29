@@ -19,7 +19,7 @@ public class ConfirmBox {
         Label label = new Label();
         label.setText(msg);
         label.setFont(Font.font("Verdana"));
-        label.setId("confirmmsg");
+        label.setId("message");
 
 
         Button yesBtn = new Button("Yes");
