@@ -65,6 +65,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
     public void testConnection() {
         try {
             gameDatabaseManager.setup();
@@ -73,6 +74,7 @@ public class Main extends Application {
             return;
         }
     }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         testConnection();
@@ -216,8 +218,7 @@ public class Main extends Application {
                 getCheat();
                 break;
             case S:
-                Player player = map.getPlayer();
-                gameDatabaseManager.savePlayer(player);
+                gameDatabaseManager.saveGameState(map, mapFilename, currentMap);
                 break;
         }
 
