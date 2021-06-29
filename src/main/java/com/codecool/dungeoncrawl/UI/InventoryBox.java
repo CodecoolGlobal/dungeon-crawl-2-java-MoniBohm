@@ -238,7 +238,7 @@ public class InventoryBox {
         StringBuilder inventoryToString = new StringBuilder("");
         for(Object element : targetSet){
             int numberOfElement = (int) inventory.stream()
-                    .filter(item1 -> item1.getTileName() == (element))
+                    .filter(item1 -> item1.toString() == (element))
                     .count();
             inventoryToString.append(element).append(": ").append(numberOfElement).append("\n");
         }

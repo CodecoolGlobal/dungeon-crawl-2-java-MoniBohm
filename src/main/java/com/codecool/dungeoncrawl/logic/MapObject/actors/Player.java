@@ -18,9 +18,9 @@ public class Player extends Actor {
     private String name;
     public static final int MINIMUM_NR_COIN = 7;
     private List<Item> inventory;
-    private final int healthIncrease = 20;
-    private final int armorIncrease = 20;
-    private final int weaponIncrease = 20;
+    private static final int HEALTH_INCREASE = 20;
+    private static final int ARMOR_INCREASE = 20;
+    private static final int WEAPON_INCREASE = 20;
 
 
     public Player(Cell cell, String name) {
@@ -166,7 +166,7 @@ public class Player extends Actor {
 
         } else if (itemType instanceof HealthPotion) {
             putItemToInventory(nextCell);
-            setHealth(this.health + healthIncrease);
+            setHealth(this.health + HEALTH_INCREASE);
 
         } else if (itemType instanceof ManaPotion) {
             putItemToInventory(nextCell);
@@ -175,12 +175,12 @@ public class Player extends Actor {
     }
 
     private void setWeapons(Cell nextCell) {
-        setDamage(weaponIncrease);
+        setDamage(WEAPON_INCREASE);
         putItemToInventory(nextCell);
     }
 
     private void setArmor(Cell nextCell) {
-        setArmor(armorIncrease);
+        setArmor(ARMOR_INCREASE);
         putItemToInventory(nextCell);
     }
 
