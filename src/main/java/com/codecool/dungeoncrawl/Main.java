@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.UI.*;
+import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
@@ -15,6 +16,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -22,11 +26,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Main extends Application {
+    GameDatabaseManager db = new GameDatabaseManager();
     public static final int PIXEL_OFFSET = 32;
     public static boolean isNextMap;
     public static boolean isEnteringDungeon;
@@ -52,12 +58,23 @@ public class Main extends Application {
     Label damageLabel = new Label();
     Label coinLabel = new Label();
 
+    final KeyCombination keyCombinationShiftS = new KeyCodeCombination(
+            KeyCode.S, KeyCombination.CONTROL_DOWN);
+
     public static void main(String[] args) {
         launch(args);
     }
-
+    public void testConnection() {
+        try {
+            db.setup();
+        } catch (SQLException throwables) {
+            System.err.println("Could not connect to the database.");
+            return;
+        }
+    }
     @Override
     public void start(Stage primaryStage) throws Exception {
+        testConnection();
         playerName = GetPlayerNameAlertBox.display();
         map.collectEnemies();
         GridPane ui = initUI(primaryStage);
@@ -162,6 +179,9 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+        if (keyCombinationShiftS.match(keyEvent)) {
+            System.out.println("CTRL + S Pressed");
+        }
         switch (keyEvent.getCode()) {
             case UP:
                 manageMovement(Direction.UP);

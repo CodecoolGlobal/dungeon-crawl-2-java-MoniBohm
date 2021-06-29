@@ -20,11 +20,16 @@ public class GameDatabaseManager {
         playerDao.add(model);
     }
 
+    public void testConnection() throws SQLException {
+        PGSimpleDataSource dataSource = (PGSimpleDataSource) connect();
+
+    }
+
     private DataSource connect() throws SQLException {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        String dbName = "test";
-        String user = "test";
-        String password = "test";
+        String dbName = System.getenv("dbName");
+        String user = System.getenv("Username");
+        String password = System.getenv("Password");
 
         dataSource.setDatabaseName(dbName);
         dataSource.setUser(user);
@@ -33,7 +38,7 @@ public class GameDatabaseManager {
         System.out.println("Trying to connect");
         dataSource.getConnection().close();
         System.out.println("Connection ok.");
-
+        System.out.println(dataSource);
         return dataSource;
     }
 }
