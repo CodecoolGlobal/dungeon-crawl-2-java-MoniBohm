@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PlayerModel extends BaseModel {
     private String playerName;
-    private int playerHash;
+    private int playerId;
     private int hp;
     private int armor;
     private int damage;
@@ -17,9 +17,9 @@ public class PlayerModel extends BaseModel {
     private String inventory;
 
     // Loading constructor
-    public PlayerModel(int playerHash, String playerName, int hp, int damage, int armor, int x, int y, String inventory) {
+    public PlayerModel(int playerId, String playerName, int hp, int damage, int armor, int x, int y, String inventory) {
         this.playerName = playerName;
-        this.playerHash = playerHash;
+        this.id = playerId;
         this.x = x;
         this.y = y;
         this.hp = hp;
@@ -31,7 +31,7 @@ public class PlayerModel extends BaseModel {
     // Saving constructor
     public PlayerModel(Player player) {
         this.playerName = player.getName();
-        this.playerHash = Math.abs(this.playerName.hashCode());
+        this.playerId = player.getId();
         this.x = player.getX();
         this.y = player.getY();
         this.hp = player.getHealth();
@@ -54,12 +54,12 @@ public class PlayerModel extends BaseModel {
         return playerName;
     }
 
-    public int getPlayerHash() {
-        return playerHash;
+    public int getPlayerId() {
+        return playerId;
     }
 
-    public void setPlayerHash(int playerHash) {
-        this.playerHash = playerHash;
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 
     public void setPlayerName(String playerName) {

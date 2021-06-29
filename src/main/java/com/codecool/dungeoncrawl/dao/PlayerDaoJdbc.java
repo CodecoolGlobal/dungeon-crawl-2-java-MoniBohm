@@ -20,8 +20,7 @@ public class PlayerDaoJdbc implements PlayerDao {
             String sql = "INSERT INTO player (id, player_name, hp, damage, armor, x, y, inventory)" +
                          "VALUES (?, ?, ?, ?, ?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            System.out.println(player.getPlayerHash());
-            statement.setInt(1, player.getPlayerHash());
+            statement.setInt(1, player.getPlayerId());
             statement.setString(2, player.getPlayerName());
             statement.setInt(3, player.getHp());
             statement.setInt(4, player.getDamage());
@@ -51,7 +50,7 @@ public class PlayerDaoJdbc implements PlayerDao {
             statement.setInt(5, player.getX());
             statement.setInt(6, player.getY());
             statement.setString(7, player.getInventory());
-            statement.setInt(8, player.getPlayerHash());
+            statement.setInt(8, player.getPlayerId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
