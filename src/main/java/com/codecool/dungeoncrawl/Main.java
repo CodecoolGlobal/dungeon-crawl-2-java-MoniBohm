@@ -58,7 +58,7 @@ public class Main extends Application {
     Label damageLabel = new Label();
     Label coinLabel = new Label();
 
-    final KeyCombination keyCombinationShiftS = new KeyCodeCombination(
+    final KeyCombination keyCombinationCTRLS = new KeyCodeCombination(
             KeyCode.S, KeyCombination.CONTROL_DOWN);
 
     public static void main(String[] args) {
@@ -179,7 +179,7 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-        if (keyCombinationShiftS.match(keyEvent)) {
+        if (keyCombinationCTRLS.match(keyEvent)) {
             System.out.println("CTRL + S Pressed");
         }
         switch (keyEvent.getCode()) {
