@@ -22,11 +22,17 @@ public class SaveBox {
         window.setTitle("Save games");
         window.setMinWidth(350);
         window.setMinHeight(350);
-        Label label = new Label();
-        label.setText("msg");
-        label.setFont(Font.font("Verdana"));
-        label.setId("confirmmsg");
-
+        int counter = 0;
+        VBox layout = new VBox(10);
+        Button savedGameBtn;
+        for(GameState state: gameStates){
+            savedGameBtn = new Button();
+            savedGameBtn.setText(state.getSavedAt().toString() + " " + state.getPlayer().getPlayerName() + " " + state.getMapFilename());
+            savedGameBtn.setFont(Font.font("Verdana"));
+            savedGameBtn.setId("savedGameBtn");
+            layout.getChildren().add(savedGameBtn);
+            counter++;
+        }
 
         Button yesBtn = new Button("Save");
         yesBtn.setFont(Font.font("Verdana"));
@@ -42,9 +48,7 @@ public class SaveBox {
             answer = false;
             window.close();
         });
-
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll( label, yesBtn, noBtn);
+        layout.getChildren().addAll(yesBtn, noBtn);
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
