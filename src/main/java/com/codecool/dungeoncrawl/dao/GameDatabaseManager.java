@@ -40,20 +40,23 @@ public class GameDatabaseManager {
         return dataSource;
     }
 
-    public void saveGameState(GameMap map, String mapFilename, int currentMap) {
+    public void saveGame(GameMap map, String mapFilename, int currentMap) {
         Player player = map.getPlayer();
         PlayerModel playerModel = new PlayerModel(player);
         savePlayer(playerModel);
-        saveGameMap(map, mapFilename, currentMap, playerModel);
+        saveGameMap(mapFilename, currentMap, playerModel);
     }
 
-    public void saveGameMap(GameMap map, String mapFilename, int currentMap, PlayerModel playerModel) {
-//        java.sql.Date date=new java.sql.Date(millis);
-        long millis=System.currentTimeMillis();
-        java.sql.Date date=new java.sql.Date(millis);
+    public void saveGameMap(String mapFilename, int currentMap, PlayerModel playerModel) {
+        Date date = getDate();
         GameState model = new GameState(mapFilename, currentMap, date, playerModel);
         gameStateDao.add(model);
 
+    }
+
+    private Date getDate() {
+        long millis=System.currentTimeMillis();
+        return new Date(millis);
     }
 
     public void savePlayer(PlayerModel playerModel) {

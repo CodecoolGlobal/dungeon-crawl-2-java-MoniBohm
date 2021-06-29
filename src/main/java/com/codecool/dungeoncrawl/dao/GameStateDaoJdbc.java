@@ -34,27 +34,27 @@ public class GameStateDaoJdbc implements GameStateDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
     public void update(GameState state) {
-//        try (Connection conn = dataSource.getConnection()){
-//            String sql = "UPDATE player " +
-//                    "SET player_name=?, hp=?, x=?, y=? " +
-//                    "WHERE player.id=?";
-//
-//            PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-//            statement.setString(1, player.getPlayerName());
-//            statement.setInt(2, player.getHp());
-//            statement.setInt(3, player.getX());
-//            statement.setInt(4, player.getY());
-//            statement.setInt(5, player.getPlayerHash());
-//            statement.executeUpdate();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "UPDATE game_state " +
+                    "SET map_filename=?, current_map=?, saved_at=?, player_id=?" +
+                    "WHERE game_state.id=?";
+            PreparedStatement statement = conn.prepareStatement(sql);
 
+            statement.setString(1, state.getMapFilename());
+            statement.setInt(2, state.getCurrentMap());
+            statement.setDate(3, state.getSavedAt());
+            statement.setInt(4, state.getPlayer().getPlayerHash());
+            statement.setInt(5, state.getId());
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

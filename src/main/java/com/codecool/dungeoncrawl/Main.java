@@ -218,7 +218,7 @@ public class Main extends Application {
                 getCheat();
                 break;
             case S:
-                gameDatabaseManager.saveGameState(map, mapFilename, currentMap);
+                gameDatabaseManager.saveGame(map, mapFilename, currentMap);
                 break;
         }
 
