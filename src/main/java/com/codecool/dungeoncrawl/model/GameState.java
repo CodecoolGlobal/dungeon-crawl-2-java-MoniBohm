@@ -1,5 +1,7 @@
 package com.codecool.dungeoncrawl.model;
 
+import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
+
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
@@ -10,35 +12,39 @@ public class GameState extends BaseModel {
     private String mapFilename;
     private int currentMap;
     private List<String> discoveredMaps = new ArrayList<>();
-    private PlayerModel player;
+    private PlayerModel playerModel;
+    private Player player;
 
     // Database Loading constructor
-    public GameState(int id, String saveName, String mapFilename, int currentMap, Date savedAt, PlayerModel player) {
+    public GameState(int id, String saveName, String mapFilename, int currentMap, Date savedAt, PlayerModel playerModel) {
         this.id = id;
         this.mapFilename = mapFilename;
         this.saveName = saveName;
         this.currentMap = currentMap;
         this.savedAt = savedAt;
-        this.player = player;
+        this.playerModel = playerModel;
     }
 
     // File Export Saving constructor
-    public GameState(String mapFilename, int currentMap, Date savedAt, PlayerModel player) {
+    public GameState(String mapFilename, int currentMap, Date savedAt, PlayerModel playerModel, Player player) {
         this.mapFilename = mapFilename;
         this.saveName = null;
         this.currentMap = currentMap;
         this.savedAt = savedAt;
+        this.playerModel = playerModel;
         this.player = player;
+
     }
 
 
     // Database Saving constructor
-    public GameState(String saveName, String mapFilename, int currentMap, Date savedAt, PlayerModel player) {
+    public GameState(String saveName, String mapFilename, int currentMap, Date savedAt, PlayerModel playerModel) {
         this.mapFilename = mapFilename;
         this.saveName = saveName;
         this.currentMap = currentMap;
         this.savedAt = savedAt;
-        this.player = player;
+        this.playerModel = playerModel;
+
     }
 
     public String getSaveName() {
@@ -77,12 +83,12 @@ public class GameState extends BaseModel {
         this.discoveredMaps.add(map);
     }
 
-    public PlayerModel getPlayer() {
-        return player;
+    public PlayerModel getPlayerModel() {
+        return playerModel;
     }
 
 
-    public void setPlayer(PlayerModel player) {
-        this.player = player;
+    public void setPlayerModel(PlayerModel playerModel) {
+        this.playerModel = playerModel;
     }
 }

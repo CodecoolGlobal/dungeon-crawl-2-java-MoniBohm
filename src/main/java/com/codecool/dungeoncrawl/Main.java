@@ -35,6 +35,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class Main extends Application {
@@ -218,6 +219,7 @@ public class Main extends Application {
             case I -> getInventory();
             case C -> getCheat();
             case X -> exportGameToFile();
+            case D -> importGameFromFile();
 //            case S -> getSaveBox();    TODO  <--- use like this without CTRL?
 //            case L -> getLoadBox();
         }
@@ -227,11 +229,24 @@ public class Main extends Application {
         Player player = map.getPlayer();
         PlayerModel playerModel = new PlayerModel(player);
         Date date = MiscUtilHelper.getDate();
-        GameState gameState = new GameState(mapFilename, currentMap, date, playerModel);
+        GameState gameState = new GameState(mapFilename, currentMap, date, playerModel, player);
         this.fileManager = new FileManager(playerModel, gameState);
         fileManager.exportDataToFile();
-        fileManager.importDataFromFile();
     }
+
+
+    private void importGameFromFile() {
+        Optional<GameState> gameState = fileManager.importDataFromFile();
+
+        if(gameState.isEmpty()){
+            AlertBox.display("IMPORT ERROR", "Uppppssss, Unfortunately file not found!");
+        }else{
+            loadImportedGame(gameState.get());
+        }
+    }
+
+
+    private void loadImportedGame(GameState gameState){}
 
     private void getLoadBox() {
         int playerId = map.getPlayer().getHash();
