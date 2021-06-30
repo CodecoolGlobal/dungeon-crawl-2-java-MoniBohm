@@ -11,12 +11,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class SaveGameBox {
-   static String answer = null;
+
+    static String saveNameFromUser = null;
+
     private static TextField textField;
+
+    public static List<String> saveNames = new ArrayList<>();
+
     public static String display(List<GameState> gameStates){
         Stage window = new Stage();
         int counter = 1;
@@ -32,9 +37,12 @@ public class SaveGameBox {
 
         Scene scene = new Scene(basicLayout);
         scene.getStylesheets().add("style.css");
+
         window.setScene(scene);
         window.showAndWait();
-        return answer;
+
+        return saveNameFromUser;
+
     }
 
     private static void generateSavedGamesToCenterLayout(List<GameState> gameStates, int counter, VBox basicLayout) {
@@ -73,6 +81,7 @@ public class SaveGameBox {
     private static void generateSavedGamesList(List<GameState> gameStates, int counter, VBox layout) {
         Button savedGameBtn;
         for(GameState state: gameStates){
+            saveNames.add(state.getSaveName());
             savedGameBtn = new Button();
             savedGameBtn.setText(
                     "#" + counter + " | "
@@ -84,7 +93,7 @@ public class SaveGameBox {
             savedGameBtn.setId("savedGameBtn");
             layout.getChildren().add(savedGameBtn);
             savedGameBtn.setOnAction( e -> {
-                answer = state.getSaveName();
+                saveNameFromUser = state.getSaveName();
                 textField.setText(state.getSaveName());
             });
             counter++;
@@ -99,18 +108,27 @@ public class SaveGameBox {
         basicLayout.getChildren().addAll(saveButton, cancelButton);
 
         saveButton.setOnAction( e -> {
-            answer = textField.getText();
-            if (!answer.equals("")){
+            saveNameFromUser = textField.getText();
+            if (!saveNameFromUser.equals("")){
+                if (saveNames.contains(saveNameFromUser)){
+                    Boolean answer = ConfirmBox.display("Overwrite","Do you want to overwrite the save file named: "+ saveNameFromUser + "?");
+                    if (answer) {
+                        window.close();
+                    }else{
+
+                    }
+                }else{
+                    window.close();
+                }
                 //TODO Móni erre írhatsz SQL lekérdezést meghagytam neked :)
                 // check if save game with same name as user input exists
                 // then do something FE.: alertbox
-                window.close();
             }
 
         });
 
         cancelButton.setOnAction( e -> {
-            answer = null;
+            saveNameFromUser = null;
             window.close();
         });
     }

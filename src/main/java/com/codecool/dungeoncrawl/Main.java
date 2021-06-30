@@ -213,6 +213,7 @@ public class Main extends Application {
         if(saveName != null){
             // TODO if player choose a file to overwrite than this savename variable will be a name that exists in the db.
             // TODO update Method needs to be implemented
+            AlertBox.display("Success", "Game Saved!");
             gameDatabaseManager.saveGame(saveName ,map, mapFilename, currentMap);
         }
 
