@@ -109,7 +109,7 @@ public class Main extends Application {
     }
 
     private void addOverLayToMap(BorderPane innerBorderPane) {
-        Image overlayImg = new Image("file:./src/main/resources/overlay.png");
+        Image overlayImg = new Image("file:./src/main/resources/items/overlay.png");
         ImageView overlay = new ImageView();
         overlay.setImage(overlayImg);
         HBox box = new HBox();

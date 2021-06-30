@@ -59,16 +59,16 @@ public class AlertBox {
         closeButton.setOnAction( e -> window.close());
         closeButton.setFont(Font.font("Verdana"));
         if(pictureName.equals("load")){
-            image = new Image("loading.gif");
+            image = new Image("items/loading.gif");
         }
         if(pictureName.equals("loaded")){
-            image = new Image("load.gif");
+            image = new Image("items/load.gif");
         }
         if(pictureName.equals("save")){
-            image = new Image("save.gif");
+            image = new Image("items/save.gif");
         }
         if(pictureName.equals("magic")){
-            image = new Image("magic.gif");
+            image = new Image("items/magic.gif");
         }
         ImageView imageView = new ImageView();
         imageView.setImage(image);

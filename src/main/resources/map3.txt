@@ -1,34 +1,34 @@
-41 32
-KKKKKKKKKKKKKKKKKK###KKKKKKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKK #3# KKKKKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKKK###KKKKKKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKKKKKKKKKKKKKKg  g  gKKKKK
-KKKKKK......................KKKKKKKKKKKKK
-KKKKKKKKKKKKKK.KKKKKKKKKKKKKK  KKK xKKKKK
-KKKKKg x K.K..........ÆK K  KKKKKKKKKKKKK
-KKKKKg   K.....K.......KKKKKK......KKKKKK
-KKKKK    KKKp..K...b.......u....E..KKKKKK
-KKKKK KKKK.K...K.jm....KKKKKK..z...KKKKKK
-KKKKK K....K...K.......K KK K..h...KKKKKK
-KKKKK K....K...K..@zu..K KK K..h...KKKKKK
-KKKKK K.KKKK.......h...K K  K......KKKKKK
-KKKKK K.........b......K  K K...a..KKKKKK
-KKKKK K.K..KKKKK..KKKKKK KK KKK..KKKKKKKK
-KKKKK KKK.K x  K..Kggx  KKK x K..KKKKKKKK
-KKKKK   K.K    K..Kg   KKKK   K..KxKKKKKK
-KKKKKK  K.K   xK..KKKKKKKKKKKKK..KKKKKKKK
-KKKKKK  K.KKKKKK..KKKK  K   K.l....KKKKKK
-KKKKKKKKK...KK.......Kg  K  K.K....KKKKKK
-KKKKKKK.K.K.KK.......Kgg  K K.K.KK.KKKKKK
-KKKKKKK...K..K.......Kg  K  K.K....KKKKKK
-KKKKKKKKKKKK.K.......K  K   K.K.KK.KKKKKK
-KKKKKKKKKKK..K.K....kK K    K.K....KKKKKK
-KKKKK    KK.KK.K....kK  K   K......KKKKKK
-KKKKKx   KKKKKKKKKKKKKx  KKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
-KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK
+110 33
+ff f ╚═╗tTtTttTtttTtTttTtttTtTttTtttTtTttTtttT###tTtTttTtttTtTttTtttTtTttTtttTtTttT tttTttttTttttTtttTTTtT║ t
+ff  f╔═╝  TtT  TT                             #3#                                          tTt┬T  TTtt t .║tt
+═════╝ TtT    ┬ C ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###  ### ### tT  TtT  TtT  T║tt
+T T tt  TtT  TtTC                                                                          TtT  TtT  TtT T║
+Ttt tTttTtTttTttTtttTtt tTttTtTttTttTtttTtt tTttTtTttTttTtttTtt tTttTtTttTt tTTt ttTttTtTttTttTtttttTTTtCt║t
+Tt┬ t╔════════════════╗.......╔════╗###.........m..m....m..###╔════╗╔══════════════════════════════════╗. ║ t
+tt Tt║++++++++++++++++║.......║tTt┬║###.......T............###║tTt┬║║++++++++++++++++++++++++++++++++++║. ║Tt
+┬T ┬T║+++++tTt┬+++++++║.......║┬T t║###....................###║┬T t║║+++++TttTt+++++++++++++TttTt++++++║  ║ T
+T T.T║++++++++++++++++║.......║tT┬t║###...........T........###║tT┬t║║++++++++++++++++++++++++++++++++++║. ║
+T┬t..╚════════════════╝..... f╚════╝###f..........f###f....###╚════╝╚══════════════════════════════════╝..║
+Tt.............t...t..................j........tTt┬###.....#######...T..d..............x....x...x.. ......║T
+t tTt.........T..j..j..j........x........f....########f..d....f###...........j.j.j.....x..x.......x ......║T
+Ttttt..m........j..j..j......C.....a..d.......#...f###...d....###.......C....j.j..............x....x. ...T║ttt
+TTt...m....T.......@..j..h..............C.......d.Æ###.........###...TttTt...j.j.j....................x...║t t
+Ttt.t......Tt....t........d.....x.......a.....#...f###f..d.j..f###.....KKK...KKK.***.*.*.....*..***..*.*.*║ttt
+T┬t t.m...T......┬.............d.....l........#....###x........###.....K.T.....K-.-.-.........*..-.-.-....║  t
+┬t Tt....m...┬..........l....d......f#################f.mmm....###.....K.......K..g..-.*........x.g.g.....╚╗Tt
+tT┬.T..mmm.....T.T..........x......x.╔════╗#C.CC..z#f..........###....zK....T..K...g.f......*...f...g....d.║ T
+T┬..t.......┬.......h.........T....x.║....║#.CCC.C.#-.x....d...###KKKKKK...k.h.K.g...-..*.......-...g... .╗╝
+T┬.Tt..l................d..m.......x.║...d║#C.C.CC....u.......f#######KK..z.k..K...g.f*f*gcg*xgf..g...... ║tT
+t┬.TT................................║....║#C.CC.C.#-..............k....u.a.k..Kf.g..-.........-..h...╔═══╝ T
+T.C.....m.d...................f....C.║....║#CCCCCf.#f....T..d..d......fKl.... .K ....f....E....f......║┬.TTTTT
+t.CT ...d.......f#KKKKKKKKKf╔════╗...║....║#########...fKKKKKKKKK#....#KKKKKKKKKf..fKKKKKKKKKKKKKKK#╔═╝  t  T
+t┬tT......d......#K.......K.║tTt┬║..x║tTt┬║..x╔════╗..x.K.......K# ...#K..D....K....K....D.D.D...DK#║ ┬┬t tT
+═══╗t.m.d...d..┬.#K...D...K.║┬T t║...║┬T t║...║┬T t║...fK...D...K#....#K.D.D.D.Kf..fK...D....DD.D.K#╚═══╗tttt
+ gg║t..d......tTd#K.......K ║tT┬t║ ..║tT┬t║ ..║tT┬t║ .. K.......K# ...#K.......K .. K..D...D.D.D..K#╔═══╝Tt t
+g g║t....d..t┬┬t.#K..D....K ╚════╝.. ╚════╝.. ╚════╝.. .K .D....K#....#K..D....K . .K .D.DD...DD..K#║   Ttttt
+g g║t....d..t┬┬t.#KKKKKKKKKf############################KKKKKKKKKf#. .#KKKKKKKKKf  #KKKKKKKKKf#.C. ┬║   Ttttt
+xxx╚╗.ttTtTtt┬tt┬tt┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬t┬TttttTtt T║TtTtt t
+xg g║TtT   ┬   T┬  TtT TtT TtT TtT TtT TtT TtT TtT TtT TtT TtT TtT TtT TtT TtT TtT TtT TtT  TtT  ┬ t║ t tt Tt
+g╔═╗╚╗T┬T    T  ┬┬   T   T   T   T   T   T   T   T   T   T   T   T   T   T   T   T   T   TtT  TtT  T║T  tT  T
+x║C║ ║ TtT  ┬┬┬  TtT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  T   TtT  T║T TTT t
+x╚═╝x╚═╗tT  TtT  TtT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  tT  TtT  tT  T║T  Ttttt

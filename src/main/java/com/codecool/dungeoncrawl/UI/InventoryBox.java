@@ -8,7 +8,7 @@ import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.LegArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealthPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.ManaPotion;
-import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Bazooka;
+import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.MagicStaff;
 import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Uzi;
 import com.codecool.dungeoncrawl.util.Direction;
 import javafx.geometry.Insets;
@@ -57,7 +57,7 @@ public class InventoryBox {
         createRightLegArmorButtonIfExists(inventory, gridPane);
         createLeftLegArmorButtonIfExists(inventory, gridPane);
         createUziButtonIfExists(inventory, gridPane);
-        createBazookaButtonIfExists(inventory, gridPane);
+        createStaffButtonIfExists(inventory, gridPane);
 
         ui = initUi();
         borderPane = initBorderPane(gridPane, ui);
@@ -107,7 +107,7 @@ public class InventoryBox {
 
     private void createLeftLegArmorButtonIfExists(List<Item> inventory, GridPane gridPane) {
         if (inventory.stream().anyMatch(c -> c instanceof LegArmor)) {
-            Image img = new Image("/rleg.png");
+            Image img = new Image("/items/rleg.png");
             ImageView view = new ImageView(img);
             Item invItem = null;
             for(Item item:inventory) {
@@ -128,7 +128,7 @@ public class InventoryBox {
 
     private void createRightLegArmorButtonIfExists(List<Item> inventory, GridPane gridPane) {
         if (inventory.stream().anyMatch(c -> c instanceof LegArmor)) {
-            Image img = new Image("/lleg.png");
+            Image img = new Image("/items/lleg.png");
             ImageView view = new ImageView(img);
 
             Item invItem = null;
@@ -150,7 +150,7 @@ public class InventoryBox {
 
     private void createBodyArmorButtonIfExists(List<Item> inventory, GridPane gridPane) {
         if (inventory.stream().anyMatch(c -> c instanceof BodyArmor)) {
-            Image img = new Image("/body.png");
+            Image img = new Image("/items/body.png");
             ImageView view = new ImageView(img);
             Item invItem = null;
             for(Item item: inventory) {
@@ -171,7 +171,7 @@ public class InventoryBox {
 
     private void createUziButtonIfExists(List<Item> inventory, GridPane gridPane) {
         if (inventory.stream().anyMatch(c -> c instanceof Uzi)) {
-            Image img = new Image("/uzi.png");
+            Image img = new Image("/items/uzi.png");
             ImageView view = new ImageView(img);
             Item invItem = null;
             for(Item item: inventory) {
@@ -190,13 +190,13 @@ public class InventoryBox {
         }
     }
 
-    private void createBazookaButtonIfExists(List<Item> inventory, GridPane gridPane) {
-        if (inventory.stream().anyMatch(c -> c instanceof Bazooka)) {
-            Image img = new Image("/bazooka.png");
+    private void createStaffButtonIfExists(List<Item> inventory, GridPane gridPane) {
+        if (inventory.stream().anyMatch(c -> c instanceof MagicStaff)) {
+            Image img = new Image("/items/magicstaff.png");
             ImageView view = new ImageView(img);
             Item invItem = null;
             for(Item item: inventory) {
-                if (item instanceof Bazooka){
+                if (item instanceof MagicStaff){
                     invItem = item;
                 }
             }
@@ -204,7 +204,7 @@ public class InventoryBox {
             bazookaButton.setGraphic(view);
             view.setFitHeight(80);
             view.setPreserveRatio(true);
-            bazookaButton.setText("Drop\nRPG");
+            bazookaButton.setText("Drop\nMagic Staff");
             gridPane.add(bazookaButton, 2, 1);
             Item finalInvItem = invItem;
             bazookaButton.setOnAction(event -> removeItem(finalInvItem));
@@ -225,7 +225,7 @@ public class InventoryBox {
     }
 
     private void initHeadgearButtonEventListener(GridPane gridPane, Item invItem) {
-        Image img = new Image("/helmet.png");
+        Image img = new Image("/items/helmet.png");
         ImageView view = new ImageView(img);
         Button helmet = new Button();
         helmet.setGraphic(view);
@@ -239,7 +239,7 @@ public class InventoryBox {
 
     private void createManaButton(GridPane gridPane) {
             if (inventory.stream().anyMatch(c -> c instanceof ManaPotion)) {
-            Image img = new Image("/mana.png");
+            Image img = new Image("/items/mana.png");
             ImageView view = new ImageView(img);
             Button manaPotion = new Button();
             manaPotion.setGraphic(view);
@@ -253,7 +253,7 @@ public class InventoryBox {
 
     private void createHealtbutton(GridPane gridPane) {
         if (inventory.stream().anyMatch(c -> c instanceof HealthPotion)) {
-            Image img = new Image("/health.png");
+            Image img = new Image("/items/health.png");
             ImageView view = new ImageView(img);
             view.setFitHeight(80);
             view.setPreserveRatio(true);

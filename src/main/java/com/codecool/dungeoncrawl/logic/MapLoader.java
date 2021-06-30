@@ -7,7 +7,7 @@ import com.codecool.dungeoncrawl.logic.MapObject.items.general.*;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.LegArmor;
-import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Bazooka;
+import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.MagicStaff;
 import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Uzi;
 
 import java.io.InputStream;
@@ -45,8 +45,17 @@ public class MapLoader implements Serializable {
                         case 'x': // corpse
                             cell.setType(CellType.CORPSE);
                             break;
+                        case '-': // bodyguard
+                            cell.setType(CellType.BODYGUARD);
+                            break;
+                        case '*': // bodyguard2
+                            cell.setType(CellType.BODYGUARD2);
+                            break;
                         case '║': // water
                             cell.setType(CellType.WATER_VERTICAL);
+                            break;
+                        case '+': // water
+                            cell.setType(CellType.WATER_BASE);
                             break;
                         case '═': // water
                             cell.setType(CellType.WATER_HORIZONTAL);
@@ -145,7 +154,7 @@ public class MapLoader implements Serializable {
                             break;
                         case 'z':
                             cell.setType(CellType.FLOOR);
-                            new Bazooka(cell);
+                            new MagicStaff(cell);
                             break;
                         case 'm':
                             cell.setType(CellType.FLOOR);
