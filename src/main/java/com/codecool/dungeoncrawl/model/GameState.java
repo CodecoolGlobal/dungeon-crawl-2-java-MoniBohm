@@ -8,12 +8,12 @@ import java.sql.Date;
 import java.util.List;
 
 public class GameState extends BaseModel {
-    private String saveName;
-    private Date savedAt;
+    private String saveName;       // for DB only
+    private Date savedAt;         // for DB only
     private String mapFilename;
     private int currentMap;
     private List<String> discoveredMaps = new ArrayList<>();
-    private PlayerModel playerModel;
+    private PlayerModel playerModel;  // TODO to delete playerModel!
     private Player player;
     private GameMap map;
 

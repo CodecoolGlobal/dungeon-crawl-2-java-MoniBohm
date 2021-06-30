@@ -253,9 +253,13 @@ public class Main extends Application {
     }
 
 
-    private void loadImportedGame(GameState gameState){
-        map.setPlayer(gameState.getPlayer());
+    private void loadImportedGame(GameState gameState){  // TODO Roky was here.
+        setCurrentMap(gameState.getCurrentMap());
+        setMapFilename(gameState.getMapFilename());
+        generateMap();
         setMap(gameState.getMap());
+        map.setPlayer(gameState.getPlayer());
+        refreshGameMap();
     }
 
 
@@ -311,7 +315,7 @@ public class Main extends Application {
         refreshGameMap();
     }
 
-    private void setFollowCamera(Direction direction) {
+    private void setFollowCamera(Direction direction) {  // TODO Norbi to fix camera follow
         switch (direction) {
             case UP -> borderPane.setTranslateY(borderPane.getTranslateY() + PIXEL_OFFSET);
             case DOWN -> borderPane.setTranslateY(borderPane.getTranslateY() - PIXEL_OFFSET);
@@ -463,6 +467,14 @@ public class Main extends Application {
         } else {
             Tiles.drawTile(context, cell, x, y);
         }
+    }
+
+    public void setCurrentMap(int currentMap) {
+        this.currentMap = currentMap;
+    }
+
+    public void setMapFilename(String mapFilename) {
+        this.mapFilename = mapFilename;
     }
 
     private boolean isItem(Cell cell) {
