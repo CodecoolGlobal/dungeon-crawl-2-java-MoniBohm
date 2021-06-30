@@ -22,8 +22,8 @@ public class PlayerDaoJdbc implements PlayerDao {
             String sql = "INSERT INTO player (id, player_name, hp, damage, armor, x, y, inventory)" +
                          "VALUES (?, ?, ?, ?, ?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, playerModel.getPlayerId());
-            statement.setString(2, playerModel.getPlayerName());
+            statement.setInt(1, playerModel.getId());
+            statement.setString(2, playerModel.getName());
             statement.setInt(3, playerModel.getHp());
             statement.setInt(4, playerModel.getDamage());
             statement.setInt(5, playerModel.getArmor());
@@ -45,14 +45,14 @@ public class PlayerDaoJdbc implements PlayerDao {
                     "WHERE player.id=?";
 
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, playerModel.getPlayerName());
+            statement.setString(1, playerModel.getName());
             statement.setInt(2, playerModel.getHp());
             statement.setInt(3, playerModel.getDamage());
             statement.setInt(4, playerModel.getArmor());
             statement.setInt(5, playerModel.getX());
             statement.setInt(6, playerModel.getY());
             statement.setBytes(7, Objects.requireNonNull(playerModel.getInventorySerialized().orElse(null)).toByteArray());
-            statement.setInt(8, playerModel.getPlayerId());
+            statement.setInt(8, playerModel.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

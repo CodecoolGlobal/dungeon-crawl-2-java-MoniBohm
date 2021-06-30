@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class PlayerModel extends BaseModel {
-    private String playerName;
-    private int playerId;
+    private String name;
     private int hp;
     private int armor;
     private int damage;
@@ -19,9 +18,9 @@ public class PlayerModel extends BaseModel {
     private int y;
     private List<Item> inventory;
 
-    // Loading constructor
-    public PlayerModel(int playerId, String playerName, int hp, int damage, int armor, int x, int y, List<Item> inventory) {
-        this.playerName = playerName;
+    // After loading from DB, this construction is called
+    public PlayerModel(int playerId, String name, int hp, int damage, int armor, int x, int y, List<Item> inventory) {
+        this.name = name;
         this.id = playerId;
         this.x = x;
         this.y = y;
@@ -31,10 +30,10 @@ public class PlayerModel extends BaseModel {
         this.inventory = inventory;
     }
 
-    // Saving constructor
+    // Before saving to DB, this construction is called
     public PlayerModel(Player player) {
-        this.playerName = player.getName();
-        this.playerId = player.getHash();
+        this.name = player.getName();
+        this.id = player.getHash();
         this.x = player.getX();
         this.y = player.getY();
         this.hp = player.getHealth();
@@ -72,28 +71,12 @@ public class PlayerModel extends BaseModel {
         }
     }
 
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public int getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
+    public String getName() {
+        return name;
     }
 
     public int getHp() {
         return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
     }
 
     public int getX() {
@@ -108,19 +91,11 @@ public class PlayerModel extends BaseModel {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public int getArmor() {
         return this.armor;
     }
 
     public int getDamage() {
         return this.damage;
-    }
-
-    public List<Item> getInventory() {
-        return this.inventory;
     }
 }

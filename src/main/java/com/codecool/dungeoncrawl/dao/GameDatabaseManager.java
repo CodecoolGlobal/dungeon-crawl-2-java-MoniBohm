@@ -54,7 +54,7 @@ public class GameDatabaseManager {
 
 
     public void savePlayer(PlayerModel playerModel) {
-        if (playerAlreadyInDatabase(playerModel.getPlayerId())) {
+        if (playerAlreadyInDatabase(playerModel.getId())) {
             playerDao.update(playerModel);
         } else {
             playerDao.add(playerModel);
