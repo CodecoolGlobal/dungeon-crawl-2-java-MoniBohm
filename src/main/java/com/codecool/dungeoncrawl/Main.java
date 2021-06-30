@@ -59,8 +59,6 @@ public class Main extends Application {
     Label damageLabel = new Label();
     Label coinLabel = new Label();
 
-    final KeyCombination keyCombinationCTRLS = new KeyCodeCombination(
-            KeyCode.S, KeyCombination.CONTROL_DOWN);
 
     public static void main(String[] args) {
         launch(args);
@@ -133,7 +131,14 @@ public class Main extends Application {
             exit();
         }
     }
+    
+    final KeyCombination keyCombinationCTRLS = new KeyCodeCombination(
+            KeyCode.S, KeyCombination.CONTROL_DOWN);
+    
+    final KeyCombination keyCombinationCTRLL = new KeyCodeCombination(
+            KeyCode.L, KeyCombination.CONTROL_DOWN);
 
+    
     private void setTitle(Stage primaryStage) {
         primaryStage.setTitle("Free-range Chicken");
         primaryStage.show();
@@ -193,6 +198,12 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+        if (keyCombinationCTRLL.match(keyEvent)) { //TODO use save/load like this?? CTRL+L or -->
+            getLoadBox();
+        }
+        if (keyCombinationCTRLS.match(keyEvent)) {
+            getSaveBox();
+        }
         switch (keyEvent.getCode()) {
             case UP -> manageMovement(Direction.UP);
             case DOWN -> manageMovement(Direction.DOWN);
@@ -200,9 +211,19 @@ public class Main extends Application {
             case RIGHT -> manageMovement(Direction.RIGHT);
             case I -> getInventory();
             case C -> getCheat();
-            case S -> getSaveBox();
-//            case S -> gameDatabaseManager.saveGame(map, mapFilename, currentMap);
+//            case S -> getSaveBox();    TODO  <--- use like this without CTRL?
+//            case L -> getLoadBox();
         }
+    }
+
+    private void getLoadBox() {
+        int playerId = map.getPlayer().getHash();
+        List<GameState> gameStates = gameDatabaseManager.getGameStateDao().getAll(playerId);
+        int chosenGameId = LoadGameBox.display(gameStates);
+        if(chosenGameId !=0){
+            // TODO Load game based on chosenGameId
+        }
+
     }
 
     private void getSaveBox() {
