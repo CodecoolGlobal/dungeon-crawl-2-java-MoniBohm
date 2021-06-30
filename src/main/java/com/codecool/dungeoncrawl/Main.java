@@ -35,6 +35,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 public class Main extends Application {
@@ -157,6 +158,9 @@ public class Main extends Application {
         });
     }
 
+
+
+
     private GridPane initUI(Stage primaryStage) {
         setWindow(primaryStage);
         GridPane ui = initInventory();
@@ -218,19 +222,45 @@ public class Main extends Application {
             case I -> getInventory();
             case C -> getCheat();
             case X -> exportGameToFile();
+            case D -> importGameFromFile();
 //            case S -> getSaveBox();    TODO  <--- use like this without CTRL?
 //            case L -> getLoadBox();
         }
     }
 
     private void exportGameToFile() {
+        initFileManager();
+        fileManager.exportDataToFile();
+    }
+
+    private void initFileManager() {
         Player player = map.getPlayer();
         PlayerModel playerModel = new PlayerModel(player);
         Date date = MiscUtilHelper.getDate();
-        GameState gameState = new GameState(mapFilename, currentMap, date, playerModel);
+        GameState gameState = new GameState(mapFilename, currentMap, date, playerModel, player, map);
         this.fileManager = new FileManager(playerModel, gameState);
-        fileManager.exportDataToFile();
-        fileManager.importDataFromFile();
+    }
+
+
+    private void importGameFromFile() {
+        initFileManager();
+        Optional<GameState> gameState = fileManager.importDataFromFile();
+        if(gameState.isEmpty()){
+            AlertBox.display("IMPORT ERROR", "Uppppssss, Unfortunately file not found!");
+        }else{
+            loadImportedGame(gameState.get());
+        }
+    }
+
+
+    private void loadImportedGame(GameState gameState){
+        map.setPlayer(gameState.getPlayer());
+        setMap(gameState.getMap());
+    }
+
+
+    private void setMap(GameMap updateMap){
+        this.map = updateMap;
     }
 
     private void getLoadBox() {

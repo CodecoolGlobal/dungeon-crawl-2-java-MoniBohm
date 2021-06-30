@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import java.io.*;
+import java.util.Optional;
 
 public class FileManager {
 
@@ -23,6 +24,7 @@ public class FileManager {
             ObjectOutputStream oosGameState = new ObjectOutputStream(out);
 //            oosPlayer.writeObject(playerModel);
             oosGameState.writeObject(gameState);
+            System.out.println("EXPORT");
             oosGameState.flush();
             oosGameState.close();
             out.close();
@@ -32,18 +34,19 @@ public class FileManager {
         }
     }
 
-    public void importDataFromFile() {
+    public Optional<GameState> importDataFromFile() {
         try {
             final FileInputStream in = new FileInputStream("savegame/export_gamestate.txt");
             ObjectInputStream oisGameState = new ObjectInputStream(in);
-            System.out.println("yo");
             GameState gamestate = (GameState) oisGameState.readObject();
             oisGameState.close();
             in.close();
+            System.out.println("IMPORT");
             System.out.println(gamestate);
+            return Optional.of(gamestate);
         } catch (IOException | ClassNotFoundException e){
             System.err.println(e.getMessage());
-
+            return Optional.empty();
         }
     }
 

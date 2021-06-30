@@ -11,9 +11,10 @@ import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Bazooka;
 import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Uzi;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class MapLoader {
+public class MapLoader implements Serializable {
     public static GameMap loadMap(String mapFile, String playerName) {
         InputStream is = MapLoader.class.getResourceAsStream(mapFile);
         Scanner scanner = new Scanner(is);

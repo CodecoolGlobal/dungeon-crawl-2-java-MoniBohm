@@ -24,7 +24,7 @@ public class Player extends Actor {
     private static final int WEAPON_INCREASE = 20;
 
 
-    public Player(Cell cell, String name) {
+    public Player(Cell cell, String name)  {
         super(cell);
         inventory = new ArrayList<>();
         damage = ActorStats.PLAYER.damage;

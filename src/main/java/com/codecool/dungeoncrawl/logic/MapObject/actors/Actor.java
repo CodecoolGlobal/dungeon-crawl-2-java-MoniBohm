@@ -6,7 +6,9 @@ import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 
-public abstract class Actor implements Drawable {
+import java.io.Serializable;
+
+public abstract class Actor implements Drawable, Serializable {
     protected Cell cell;
     protected int health;
     protected int damage;
