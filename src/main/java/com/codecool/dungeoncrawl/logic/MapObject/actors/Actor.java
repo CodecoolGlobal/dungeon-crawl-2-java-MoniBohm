@@ -105,7 +105,7 @@ public abstract class Actor implements Drawable {
         map.removeKilledEnemyFromEnemies(enemy);
     }
 
-    protected void move(Cell nextCell) {
+    public void move(Cell nextCell) {
         cell.setActor(null);
         nextCell.setActor(null);
         this.cell = nextCell;
