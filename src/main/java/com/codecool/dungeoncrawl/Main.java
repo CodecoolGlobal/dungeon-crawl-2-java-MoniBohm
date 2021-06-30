@@ -209,7 +209,6 @@ public class Main extends Application {
         int playerId = map.getPlayer().getHash();
         List<GameState> gameStates = gameDatabaseManager.getGameStateDao().getAll(playerId);
         String saveName = SaveGameBox.display(gameStates);
-        System.out.println(saveName);
         if(saveName != null){
             // TODO if player choose a file to overwrite than this savename variable will be a name that exists in the db.
             // TODO update Method needs to be implemented

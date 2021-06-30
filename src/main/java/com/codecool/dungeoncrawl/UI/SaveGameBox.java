@@ -111,7 +111,9 @@ public class SaveGameBox {
             saveNameFromUser = textField.getText();
             if (!saveNameFromUser.equals("")){
                 if (saveNames.contains(saveNameFromUser)){
+
                     Boolean answer = ConfirmBox.display("Overwrite","Do you want to overwrite the save file named: "+ saveNameFromUser + "?");
+
                     if (answer) { window.close(); }
                 }else{ window.close(); }
             }
