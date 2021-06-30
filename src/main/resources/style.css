@@ -143,3 +143,11 @@
     -fx-background-insets : 2.0, 0.0, 0.0;
     -fx-background-radius : 2.0em;
 }
+#chosenGame{
+    -fx-row-valignment: center;
+    -fx-padding: 20px;
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+    -fx-text-fill: red;
+    -fx-font-size: 20px;
+}
