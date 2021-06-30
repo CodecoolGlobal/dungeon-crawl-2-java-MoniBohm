@@ -3,7 +3,7 @@ package com.codecool.dungeoncrawl.model;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
-public class BaseModel implements Serializable {
+public class BaseModel {
     // null means not saved
     protected Integer id;
 

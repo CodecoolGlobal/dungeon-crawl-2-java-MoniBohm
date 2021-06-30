@@ -3,17 +3,18 @@ package com.codecool.dungeoncrawl.model;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 
-public class GameState extends BaseModel {
-    private String saveName;
-    private Date savedAt;
+public class GameState extends BaseModel implements Serializable {
+    private String saveName;       // for DB only
+    private Date savedAt;         // for DB only
     private String mapFilename;
     private int currentMap;
     private List<String> discoveredMaps = new ArrayList<>();
-    private PlayerModel playerModel;
+    private PlayerModel playerModel;  // TODO to delete playerModel!
     private Player player;
     private GameMap map;
 
@@ -28,12 +29,11 @@ public class GameState extends BaseModel {
     }
 
     // File Export Saving constructor
-    public GameState(String mapFilename, int currentMap, Date savedAt, PlayerModel playerModel, Player player, GameMap map) {
+    public GameState(String mapFilename, int currentMap, Date savedAt, Player player, GameMap map) {
         this.mapFilename = mapFilename;
         this.saveName = null;
         this.currentMap = currentMap;
         this.savedAt = savedAt;
-        this.playerModel = playerModel;
         this.player = player;
         this.map = map;
     }
@@ -46,7 +46,6 @@ public class GameState extends BaseModel {
         this.currentMap = currentMap;
         this.savedAt = savedAt;
         this.playerModel = playerModel;
-
     }
 
     public String getSaveName() {
