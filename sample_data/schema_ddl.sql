@@ -4,6 +4,7 @@ CREATE TABLE public.game_state (
     save_name text NOT NULL,
     map_filename text NOT NULL,
     current_map integer NOT NULL,
+    map bytea,
     saved_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
     player_id integer NOT NULL
 );
@@ -17,7 +18,7 @@ CREATE TABLE public.player (
     armor integer NOT NULL,
     x integer NOT NULL,
     y integer NOT NULL,
-    inventory text
+    inventory bytea
 );
 
 ALTER TABLE ONLY public.game_state

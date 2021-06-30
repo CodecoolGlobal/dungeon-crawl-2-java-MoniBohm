@@ -4,21 +4,23 @@ package com.codecool.dungeoncrawl.model;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PlayerModel extends BaseModel {
-    private String playerName;
-    private int playerId;
+    private String name;
     private int hp;
     private int armor;
     private int damage;
     private int x;
     private int y;
-    private String inventory;
+    private List<Item> inventory;
 
-    // Loading constructor
-    public PlayerModel(int playerId, String playerName, int hp, int damage, int armor, int x, int y, String inventory) {
-        this.playerName = playerName;
+    // After loading from DB, this construction is called
+    public PlayerModel(int playerId, String name, int hp, int damage, int armor, int x, int y, List<Item> inventory) {
+        this.name = name;
         this.id = playerId;
         this.x = x;
         this.y = y;
@@ -28,50 +30,53 @@ public class PlayerModel extends BaseModel {
         this.inventory = inventory;
     }
 
-    // Saving constructor
+    // Before saving to DB, this construction is called
     public PlayerModel(Player player) {
-        this.playerName = player.getName();
-        this.playerId = player.getHash();
+        this.name = player.getName();
+        this.id = player.getHash();
         this.x = player.getX();
         this.y = player.getY();
         this.hp = player.getHealth();
         this.armor = player.getArmor();
         this.damage = player.getDamage();
-        this.inventory = inventoryToString(player.getInventory());
+        this.inventory = player.getInventory();
     }
 
-
-    private String inventoryToString(List<Item> inventory) {
-        StringBuilder sb = new StringBuilder();
-        for (Item item : inventory) {
-            sb.append(item).append(", ");
+    public Optional<ByteArrayOutputStream> getInventorySerialized() {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oout = new ObjectOutputStream(baos);
+            oout.writeObject(inventory);
+            oout.close();
+            return Optional.of(baos);
+        } catch (IOException e) {
+            System.out.println("Unable to serialize inventory");
+            return Optional.empty();
         }
-        return sb.toString();
     }
 
-
-    public String getPlayerName() {
-        return playerName;
+    public static List<Item> getInventoryDeserialized(byte[] inventoryBytes) {
+        try {
+            if (inventoryBytes != null) {
+                ByteArrayInputStream bais = new ByteArrayInputStream(inventoryBytes);
+                ObjectInputStream oin = new ObjectInputStream(bais);
+                Object obj = oin.readObject();
+                return (ArrayList<Item>) obj;
+            } else {
+                return new ArrayList<>();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Unable to deserialize inventory");
+            return new ArrayList<>();
+        }
     }
 
-    public int getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId(int playerId) {
-        this.playerId = playerId;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
+    public String getName() {
+        return name;
     }
 
     public int getHp() {
         return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
     }
 
     public int getX() {
@@ -86,19 +91,11 @@ public class PlayerModel extends BaseModel {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
-
     public int getArmor() {
         return this.armor;
     }
 
     public int getDamage() {
         return this.damage;
-    }
-
-    public String getInventory() {
-        return this.inventory;
     }
 }
