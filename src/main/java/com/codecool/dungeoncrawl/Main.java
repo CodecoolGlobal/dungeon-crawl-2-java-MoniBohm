@@ -41,7 +41,8 @@ import java.util.Optional;
 public class Main extends Application {
     GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
     FileManager fileManager;
-    public static final int PIXEL_OFFSET = 32;
+    public static final int PLAYER_START_X_COORD = 19;
+    public static final int PLAYER_START_Y_COORD = 13;
     public static boolean isNextMap;
     public static boolean isEnteringDungeon;
     public static boolean isExitingDungeon;
@@ -235,10 +236,9 @@ public class Main extends Application {
 
     private void initFileManager() {
         Player player = map.getPlayer();
-        PlayerModel playerModel = new PlayerModel(player);
         Date date = MiscUtilHelper.getDate();
-        GameState gameState = new GameState(mapFilename, currentMap, date, playerModel, player, map);
-        this.fileManager = new FileManager(playerModel, gameState);
+        GameState gameState = new GameState(mapFilename, currentMap, date, player, map);
+        this.fileManager = new FileManager(gameState);
     }
 
 
@@ -246,7 +246,7 @@ public class Main extends Application {
         initFileManager();
         Optional<GameState> gameState = fileManager.importDataFromFile();
         if(gameState.isEmpty()){
-            AlertBox.display("IMPORT ERROR", "Uppppssss, Unfortunately file not found!");
+            AlertBox.display("IMPORT ERROR", "Uppppssss, unfortunately file not found!");
         }else{
             loadImportedGame(gameState.get());
         }
@@ -259,6 +259,7 @@ public class Main extends Application {
         generateMap();
         setMap(gameState.getMap());
         map.setPlayer(gameState.getPlayer());
+        setFollowCamera(map.getPlayer().getCell());
         refreshGameMap();
     }
 
@@ -308,21 +309,26 @@ public class Main extends Application {
         boolean successfulMove;
         successfulMove = map.getPlayer().initMove(direction.dx, direction.dy);
         if (successfulMove) {
-            setFollowCamera(direction);
+//            setFollowCamera(direction, map.getPlayer().getCell());
+            setFollowCamera(map.getPlayer().getCell());
         }
         map.moveEnemies();
         ChangeMapIfTrue();
         refreshGameMap();
     }
 
-    private void setFollowCamera(Direction direction) {  // TODO Norbi to fix camera follow
-        switch (direction) {
-            case UP -> borderPane.setTranslateY(borderPane.getTranslateY() + PIXEL_OFFSET);
-            case DOWN -> borderPane.setTranslateY(borderPane.getTranslateY() - PIXEL_OFFSET);
-            case LEFT -> borderPane.setTranslateX(borderPane.getTranslateX() + PIXEL_OFFSET);
-            case RIGHT -> borderPane.setTranslateX(borderPane.getTranslateX() - PIXEL_OFFSET);
-        }
+//    private void setFollowCamera(Direction direction, Cell playerPosition) {
+//        switch (direction) {
+//            case UP -> borderPane.setTranslateY(borderPane.getTranslateY() + Tiles.TILE_WIDTH);
+//            case DOWN -> borderPane.setTranslateY(borderPane.getTranslateY() - Tiles.TILE_WIDTH);
+//            case LEFT -> borderPane.setTranslateX(borderPane.getTranslateX() + Tiles.TILE_WIDTH);
+//            case RIGHT -> borderPane.setTranslateX(borderPane.getTranslateX() - Tiles.TILE_WIDTH);
+//        }
+//    }
 
+    private void setFollowCamera(Cell playerPosition) {
+        borderPane.setTranslateY((playerPosition.getY() - PLAYER_START_Y_COORD) * - Tiles.TILE_WIDTH);
+        borderPane.setTranslateX((playerPosition.getX() - PLAYER_START_X_COORD) * - Tiles.TILE_WIDTH);
     }
 
     private void ChangeMapIfTrue() {
