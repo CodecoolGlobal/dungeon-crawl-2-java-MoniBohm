@@ -26,7 +26,8 @@ public class LoadGameBox {
     public static int display(List<GameState> gameStates){
         Stage window = new Stage();
         int counter = 1;
-
+        chosenGame.setId("chosenGame");
+        chosenGame.setAlignment(Pos.CENTER);
         VBox basicLayout = new VBox(10);
 
 
