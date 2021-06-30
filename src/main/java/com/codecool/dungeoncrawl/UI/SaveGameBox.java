@@ -112,17 +112,8 @@ public class SaveGameBox {
             if (!saveNameFromUser.equals("")){
                 if (saveNames.contains(saveNameFromUser)){
                     Boolean answer = ConfirmBox.display("Overwrite","Do you want to overwrite the save file named: "+ saveNameFromUser + "?");
-                    if (answer) {
-                        window.close();
-                    }else{
-
-                    }
-                }else{
-                    window.close();
-                }
-                //TODO Móni erre írhatsz SQL lekérdezést meghagytam neked :)
-                // check if save game with same name as user input exists
-                // then do something FE.: alertbox
+                    if (answer) { window.close(); }
+                }else{ window.close(); }
             }
 
         });
