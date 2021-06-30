@@ -11,6 +11,8 @@ import org.postgresql.ds.PGSimpleDataSource;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class GameDatabaseManager {
     private PlayerDao playerDao;
@@ -42,12 +44,12 @@ public class GameDatabaseManager {
         Player player = map.getPlayer();
         PlayerModel playerModel = new PlayerModel(player);
         savePlayer(playerModel);
-        saveGameMap(saveName ,mapFilename, currentMap, playerModel);
+        saveGameMap(saveName ,mapFilename, currentMap, playerModel, map);
     }
 
-    public void saveGameMap(String saveName, String mapFilename, int currentMap, PlayerModel playerModel) {
-        Date date = MiscUtilHelper.getDate();
-        GameState model = new GameState(saveName, mapFilename, currentMap, date, playerModel);
+    public void saveGameMap(String saveName, String mapFilename, int currentMap, PlayerModel playerModel, GameMap map) {
+        Timestamp date = MiscUtilHelper.getDate();
+        GameState model = new GameState(saveName, mapFilename, currentMap, date, playerModel, map);
         gameStateDao.add(model);
 
     }
