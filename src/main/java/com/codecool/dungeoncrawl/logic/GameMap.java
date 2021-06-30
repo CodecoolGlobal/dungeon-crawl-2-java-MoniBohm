@@ -13,9 +13,14 @@ public class GameMap implements Serializable {
     private int width;
     private int height;
     private Cell[][] cells;
+
     private List<Actor> enemies;
 
     private Player player;
+
+    public List<Actor> getEnemies() {
+        return enemies;
+    }
 
     public GameMap(int width, int height, CellType defaultCellType) {
         this.width = width;

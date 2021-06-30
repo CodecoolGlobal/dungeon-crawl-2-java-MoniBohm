@@ -232,6 +232,7 @@ public class Main extends Application {
     private void exportGameToFile() {
         initFileManager();
         fileManager.exportDataToFile();
+        AlertBox.display("Success", "Game exported!", "save");
     }
 
     private void initFileManager() {
@@ -249,7 +250,9 @@ public class Main extends Application {
             AlertBox.display("IMPORT ERROR", "Uppppssss, unfortunately file not found!");
         }else{
             loadImportedGame(gameState.get());
+            AlertBox.display("Success", "Game imported!", "loaded");
         }
+
     }
 
 

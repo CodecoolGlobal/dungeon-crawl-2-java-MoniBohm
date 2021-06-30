@@ -81,7 +81,5 @@ public class AlertBox {
         scene.getStylesheets().add("style.css");
         window.setScene(scene);
         window.showAndWait();
-
-
     }
 }

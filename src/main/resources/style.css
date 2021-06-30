@@ -76,7 +76,7 @@
     -fx-column-valignment: center;
     -fx-padding: 20px;
     -fx-border-color: black;
-    -fx-grid-lines-visible: true;
+    /*-fx-grid-lines-visible: true;*/
 }
 
 #message{

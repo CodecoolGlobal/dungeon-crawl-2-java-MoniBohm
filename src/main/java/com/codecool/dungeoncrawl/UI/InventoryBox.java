@@ -1,17 +1,23 @@
 package com.codecool.dungeoncrawl.UI;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.MapObject.actors.Actor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.LegArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealthPotion;
+import com.codecool.dungeoncrawl.logic.MapObject.items.booster.ManaPotion;
+import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Bazooka;
+import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Uzi;
 import com.codecool.dungeoncrawl.util.Direction;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -21,6 +27,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 public class InventoryBox {
@@ -32,7 +39,6 @@ public class InventoryBox {
         this.inventory = inventory;
         this.cell = cell;
         GridPane gridPane;
-        Label inventoryLabel;
         GridPane ui;
         BorderPane borderPane;
         window = new Stage();
@@ -50,6 +56,8 @@ public class InventoryBox {
         createBodyArmorButtonIfExists(inventory, gridPane);
         createRightLegArmorButtonIfExists(inventory, gridPane);
         createLeftLegArmorButtonIfExists(inventory, gridPane);
+        createUziButtonIfExists(inventory, gridPane);
+        createBazookaButtonIfExists(inventory, gridPane);
 
         ui = initUi();
         borderPane = initBorderPane(gridPane, ui);
@@ -99,6 +107,8 @@ public class InventoryBox {
 
     private void createLeftLegArmorButtonIfExists(List<Item> inventory, GridPane gridPane) {
         if (inventory.stream().anyMatch(c -> c instanceof LegArmor)) {
+            Image img = new Image("/rleg.png");
+            ImageView view = new ImageView(img);
             Item invItem = null;
             for(Item item:inventory) {
                 if (item instanceof LegArmor){
@@ -106,7 +116,10 @@ public class InventoryBox {
                 }
             }
             Button rLegArmor = new Button();
-            rLegArmor.setText("Drop\nRight leg armor");
+            rLegArmor.setGraphic(view);
+            view.setFitHeight(80);
+            view.setPreserveRatio(true);
+            rLegArmor.setText("Drop\nBoots");
             gridPane.add(rLegArmor, 2, 3);
             Item finalInvItem = invItem;
             rLegArmor.setOnAction(event -> removeItem(finalInvItem));
@@ -115,6 +128,9 @@ public class InventoryBox {
 
     private void createRightLegArmorButtonIfExists(List<Item> inventory, GridPane gridPane) {
         if (inventory.stream().anyMatch(c -> c instanceof LegArmor)) {
+            Image img = new Image("/lleg.png");
+            ImageView view = new ImageView(img);
+
             Item invItem = null;
             for(Item item:inventory) {
                 if (item instanceof LegArmor){
@@ -122,7 +138,10 @@ public class InventoryBox {
                 }
             }
             Button lLegArmor = new Button();
-            lLegArmor.setText("Drop\nLeft leg armor");
+            lLegArmor.setGraphic(view);
+            view.setFitHeight(80);
+            view.setPreserveRatio(true);
+            lLegArmor.setText("Drop\nBoots");
             gridPane.add(lLegArmor, 0, 3);
             Item finalInvItem = invItem;
             lLegArmor.setOnAction(event -> removeItem(finalInvItem));
@@ -131,6 +150,8 @@ public class InventoryBox {
 
     private void createBodyArmorButtonIfExists(List<Item> inventory, GridPane gridPane) {
         if (inventory.stream().anyMatch(c -> c instanceof BodyArmor)) {
+            Image img = new Image("/body.png");
+            ImageView view = new ImageView(img);
             Item invItem = null;
             for(Item item: inventory) {
                 if (item instanceof BodyArmor){
@@ -138,12 +159,58 @@ public class InventoryBox {
                 }
             }
             Button bodyArmor = new Button();
+            bodyArmor.setGraphic(view);
+            view.setFitHeight(80);
+            view.setPreserveRatio(true);
             bodyArmor.setText("Drop\nBody armor");
             gridPane.add(bodyArmor, 1, 1);
             Item finalInvItem = invItem;
             bodyArmor.setOnAction(event -> removeItem(finalInvItem));
         }
     }
+
+    private void createUziButtonIfExists(List<Item> inventory, GridPane gridPane) {
+        if (inventory.stream().anyMatch(c -> c instanceof Uzi)) {
+            Image img = new Image("/uzi.png");
+            ImageView view = new ImageView(img);
+            Item invItem = null;
+            for(Item item: inventory) {
+                if (item instanceof Uzi){
+                    invItem = item;
+                }
+            }
+            Button uziButton = new Button();
+            uziButton.setGraphic(view);
+            view.setFitHeight(80);
+            view.setPreserveRatio(true);
+            uziButton.setText("Drop\nUZI");
+            gridPane.add(uziButton, 0, 1);
+            Item finalInvItem = invItem;
+            uziButton.setOnAction(event -> removeItem(finalInvItem));
+        }
+    }
+
+    private void createBazookaButtonIfExists(List<Item> inventory, GridPane gridPane) {
+        if (inventory.stream().anyMatch(c -> c instanceof Bazooka)) {
+            Image img = new Image("/bazooka.png");
+            ImageView view = new ImageView(img);
+            Item invItem = null;
+            for(Item item: inventory) {
+                if (item instanceof Bazooka){
+                    invItem = item;
+                }
+            }
+            Button bazookaButton = new Button();
+            bazookaButton.setGraphic(view);
+            view.setFitHeight(80);
+            view.setPreserveRatio(true);
+            bazookaButton.setText("Drop\nRPG");
+            gridPane.add(bazookaButton, 2, 1);
+            Item finalInvItem = invItem;
+            bazookaButton.setOnAction(event -> removeItem(finalInvItem));
+        }
+    }
+
 
     private void createHeadgearButtonIfExists(List<Item> inventory, GridPane gridPane) {
         if (inventory.stream().anyMatch(c -> c instanceof HeadGear)) {
@@ -158,7 +225,12 @@ public class InventoryBox {
     }
 
     private void initHeadgearButtonEventListener(GridPane gridPane, Item invItem) {
+        Image img = new Image("/helmet.png");
+        ImageView view = new ImageView(img);
         Button helmet = new Button();
+        helmet.setGraphic(view);
+        view.setFitHeight(80);
+        view.setPreserveRatio(true);
         helmet.setText("Drop\nHelmet");
         gridPane.add(helmet, 1, 0);
         Item finalInvItem = invItem;
@@ -166,17 +238,31 @@ public class InventoryBox {
     }
 
     private void createManaButton(GridPane gridPane) {
-        Button manaPotion = new Button();
-        manaPotion.setText("Use\nMana");
-        gridPane.add(manaPotion, 0, 0);
-        manaPotion.setOnAction(event -> turnRandomEnemyToFire());
+            if (inventory.stream().anyMatch(c -> c instanceof ManaPotion)) {
+            Image img = new Image("/mana.png");
+            ImageView view = new ImageView(img);
+            Button manaPotion = new Button();
+            manaPotion.setGraphic(view);
+            view.setFitHeight(80);
+            view.setPreserveRatio(true);
+            manaPotion.setText("Use\nMana");
+            gridPane.add(manaPotion, 0, 0);
+            manaPotion.setOnAction(event -> turnRandomEnemyToFire());
+        }
     }
 
     private void createHealtbutton(GridPane gridPane) {
-        Button healthPotion = new Button();
-        healthPotion.setText("Use\nHealth potion");
-        gridPane.add(healthPotion, 2, 0);
-        healthPotion.setOnAction(event -> usePotion());
+        if (inventory.stream().anyMatch(c -> c instanceof HealthPotion)) {
+            Image img = new Image("/health.png");
+            ImageView view = new ImageView(img);
+            view.setFitHeight(80);
+            view.setPreserveRatio(true);
+            Button healthPotion = new Button();
+            healthPotion.setGraphic(view);
+            healthPotion.setText("Use\nHealth potion");
+            gridPane.add(healthPotion, 2, 0);
+            healthPotion.setOnAction(event -> usePotion());
+        }
     }
 
     private GridPane initGridPane() {
@@ -214,6 +300,22 @@ public class InventoryBox {
     }
 
     private void turnRandomEnemyToFire() {
+        if (inventory.stream().anyMatch(c -> c instanceof ManaPotion)) {
+            Item invItem = null;
+            for(Item item:inventory) {
+                if (item instanceof ManaPotion){
+                    invItem = item;
+                }
+            }
+//            inventory.remove(invItem);
+            List<Actor> enemies = cell.getGameMap().getEnemies();
+            Random rand = new Random();
+            Actor randomEnemy = enemies.get(rand.nextInt(enemies.size()));
+            randomEnemy.getCell().setActor(null);
+            cell.getGameMap().removeKilledEnemyFromEnemies(randomEnemy);
+            window.close();
+        }
+
     }
 
     private Set<String> createSetFromInventory() {

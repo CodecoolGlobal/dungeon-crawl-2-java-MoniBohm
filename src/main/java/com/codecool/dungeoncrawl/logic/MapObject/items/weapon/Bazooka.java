@@ -18,13 +18,4 @@ public class Bazooka extends Item implements Weapon{
         return "bazooka";
     }
 
-
-
-
-    @Override
-    public void increaseDamage() {
-
-    }
-
-
 }
