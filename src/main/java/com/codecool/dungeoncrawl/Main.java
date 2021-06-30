@@ -158,6 +158,9 @@ public class Main extends Application {
         });
     }
 
+
+
+
     private GridPane initUI(Stage primaryStage) {
         setWindow(primaryStage);
         GridPane ui = initInventory();
@@ -226,18 +229,22 @@ public class Main extends Application {
     }
 
     private void exportGameToFile() {
+        initFileManager();
+        fileManager.exportDataToFile();
+    }
+
+    private void initFileManager() {
         Player player = map.getPlayer();
         PlayerModel playerModel = new PlayerModel(player);
         Date date = MiscUtilHelper.getDate();
-        GameState gameState = new GameState(mapFilename, currentMap, date, playerModel, player);
+        GameState gameState = new GameState(mapFilename, currentMap, date, playerModel, player, map);
         this.fileManager = new FileManager(playerModel, gameState);
-        fileManager.exportDataToFile();
     }
 
 
     private void importGameFromFile() {
+        initFileManager();
         Optional<GameState> gameState = fileManager.importDataFromFile();
-
         if(gameState.isEmpty()){
             AlertBox.display("IMPORT ERROR", "Uppppssss, Unfortunately file not found!");
         }else{
@@ -246,7 +253,15 @@ public class Main extends Application {
     }
 
 
-    private void loadImportedGame(GameState gameState){}
+    private void loadImportedGame(GameState gameState){
+        map.setPlayer(gameState.getPlayer());
+        setMap(gameState.getMap());
+    }
+
+
+    private void setMap(GameMap updateMap){
+        this.map = updateMap;
+    }
 
     private void getLoadBox() {
         int playerId = map.getPlayer().getHash();

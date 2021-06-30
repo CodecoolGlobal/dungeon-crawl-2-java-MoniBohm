@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.model;
 
+import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class GameState extends BaseModel {
     private List<String> discoveredMaps = new ArrayList<>();
     private PlayerModel playerModel;
     private Player player;
+    private GameMap map;
 
     // Database Loading constructor
     public GameState(int id, String saveName, String mapFilename, int currentMap, Date savedAt, PlayerModel playerModel) {
@@ -26,14 +28,14 @@ public class GameState extends BaseModel {
     }
 
     // File Export Saving constructor
-    public GameState(String mapFilename, int currentMap, Date savedAt, PlayerModel playerModel, Player player) {
+    public GameState(String mapFilename, int currentMap, Date savedAt, PlayerModel playerModel, Player player, GameMap map) {
         this.mapFilename = mapFilename;
         this.saveName = null;
         this.currentMap = currentMap;
         this.savedAt = savedAt;
         this.playerModel = playerModel;
         this.player = player;
-
+        this.map = map;
     }
 
 
@@ -49,6 +51,10 @@ public class GameState extends BaseModel {
 
     public String getSaveName() {
         return saveName;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public void setSaveName(String saveName) {
@@ -87,6 +93,9 @@ public class GameState extends BaseModel {
         return playerModel;
     }
 
+    public GameMap getMap(){
+        return map;
+    }
 
     public void setPlayerModel(PlayerModel playerModel) {
         this.playerModel = playerModel;
