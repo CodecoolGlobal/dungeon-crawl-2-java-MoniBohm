@@ -1,11 +1,13 @@
 package com.codecool.dungeoncrawl.dao;
 
+import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PlayerDaoJdbc implements PlayerDao {
     private DataSource dataSource;
@@ -15,19 +17,19 @@ public class PlayerDaoJdbc implements PlayerDao {
     }
 
     @Override
-    public void add(PlayerModel player) {
+    public void add(PlayerModel playerModel) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "INSERT INTO player (id, player_name, hp, damage, armor, x, y, inventory)" +
                          "VALUES (?, ?, ?, ?, ?,?,?,?)";
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, player.getPlayerId());
-            statement.setString(2, player.getPlayerName());
-            statement.setInt(3, player.getHp());
-            statement.setInt(4, player.getDamage());
-            statement.setInt(5, player.getArmor());
-            statement.setInt(6, player.getX());
-            statement.setInt(7, player.getY());
-            statement.setString(8, player.getInventory());
+            statement.setInt(1, playerModel.getPlayerId());
+            statement.setString(2, playerModel.getPlayerName());
+            statement.setInt(3, playerModel.getHp());
+            statement.setInt(4, playerModel.getDamage());
+            statement.setInt(5, playerModel.getArmor());
+            statement.setInt(6, playerModel.getX());
+            statement.setInt(7, playerModel.getY());
+            statement.setBytes(8, Objects.requireNonNull(playerModel.getInventorySerialized().orElse(null)).toByteArray());
             statement.executeUpdate();
 
         } catch (SQLException e) {
@@ -36,21 +38,21 @@ public class PlayerDaoJdbc implements PlayerDao {
     }
 
     @Override
-    public void update(PlayerModel player) {
+    public void update(PlayerModel playerModel) {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "UPDATE player " +
                     "SET player_name=?, hp=?, damage=?,armor=?, x=?, y=?, inventory=?" +
                     "WHERE player.id=?";
 
             PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, player.getPlayerName());
-            statement.setInt(2, player.getHp());
-            statement.setInt(3, player.getDamage());
-            statement.setInt(4, player.getArmor());
-            statement.setInt(5, player.getX());
-            statement.setInt(6, player.getY());
-            statement.setString(7, player.getInventory());
-            statement.setInt(8, player.getPlayerId());
+            statement.setString(1, playerModel.getPlayerName());
+            statement.setInt(2, playerModel.getHp());
+            statement.setInt(3, playerModel.getDamage());
+            statement.setInt(4, playerModel.getArmor());
+            statement.setInt(5, playerModel.getX());
+            statement.setInt(6, playerModel.getY());
+            statement.setBytes(7, Objects.requireNonNull(playerModel.getInventorySerialized().orElse(null)).toByteArray());
+            statement.setInt(8, playerModel.getPlayerId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -114,7 +116,12 @@ public class PlayerDaoJdbc implements PlayerDao {
             int armor = resultSet.getInt(5);
             int x = resultSet.getInt(6);
             int y = resultSet.getInt(7);
-            String inventory = resultSet.getString(8);
+            byte[] inventoryBytes = resultSet.getBytes(8);
+            List<Item> inventory = PlayerModel.getInventoryDeserialized(inventoryBytes);
+            // TODO here you can test if the inventory is successfully converted back into objects or not?
+            for (Item item : inventory) {
+                System.out.println(item);
+            }
             result.add(new PlayerModel(playerId, playerName, hp, damage, armor, x, y, inventory));
         }
         return result;

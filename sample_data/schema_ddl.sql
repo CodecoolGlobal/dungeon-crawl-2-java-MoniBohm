@@ -17,7 +17,7 @@ CREATE TABLE public.player (
     armor integer NOT NULL,
     x integer NOT NULL,
     y integer NOT NULL,
-    inventory text
+    inventory bytea
 );
 
 ALTER TABLE ONLY public.game_state
