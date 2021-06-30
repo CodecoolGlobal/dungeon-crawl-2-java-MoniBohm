@@ -12,7 +12,7 @@ public class GameState extends BaseModel {
     private List<String> discoveredMaps = new ArrayList<>();
     private PlayerModel player;
 
-    // Loading constructor
+    // Database Loading constructor
     public GameState(int id, String saveName, String mapFilename, int currentMap, Date savedAt, PlayerModel player) {
         this.id = id;
         this.mapFilename = mapFilename;
@@ -22,8 +22,17 @@ public class GameState extends BaseModel {
         this.player = player;
     }
 
+    // File Export Saving constructor
+    public GameState(String mapFilename, int currentMap, Date savedAt, PlayerModel player) {
+        this.mapFilename = mapFilename;
+        this.saveName = null;
+        this.currentMap = currentMap;
+        this.savedAt = savedAt;
+        this.player = player;
+    }
 
-    // Saving constructor
+
+    // Database Saving constructor
     public GameState(String saveName, String mapFilename, int currentMap, Date savedAt, PlayerModel player) {
         this.mapFilename = mapFilename;
         this.saveName = saveName;

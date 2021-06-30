@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import com.codecool.dungeoncrawl.model.BaseModel;
 import com.codecool.dungeoncrawl.model.GameState;
 import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.codecool.dungeoncrawl.util.MiscUtilHelper;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
@@ -45,16 +46,12 @@ public class GameDatabaseManager {
     }
 
     public void saveGameMap(String saveName, String mapFilename, int currentMap, PlayerModel playerModel) {
-        Date date = getDate();
+        Date date = MiscUtilHelper.getDate();
         GameState model = new GameState(saveName, mapFilename, currentMap, date, playerModel);
         gameStateDao.add(model);
 
     }
 
-    private Date getDate() {
-        long millis=System.currentTimeMillis();
-        return new Date(millis);
-    }
 
     public void savePlayer(PlayerModel playerModel) {
         if (playerAlreadyInDatabase(playerModel.getPlayerId())) {

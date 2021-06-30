@@ -2,12 +2,16 @@ package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.UI.*;
 import com.codecool.dungeoncrawl.dao.GameDatabaseManager;
+import com.codecool.dungeoncrawl.filemanager.FileManager;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
 import com.codecool.dungeoncrawl.model.GameState;
+import com.codecool.dungeoncrawl.model.PlayerModel;
 import com.codecool.dungeoncrawl.util.Direction;
+import com.codecool.dungeoncrawl.util.MiscUtilHelper;
 import com.codecool.dungeoncrawl.util.SaveState;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -27,6 +31,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +39,7 @@ import java.util.List;
 
 public class Main extends Application {
     GameDatabaseManager gameDatabaseManager = new GameDatabaseManager();
+    FileManager fileManager;
     public static final int PIXEL_OFFSET = 32;
     public static boolean isNextMap;
     public static boolean isEnteringDungeon;
@@ -211,9 +217,20 @@ public class Main extends Application {
             case RIGHT -> manageMovement(Direction.RIGHT);
             case I -> getInventory();
             case C -> getCheat();
+            case X -> exportGameToFile();
 //            case S -> getSaveBox();    TODO  <--- use like this without CTRL?
 //            case L -> getLoadBox();
         }
+    }
+
+    private void exportGameToFile() {
+        Player player = map.getPlayer();
+        PlayerModel playerModel = new PlayerModel(player);
+        Date date = MiscUtilHelper.getDate();
+        GameState gameState = new GameState(mapFilename, currentMap, date, playerModel);
+        this.fileManager = new FileManager(playerModel, gameState);
+        fileManager.exportDataToFile();
+        fileManager.importDataFromFile();
     }
 
     private void getLoadBox() {
