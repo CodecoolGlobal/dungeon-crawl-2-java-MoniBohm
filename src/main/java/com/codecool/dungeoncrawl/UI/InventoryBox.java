@@ -307,12 +307,14 @@ public class InventoryBox {
                     invItem = item;
                 }
             }
-//            inventory.remove(invItem);
+            inventory.remove(invItem);
             List<Actor> enemies = cell.getGameMap().getEnemies();
             Random rand = new Random();
             Actor randomEnemy = enemies.get(rand.nextInt(enemies.size()));
             randomEnemy.getCell().setActor(null);
             cell.getGameMap().removeKilledEnemyFromEnemies(randomEnemy);
+
+            AlertBox.display("Mana used"," You used your magic\n  and sent an enemy\nto a random black hole","magic");
             window.close();
         }
 

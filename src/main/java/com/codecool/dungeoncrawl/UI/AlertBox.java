@@ -49,7 +49,9 @@ public class AlertBox {
 
         Label label = new Label();
         label.setText(msg);
+        label.wrapTextProperty();
         label.setFont(Font.font("Verdana"));
+        label.setAlignment(Pos.CENTER);
         label.setId("message");
 
         Image image = null;
@@ -65,6 +67,9 @@ public class AlertBox {
         if(pictureName.equals("save")){
             image = new Image("save.gif");
         }
+        if(pictureName.equals("magic")){
+            image = new Image("magic.gif");
+        }
         ImageView imageView = new ImageView();
         imageView.setImage(image);
         imageView.setFitWidth(400);
@@ -74,6 +79,7 @@ public class AlertBox {
 
         VBox basicBox = new VBox(10);
         basicBox.getChildren().addAll( label, imageView, closeButton);
+        basicBox.setId("layout");
         basicBox.setAlignment(Pos.CENTER);
         label.setAlignment(Pos.CENTER);
 
