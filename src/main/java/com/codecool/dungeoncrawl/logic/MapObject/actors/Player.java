@@ -136,9 +136,9 @@ public class Player extends Actor {
     private void fightWithColonelOrEnemy(Cell nextCell) {
         if (isColonel(nextCell)) {
             fightColonel(nextCell);
-        } else if (isArchEnemy(nextCell)) {
-            fightArchEnemy(nextCell);
-        }else {
+//        } else if (isArchEnemy(nextCell)) {
+//            fightArchEnemy(nextCell);
+//        }else {
             fightEnemy(nextCell);
         }
     }

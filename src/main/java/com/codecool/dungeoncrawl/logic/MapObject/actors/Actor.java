@@ -31,10 +31,10 @@ public abstract class Actor implements Drawable, Serializable {
         return actor instanceof Colonel;
     }
 
-    protected boolean isArchEnemy(Cell nextCell) {
-        Actor actor = nextCell.getActor();
-        return actor instanceof ArchEnemy;
-    }
+//    protected boolean isArchEnemy(Cell nextCell) {
+//        Actor actor = nextCell.getActor();
+//        return actor instanceof ArchEnemy;
+//    }
 
     protected boolean isItemCell(Cell nextCell) {
         return nextCell.getItem() != null;
