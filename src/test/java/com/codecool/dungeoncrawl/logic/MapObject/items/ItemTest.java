@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.logic.MapObject.items;
 
+import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
@@ -9,6 +10,7 @@ import com.codecool.dungeoncrawl.logic.MapObject.items.general.DungeonExit;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
 import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Uzi;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,6 +22,7 @@ class ItemTest {
     Item testUzi;
     Item testHealthPotion;
     Item testBodyArmor;
+    Cell testCell;
 
 
     @BeforeEach
@@ -30,7 +33,19 @@ class ItemTest {
         this.testUzi = new Uzi(gameMap.getCell(1, 0));
         this.testHealthPotion = new HealthPotion(gameMap.getCell(1, 1));
         this.testBodyArmor = new BodyArmor(gameMap.getCell(1, 2));
+        this.testCell = new Cell (gameMap, 0,0, CellType.FLOOR);
     }
 
+
+    @Test
+    void getTestUziXCoordinate(){
+//        assert
+    }
+
+    @Test
+    void getTestKeyYCoordinate(){}
+
+    @Test
+    void getTestCoinCell(){}
 
 }
