@@ -36,16 +36,22 @@ class ItemTest {
         this.testCell = new Cell (gameMap, 0,0, CellType.FLOOR);
     }
 
-
     @Test
     void getTestUziXCoordinate(){
-//        assert
+        testCell.setItem(testUzi);
+        assertEquals(1, testUzi.getX());
     }
 
     @Test
-    void getTestKeyYCoordinate(){}
+    void getTestKeyYCoordinate(){
+        testCell.setItem(testKey);
+        assertEquals(2, testKey.getY());
+    }
 
     @Test
-    void getTestCoinCell(){}
+    void getTestCoinCell(){
+        testCell.setItem(testCoin);
+        assertEquals(gameMap.getCell(0, 0), testCoin.getCell());
+    }
 
 }
