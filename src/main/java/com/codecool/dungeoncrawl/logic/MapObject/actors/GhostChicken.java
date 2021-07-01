@@ -17,7 +17,6 @@ public class GhostChicken extends Enemy {
 
     public GhostChicken(Cell cell) {
         super(cell);
-
         WIDTH_UPPER_BOUND = cell.getGameMap().getWidth() - 5;
         WIDTH_LOWER_BOUND = 5;
         HEIGHT_UPPER_BOUND = cell.getGameMap().getHeight() - 5;
