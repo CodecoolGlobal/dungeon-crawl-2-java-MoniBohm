@@ -61,6 +61,9 @@ public class AlertBox {
         if(pictureName.equals("load")){
             image = new Image("items/loading.gif");
         }
+        if(pictureName.equals("bossfight")){
+            image = new Image("items/finale.gif");
+        }
         if(pictureName.equals("loaded")){
             image = new Image("items/load.gif");
         }
