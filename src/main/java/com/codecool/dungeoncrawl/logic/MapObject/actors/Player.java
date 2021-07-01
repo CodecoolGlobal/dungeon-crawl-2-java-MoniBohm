@@ -208,7 +208,7 @@ public class Player extends Actor {
         }
     }
 
-    private void putItemToInventory(Cell nextCell) {
+    public void putItemToInventory(Cell nextCell) {
         this.putItemToInventory(nextCell.getItem());
     }
 
