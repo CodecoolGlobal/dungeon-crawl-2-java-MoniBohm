@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Player extends Actor {
+    public static final int KEY_COUNT = 3;
     private String name;
     private int id;
     public static final int MINIMUM_NR_COIN = 7;
@@ -62,6 +63,8 @@ public class Player extends Actor {
     public boolean validateCell(Cell nextCell) {
         if (isColonel(nextCell)) {
             fightColonel(nextCell);
+        } else if (isArchEnemy(nextCell)) {
+            fightArchEnemy(nextCell);
         } else if (isEnemyCell(nextCell)) {
             fightEnemy(nextCell);
             return true;
@@ -77,9 +80,11 @@ public class Player extends Actor {
         } else if (isEmptyCell(nextCell)) {
             move(nextCell);
             return true;
+
         }
         return false;
     }
+
 
     private void manageDoor(Cell nextCell) {
        Item door = nextCell.getItem();
@@ -132,6 +137,10 @@ public class Player extends Actor {
             interactionWithColonal();
         }
     }
+    private void fightArchEnemy(Cell nextCell) {
+            AlertBox.display("Boss fight","You have taken your revenge! Good Job!","bossfight");
+            move(nextCell);
+    }
 
     private void interactionWithColonal() {
         AlertBox.display("Colonal says", "Collect minimum " + MINIMUM_NR_COIN + " coins!");
@@ -148,7 +157,8 @@ public class Player extends Actor {
     }
 
     private boolean isEnoughOfKey(String itemName) {
-        return numberOfItem(itemName) >= Key.count;
+//        return numberOfItem(itemName) >= Key.count;
+        return numberOfItem(itemName) >= KEY_COUNT;
     }
 
 
