@@ -141,7 +141,7 @@ class ActorTest {
 
     @Test
     void getPlayerNameLikeHash(){
-        assertEquals(testHash, testPlayer.getHash());
+        assertEquals(testHash, testPlayer.getId());
 
     }
 
