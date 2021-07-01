@@ -16,15 +16,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ActorTest {
-    GameMap gameMap = new GameMap(3, 3, CellType.FLOOR);
-    Player testPlayer;
-    Enemy testEnemy;
-    Enemy testColonel;
-    Enemy testDrumstick;
-    Enemy testGhostChicken;
-    Item testItem;
-    Item testDoor;
+    private GameMap gameMap = new GameMap(3, 3, CellType.FLOOR);
+    private Player testPlayer;
+    private Enemy testEnemy;
+    private Enemy testColonel;
+    private Enemy testDrumstick;
+    private Enemy testGhostChicken;
+    private Item testItem;
+    private Item testDoor;
     private List<Item> testInventory ;
+    private int testDamage ;
+    private int testHealth ;
+    private int testArmor ;
+    private int testHash ;
 
     @BeforeEach
     void setUp() {
@@ -36,6 +40,10 @@ class ActorTest {
         this.testItem = new Coin(gameMap.getCell(2, 2));
         this.testDoor = new DungeonExit(gameMap.getCell(2, 2));
         this.testInventory = new ArrayList<>();
+        this.testDamage = ActorStats.PLAYER.damage;
+        this.testHealth = ActorStats.PLAYER.health;
+        this.testArmor = ActorStats.PLAYER.armor;
+        this.testHash = Math.abs("name".hashCode());
     }
 
     @Test
@@ -205,4 +213,42 @@ class ActorTest {
 
 
     @Test
+    void askInventory_GetUpdatedInventory(){
+        testPlayer.putItemToInventory(testItem);
+        testPlayer.putItemToInventory(testItem);
+        testInventory.add(testItem);
+        testInventory.add(testItem);
+        assertEquals(testInventory, testPlayer.getInventory());
+    }
+
+
+    @Test
+    void getPlayerName(){
+        assertEquals("name", testPlayer.getName());
+    }
+
+
+    @Test
+    void getPlayerUpdatedArmor(){
+        testPlayer.setArmor(33);
+        testArmor += 3;
+        assertEquals(33, testPlayer.getArmor());
+    }
+
+    @Test
+    void getPlayerUpdatedCoin(){
+        testPlayer.putItemToInventory(testItem);
+        testPlayer.putItemToInventory(testItem);
+        testInventory.add(testItem);
+        testInventory.add(testItem);
+        assertEquals(2, testPlayer.getCoin());
+
+    }
+
+    @Test
+    void getPlayerNameLikeHash(){
+        assertEquals(testHash, testPlayer.getHash());
+
+    }
+
 }
