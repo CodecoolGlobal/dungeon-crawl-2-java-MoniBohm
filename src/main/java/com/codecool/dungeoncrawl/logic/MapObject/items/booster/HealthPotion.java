@@ -19,7 +19,4 @@ public class HealthPotion extends Item {
         return "healthpotion";
     }
 
-    public void increaseHealth() {
-
-    }
 }
