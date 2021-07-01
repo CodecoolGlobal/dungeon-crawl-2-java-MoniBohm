@@ -2,7 +2,6 @@ package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Actor;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Enemy;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.NextStageDoor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 
 import java.io.Serializable;
@@ -10,7 +9,6 @@ import java.io.Serializable;
 public class Cell implements Drawable, Serializable {
     private CellType type;
     private Actor actor;
-    private NextStageDoor nextLevelNextStageDoor;
     private Item item;
     private GameMap gameMap;
     private int x, y;
