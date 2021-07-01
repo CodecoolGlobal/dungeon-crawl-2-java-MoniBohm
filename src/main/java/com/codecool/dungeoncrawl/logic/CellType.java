@@ -6,6 +6,7 @@ public enum CellType {
     WALL("wall"),
     WATER_VERTICAL("water_vertical"),
     WATER_HORIZONTAL("water_horizontal"),
+    WATER_BASE("water_base"),
     WATER_CORNER_1("water_corner_1"),
     WATER_CORNER_2("water_corner_2"),
     WATER_CORNER_3("water_corner_3"),
@@ -19,6 +20,8 @@ public enum CellType {
     FIRE("fire"),
     GRAVE("grave"),
     CORPSE("corpse"),
+    BODYGUARD("bodyguard"),
+    BODYGUARD2("bodyguard2"),
     CAGE("cage"),
     DUCK("duck");
 

@@ -3,28 +3,19 @@ package com.codecool.dungeoncrawl.logic.MapObject.items.weapon;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 
-public class Bazooka extends Item implements Weapon{
-    public Bazooka(Cell cell) {
+public class MagicStaff extends Item implements Weapon{
+    public MagicStaff(Cell cell) {
         super(cell);
     }
 
     @Override
     public String toString() {
-        return "Bazooka";
+        return "MagicStaff";
     }
 
     @Override
     public String getTileName() {
-        return "bazooka";
+        return "magicstaff";
     }
-
-
-
-
-    @Override
-    public void increaseDamage() {
-
-    }
-
 
 }

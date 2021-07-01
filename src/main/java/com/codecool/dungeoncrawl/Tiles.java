@@ -37,6 +37,8 @@ public class Tiles {
         tileMap.put("drumstick", new Tile(28, 7));
         tileMap.put("ghost", new Tile(28, 8));
         tileMap.put("colonel", new Tile(27, 8));
+        tileMap.put("bodyguard", new Tile(25, 9));
+        tileMap.put("bodyguard2", new Tile(27, 0));
         tileMap.put("key", new Tile(16, 23));
         tileMap.put("coin", new Tile(9, 25));
         tileMap.put("headgear", new Tile(6, 22));
@@ -48,11 +50,12 @@ public class Tiles {
         tileMap.put("dungeon_entrance", new Tile(13, 11));
         tileMap.put("dungeon_exit", new Tile(12, 11));
         tileMap.put("uzi", new Tile(9, 31));
-        tileMap.put("bazooka", new Tile(11, 31));
+        tileMap.put("magicstaff", new Tile(12, 25));
         tileMap.put("healthpotion", new Tile(16, 28));
         tileMap.put("manapotion", new Tile(16, 25));
         tileMap.put("water_vertical", new Tile(7, 6));
         tileMap.put("water_horizontal", new Tile(8, 6));
+        tileMap.put("water_base", new Tile(8, 5));
         tileMap.put("water_corner_1", new Tile(9, 6));
         tileMap.put("water_corner_2", new Tile(10, 6));
         tileMap.put("water_corner_3", new Tile(11, 6));

@@ -49,7 +49,9 @@ public class AlertBox {
 
         Label label = new Label();
         label.setText(msg);
+        label.wrapTextProperty();
         label.setFont(Font.font("Verdana"));
+        label.setAlignment(Pos.CENTER);
         label.setId("message");
 
         Image image = null;
@@ -57,13 +59,16 @@ public class AlertBox {
         closeButton.setOnAction( e -> window.close());
         closeButton.setFont(Font.font("Verdana"));
         if(pictureName.equals("load")){
-            image = new Image("loading.gif");
+            image = new Image("items/loading.gif");
         }
         if(pictureName.equals("loaded")){
-            image = new Image("load.gif");
+            image = new Image("items/load.gif");
         }
         if(pictureName.equals("save")){
-            image = new Image("save.gif");
+            image = new Image("items/save.gif");
+        }
+        if(pictureName.equals("magic")){
+            image = new Image("items/magic.gif");
         }
         ImageView imageView = new ImageView();
         imageView.setImage(image);
@@ -74,6 +79,7 @@ public class AlertBox {
 
         VBox basicBox = new VBox(10);
         basicBox.getChildren().addAll( label, imageView, closeButton);
+        basicBox.setId("layout");
         basicBox.setAlignment(Pos.CENTER);
         label.setAlignment(Pos.CENTER);
 
@@ -81,7 +87,5 @@ public class AlertBox {
         scene.getStylesheets().add("style.css");
         window.setScene(scene);
         window.showAndWait();
-
-
     }
 }

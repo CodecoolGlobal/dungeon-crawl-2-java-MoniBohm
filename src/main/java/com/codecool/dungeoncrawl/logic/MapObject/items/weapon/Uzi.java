@@ -18,9 +18,5 @@ public class Uzi extends Item implements Weapon{
         return "uzi";
     }
 
-    @Override
-    public void increaseDamage() {
-
-    }
 
 }

@@ -23,7 +23,7 @@ public class CheatMenu {
         window.setMinHeight(350);
         Label label = new Label();
         label.setText("Choose an option");
-        label.setId("confirmmsg");
+        label.setId("message");
 
         Button infiniteLive = new Button("IDDQD ++Health++");
         Button allStats = new Button("IDKFA ++Damage++");
@@ -62,6 +62,7 @@ public class CheatMenu {
 
         VBox layout = new VBox(10);
         layout.getChildren().addAll( label, infiniteLive, allStats, allKeysAndCoins, setHealthToMin);
+        layout.setId("layout");
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
