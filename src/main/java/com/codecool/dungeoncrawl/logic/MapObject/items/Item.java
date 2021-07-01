@@ -8,7 +8,6 @@ import java.io.Serializable;
 public abstract class Item implements Drawable, Serializable {
 
     private Cell cell;
-    private int value;
 
     public Item (Cell cell) {
         this.cell = cell;
