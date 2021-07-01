@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 
 import java.io.Serializable;
 
@@ -30,8 +31,17 @@ public abstract class Actor implements Drawable, Serializable {
         return actor instanceof Colonel;
     }
 
+    protected boolean isArchEnemy(Cell nextCell) {
+        Actor actor = nextCell.getActor();
+        return actor instanceof ArchEnemy;
+    }
+
     protected boolean isItemCell(Cell nextCell) {
         return nextCell.getItem() != null;
+    }
+
+    protected boolean isItem(Cell nextCell) {
+        return nextCell.getItem() instanceof Item;
     }
 
     protected boolean isEmptyCell(Cell nextCell) {
