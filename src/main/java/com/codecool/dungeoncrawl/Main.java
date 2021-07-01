@@ -257,12 +257,6 @@ public class Main extends Application {
         setMapFilename(gameState.getMapFilename());
         generateMap();
         setMap(gameState.getMap());
-
-//        map.getCell(gameState.getPlayer().getX(), gameState.getPlayer().getY()).setActor(null);
-//        map.setPlayer(null);
-
-        map.setPlayer(gameState.getPlayer());
-//        map.getCell(gameState.getPlayer().getX(), gameState.getPlayer().getY()).setActor(gameState.getPlayer());
         setFollowCamera(map.getPlayer().getCell());
         refreshGameMap();
     }
