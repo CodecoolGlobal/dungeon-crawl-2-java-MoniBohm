@@ -19,8 +19,4 @@ public class ManaPotion extends Item {
         return "manapotion";
     }
 
-
-    public void increaseMana() {
-
-    }
 }

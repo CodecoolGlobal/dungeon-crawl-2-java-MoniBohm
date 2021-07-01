@@ -7,9 +7,11 @@ import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.LegArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealthPotion;
+import com.codecool.dungeoncrawl.logic.MapObject.items.booster.ManaPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Coin;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.DungeonExit;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
+import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.MagicStaff;
 import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Uzi;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -80,4 +82,34 @@ class ItemTest {
         assertEquals(excepted, testLegArmor.getTileName());
     }
 
+
+
+    @Test
+    void getTestHealthPotionString(){
+        String excepted = "healthpotion";
+        assertEquals(excepted, testHealthPotion.getTileName());
+    }
+
+    @Test
+    void getTestManaPotionString(){
+        Item testManaPotion = new ManaPotion(gameMap.getCell(1, 1));
+        String excepted = "manapotion";
+        assertEquals(excepted, testManaPotion.getTileName());
+    }
+
+
+
+    @Test
+    void getTestUziString(){
+        String excepted = "uzi";
+        assertEquals(excepted, testUzi.getTileName());
+    }
+
+    @Test
+    void getTestMagicStaffString(){
+        Item testMagicStaff = new MagicStaff(gameMap.getCell(1, 1));
+
+        String excepted = "magicstaff";
+        assertEquals(excepted, testMagicStaff.getTileName());
+    }
 }
