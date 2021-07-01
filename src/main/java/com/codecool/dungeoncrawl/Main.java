@@ -159,8 +159,6 @@ public class Main extends Application {
     }
 
 
-
-
     private GridPane initUI(Stage primaryStage) {
         setWindow(primaryStage);
         GridPane ui = initInventory();
@@ -254,7 +252,8 @@ public class Main extends Application {
 
     private void loadImportedGame(GameState gameState){  // TODO Roky was here. Database loading is buggy, player goes invisible.
         setCurrentMap(gameState.getCurrentMap());
-        setMapFilename(gameState.getMapFilename());
+        setMapFilename(gameState.getMapFilename(//        nameOfFiles.add("/map4dungeon.txt");
+));
         generateMap();
         setMap(gameState.getMap());
         setFollowCamera(map.getPlayer().getCell());
@@ -272,7 +271,6 @@ public class Main extends Application {
         if(chosenGameId != 0){
             GameState gameState = gameDatabaseManager.getGameStateFromDb(chosenGameId);
             loadImportedGame(gameState);
-//            AlertBox.display("Please Wait", "Game loading!", "load");
             AlertBox.display("Success", "Game loaded!", "loaded");
         }
 
@@ -299,27 +297,16 @@ public class Main extends Application {
         refreshGameMap();
     }
 
-
     private void manageMovement(Direction direction) {
         boolean successfulMove;
         successfulMove = map.getPlayer().initMove(direction.dx, direction.dy);
         if (successfulMove) {
-//            setFollowCamera(direction, map.getPlayer().getCell());
             setFollowCamera(map.getPlayer().getCell());
         }
         map.moveEnemies();
         ChangeMapIfTrue();
         refreshGameMap();
     }
-
-//    private void setFollowCamera(Direction direction, Cell playerPosition) {
-//        switch (direction) {
-//            case UP -> borderPane.setTranslateY(borderPane.getTranslateY() + Tiles.TILE_WIDTH);
-//            case DOWN -> borderPane.setTranslateY(borderPane.getTranslateY() - Tiles.TILE_WIDTH);
-//            case LEFT -> borderPane.setTranslateX(borderPane.getTranslateX() + Tiles.TILE_WIDTH);
-//            case RIGHT -> borderPane.setTranslateX(borderPane.getTranslateX() - Tiles.TILE_WIDTH);
-//        }
-//    }
 
     private void setFollowCamera(Cell playerPosition) {
         borderPane.setTranslateY((playerPosition.getY() - PLAYER_START_Y_COORD) * - Tiles.TILE_WIDTH);
@@ -424,7 +411,6 @@ public class Main extends Application {
         nameOfFiles.add("/map1dungeon.txt");
         nameOfFiles.add("/map2dungeon.txt");
         nameOfFiles.add("/map3dungeon.txt");
-//        nameOfFiles.add("/map4dungeon.txt");
         return nameOfFiles;
     }
 
@@ -485,7 +471,6 @@ public class Main extends Application {
     private boolean isActor(Cell cell) {
         return cell.getActor() != null;
     }
-
 
     private void winGame() {
         WinGameBox.display();
