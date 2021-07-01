@@ -8,9 +8,7 @@ import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.LegArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealthPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.ManaPotion;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.Coin;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.DungeonExit;
-import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.*;
 import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.MagicStaff;
 import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Uzi;
 import org.junit.jupiter.api.BeforeEach;
@@ -112,4 +110,54 @@ class ItemTest {
         String excepted = "magicstaff";
         assertEquals(excepted, testMagicStaff.getTileName());
     }
+
+    @Test
+    void getTestCoinString(){
+        String excepted = "coin";
+        assertEquals(excepted, testCoin.getTileName());
+    }
+
+    @Test
+    void getTestDungeonEntranceString(){
+        Item testDungeonEntrance = new DungeonEntrance(gameMap.getCell(1, 1));
+        String excepted = "dungeon_entrance";
+        assertEquals(excepted, testDungeonEntrance.getTileName());
+    }
+
+    @Test
+    void getTestDungeonExitString(){
+        String excepted = "dungeon_exit";
+        assertEquals(excepted, testDungeonExit.getTileName());
+    }
+
+    @Test
+    void getTestKeyString(){
+        String excepted = "key";
+        assertEquals(excepted, testKey.getTileName());
+    }
+
+    @Test
+    void getTestNextStageDoorString_WhenDoorIsClosed(){
+        Item testNextStageDoor = new NextStageDoor(gameMap.getCell(1, 1));
+        String excepted = "door";
+        assertEquals(excepted, testNextStageDoor.getTileName());
+    }
+
+
+    @Test
+    void getTestNextStageDoorString_WhenDoorIsOpen(){
+        NextStageDoor testNextStageDoor = new NextStageDoor(gameMap.getCell(1, 1));
+        testNextStageDoor.setOpen(true);
+        String excepted = "opendoor";
+        assertEquals(excepted, testNextStageDoor.getTileName());
+    }
+
+
+    @Test
+    void getTestPrevStageDoorString(){
+        Item testPrevStageDoor = new PrevStageDoor(gameMap.getCell(1, 1));
+        String excepted = "prevdoor";
+        assertEquals(excepted, testPrevStageDoor.getTileName());
+    }
+
 }

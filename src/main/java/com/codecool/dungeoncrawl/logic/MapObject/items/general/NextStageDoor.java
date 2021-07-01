@@ -11,9 +11,10 @@ public class NextStageDoor extends Item {
         super(cell);
         isOpen = false;
     }
-    public void setOpen(boolean value){
+    public void setOpen(boolean value) {
         this.isOpen = value;
     }
+
     @Override
     public String toString() {
         return "Door";
