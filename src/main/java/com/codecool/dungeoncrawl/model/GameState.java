@@ -17,18 +17,17 @@ public class GameState extends BaseModel implements Serializable {
     private Timestamp savedAt;         // for DB only
     private String mapFilename;
     private int currentMap;
-    private PlayerModel playerModel; // this is only needed for the database saving, not the file export
     private Player player;           // this is only used for the file export
     private GameMap map;
 
-    // After loading from DB, this construction is called
-    public GameState(int id, String saveName, String mapFilename, int currentMap, Timestamp savedAt, PlayerModel playerModel, GameMap map) {
+    // After loading from DB, this construction is called TODO change playermodel
+    public GameState(int id, String saveName, String mapFilename, int currentMap, Timestamp savedAt, Player player, GameMap map) {
         this.id = id;
         this.mapFilename = mapFilename;
         this.saveName = saveName;
         this.currentMap = currentMap;
         this.savedAt = savedAt;
-        this.playerModel = playerModel;
+        this.player = player;
         this.map = map;
     }
 
@@ -43,12 +42,12 @@ public class GameState extends BaseModel implements Serializable {
     }
 
     // Before saving to DB, this construction is called
-    public GameState(String saveName, String mapFilename, int currentMap, Timestamp savedAt, PlayerModel playerModel, GameMap map) {
+    public GameState(String saveName, String mapFilename, int currentMap, Timestamp savedAt, Player player, GameMap map) {
         this.mapFilename = mapFilename;
         this.saveName = saveName;
         this.currentMap = currentMap;
         this.savedAt = savedAt;
-        this.playerModel = playerModel;
+        this.player = player;
         this.map = map;
     }
 
@@ -98,10 +97,6 @@ public class GameState extends BaseModel implements Serializable {
 
     public int getCurrentMap() {
         return currentMap;
-    }
-
-    public PlayerModel getPlayerModel() {
-        return playerModel;
     }
 
     public GameMap getMap(){

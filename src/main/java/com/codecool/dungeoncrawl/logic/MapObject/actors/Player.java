@@ -11,12 +11,14 @@ import com.codecool.dungeoncrawl.logic.MapObject.items.general.*;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.logic.MapObject.items.weapon.Weapon;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Player extends Actor {
     private String name;
-    private int Hash;
+    private int id;
     public static final int MINIMUM_NR_COIN = 7;
     private List<Item> inventory;
     private static final int HEALTH_INCREASE = 20;
@@ -31,15 +33,26 @@ public class Player extends Actor {
         health = ActorStats.PLAYER.health;
         armor = ActorStats.BUCKET.armor;
         this.name = name;
-        this.Hash = Math.abs(this.name.hashCode());
+        this.id = Math.abs(this.name.hashCode());
     }
+
+    public Player(int playerId, String name, int hp, int damage, int armor, Cell cell, List<Item> inventory) {
+        super(cell);
+        this.id = playerId;
+        this.name = name;
+        this.health = hp;
+        this.damage = damage;
+        this.armor = armor;
+        this.inventory = inventory;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-        this.Hash = Math.abs(this.name.hashCode());
+        this.id = Math.abs(this.name.hashCode());
     }
 
     public void setCell(Cell newCell) {
@@ -264,8 +277,76 @@ public class Player extends Actor {
         return numberOfItem("coin");
     }
 
-    public int getHash() {
-        return Hash;
+    public int getId() {
+        return id;
+    }
+
+    public int getHp() {
+        return this.health;
+    }
+
+    public Optional<ByteArrayOutputStream> getInventorySerialized() {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oout = new ObjectOutputStream(baos);
+            oout.writeObject(inventory);
+            oout.close();
+            return Optional.of(baos);
+        } catch (IOException e) {
+            System.out.println("Unable to serialize inventory");
+            return Optional.empty();
+        }
+    }
+
+    public Optional<ByteArrayOutputStream> getCellSerialized() {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oout = new ObjectOutputStream(baos);
+            oout.writeObject(cell);
+            oout.close();
+            return Optional.of(baos);
+        } catch (IOException e) {
+            System.out.println("Unable to serialize cell");
+            return Optional.empty();
+        }
+    }
+
+    public static List<Item> getInventoryDeserialized(byte[] inventoryBytes) {
+        try {
+            if (inventoryBytes != null) {
+                ByteArrayInputStream bais = new ByteArrayInputStream(inventoryBytes);
+                ObjectInputStream oin = new ObjectInputStream(bais);
+                Object obj = oin.readObject();
+                return (ArrayList<Item>) obj;
+            } else {
+                return new ArrayList<>();
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Unable to deserialize inventory");
+            return new ArrayList<>();
+        }
+    }
+
+    public static Cell getCellDeserialized(byte[] cellBytes) {
+        try {
+            if (cellBytes != null) {
+                ByteArrayInputStream bais = new ByteArrayInputStream(cellBytes);
+                ObjectInputStream oin = new ObjectInputStream(bais);
+                try {
+                    return (Cell) oin.readObject();
+                } catch (Exception e) {
+                    System.out.println("ERROR: " + e);
+                    return null;
+                }
+
+            } else {
+                System.out.println("Cell not found.");
+                return null;
+            }
+        } catch (IOException e) {
+            System.out.println("Unable to deserialize cell");
+            return null;
+        }
     }
 }
 

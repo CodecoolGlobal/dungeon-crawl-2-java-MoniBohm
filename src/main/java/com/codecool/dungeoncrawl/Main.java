@@ -9,7 +9,6 @@ import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Key;
 import com.codecool.dungeoncrawl.model.GameState;
-import com.codecool.dungeoncrawl.model.PlayerModel;
 import com.codecool.dungeoncrawl.util.Direction;
 import com.codecool.dungeoncrawl.util.MiscUtilHelper;
 import com.codecool.dungeoncrawl.util.SaveState;
@@ -31,10 +30,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -244,7 +241,6 @@ public class Main extends Application {
         this.fileManager = new FileManager(gameState);
     }
 
-
     private void importGameFromFile() {
         initFileManager();
         Optional<GameState> gameState = fileManager.importDataFromFile();
@@ -254,31 +250,28 @@ public class Main extends Application {
             loadImportedGame(gameState.get());
             AlertBox.display("Success", "Game imported!", "loaded");
         }
-
     }
 
-
-    private void loadImportedGame(GameState gameState){  // TODO Roky was here.
+    private void loadImportedGame(GameState gameState){  // TODO Roky was here. Database loading is buggy, player goes invisible.
         setCurrentMap(gameState.getCurrentMap());
         setMapFilename(gameState.getMapFilename());
         generateMap();
         setMap(gameState.getMap());
-        map.setPlayer(gameState.getPlayer());
         setFollowCamera(map.getPlayer().getCell());
         refreshGameMap();
     }
-
 
     private void setMap(GameMap updateMap){
         this.map = updateMap;
     }
 
     private void getLoadBox() {
-        int playerId = map.getPlayer().getHash();
+        int playerId = map.getPlayer().getId();
         List<GameState> gameStates = gameDatabaseManager.getGameStateDao().getAll(playerId);
         int chosenGameId = LoadGameBox.display(gameStates);
-        if(chosenGameId !=0){
-            // TODO Load game based on chosenGameId
+        if(chosenGameId != 0){
+            GameState gameState = gameDatabaseManager.getGameStateFromDb(chosenGameId);
+            loadImportedGame(gameState);
 //            AlertBox.display("Please Wait", "Game loading!", "load");
             AlertBox.display("Success", "Game loaded!", "loaded");
         }
@@ -286,16 +279,13 @@ public class Main extends Application {
     }
 
     private void getSaveBox() {
-        int playerId = map.getPlayer().getHash();
+        int playerId = map.getPlayer().getId();
         List<GameState> gameStates = gameDatabaseManager.getGameStateDao().getAll(playerId);
         String saveName = SaveGameBox.display(gameStates);
         if(saveName != null){
-            // TODO if player choose a file to overwrite than this savename variable will be a name that exists in the db.
-            // TODO update Method needs to be implemented
             AlertBox.display("Success", "Game Saved!", "save");
-            gameDatabaseManager.saveGame(saveName ,map, mapFilename, currentMap);
+            gameDatabaseManager.saveGame(saveName, map, mapFilename, currentMap);
         }
-
     }
 
     private void getCheat() {

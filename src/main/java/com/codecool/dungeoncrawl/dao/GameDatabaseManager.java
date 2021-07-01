@@ -2,17 +2,13 @@ package com.codecool.dungeoncrawl.dao;
 
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
-import com.codecool.dungeoncrawl.model.BaseModel;
 import com.codecool.dungeoncrawl.model.GameState;
-import com.codecool.dungeoncrawl.model.PlayerModel;
 import com.codecool.dungeoncrawl.util.MiscUtilHelper;
 import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 public class GameDatabaseManager {
     private PlayerDao playerDao;
@@ -42,26 +38,40 @@ public class GameDatabaseManager {
 
     public void saveGame(String saveName, GameMap map, String mapFilename, int currentMap) {
         Player player = map.getPlayer();
-        PlayerModel playerModel = new PlayerModel(player);
-        savePlayer(playerModel);
-        saveGameMap(saveName ,mapFilename, currentMap, playerModel, map);
+        saveGameMap(saveName ,mapFilename, currentMap, player, map);
     }
 
-    public void saveGameMap(String saveName, String mapFilename, int currentMap, PlayerModel playerModel, GameMap map) {
+    public void saveGameMap(String saveName, String mapFilename, int currentMap, Player player, GameMap map) {
         Timestamp date = MiscUtilHelper.getDate();
-        GameState model = new GameState(saveName, mapFilename, currentMap, date, playerModel, map);
-        gameStateDao.add(model);
-
-    }
-
-
-    public void savePlayer(PlayerModel playerModel) {
-        if (playerAlreadyInDatabase(playerModel.getId())) {
-            playerDao.update(playerModel);
+        GameState gameState = new GameState(saveName, mapFilename, currentMap, date, player, map);
+        int saveId = gameStateAlreadyInDatabase(saveName);
+        if (saveId == 0) {
+            savePlayer(player);
+            gameStateDao.add(gameState);
         } else {
-            playerDao.add(playerModel);
+            gameState.setId(saveId);
+            savePlayer(player);
+            gameStateDao.update(gameState);
         }
 
+    }
+
+
+    public GameState getGameStateFromDb(int gameId) {
+        return gameStateDao.get(gameId);
+    }
+
+    private int gameStateAlreadyInDatabase(String saveName) {
+        return gameStateDao.isSavenameInDb(saveName);
+    }
+
+
+    public void savePlayer(Player player) {
+        if (playerAlreadyInDatabase(player.getId())) {
+            playerDao.update(player);
+        } else {
+            playerDao.add(player);
+        }
     }
 
     private boolean playerAlreadyInDatabase(int playerHash) {
