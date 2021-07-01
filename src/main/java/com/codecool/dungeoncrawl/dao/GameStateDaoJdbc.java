@@ -1,9 +1,10 @@
 package com.codecool.dungeoncrawl.dao;
 
+import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
 import com.codecool.dungeoncrawl.model.GameState;
-import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -29,7 +30,7 @@ public class GameStateDaoJdbc implements GameStateDao {
             statement.setBytes(3, Objects.requireNonNull(state.getMapSerialized().orElse(null)).toByteArray());
             statement.setInt(4, state.getCurrentMap());
             statement.setTimestamp(5, state.getSavedAt());
-            statement.setInt(6, state.getPlayerModel().getId());
+            statement.setInt(6, state.getPlayer().getId());
 
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
@@ -54,7 +55,7 @@ public class GameStateDaoJdbc implements GameStateDao {
             statement.setInt(3, state.getCurrentMap());
             statement.setBytes(4, Objects.requireNonNull(state.getMapSerialized().orElse(null)).toByteArray());
             statement.setTimestamp(5, state.getSavedAt());
-            statement.setInt(6, state.getPlayerModel().getId());
+            statement.setInt(6, state.getPlayer().getId());
             statement.setInt(7, state.getId());
 
             statement.executeUpdate();
@@ -79,8 +80,7 @@ public class GameStateDaoJdbc implements GameStateDao {
                                 p.hp,
                                 p.damage,
                                 p.armor,
-                                p.x,
-                                p.y,
+                                p.cell,
                                 p.inventory
                          FROM game_state gs
                          INNER JOIN player p
@@ -111,8 +111,7 @@ public class GameStateDaoJdbc implements GameStateDao {
                                 p.hp,
                                 p.damage,
                                 p.armor,
-                                p.x,
-                                p.y,
+                                p.cell,
                                 p.inventory
                             FROM game_state gs
                             INNER JOIN player p
@@ -129,10 +128,9 @@ public class GameStateDaoJdbc implements GameStateDao {
         }
     }
 
-
     public int isSavenameInDb(String saveName) {
             try (Connection conn = dataSource.getConnection()) {
-                String sql = "SELECT * " +
+                String sql = "SELECT *" +
                         "FROM game_state " +
                         "WHERE save_name = ?";
                 PreparedStatement statement = conn.prepareStatement(sql);
@@ -148,11 +146,6 @@ public class GameStateDaoJdbc implements GameStateDao {
             }
         }
 
-
-
-
-
-
     private List<GameState> convertToGameStates(ResultSet resultSet) throws SQLException {
         List<GameState> result = new ArrayList<>();
         while (resultSet.next()) {
@@ -164,22 +157,21 @@ public class GameStateDaoJdbc implements GameStateDao {
             GameMap map = GameState.getMapDeserialized(mapBytes);
             Timestamp savedAt = resultSet.getTimestamp(6);
 
-
             int playerId = resultSet.getInt(7);
             String playerName = resultSet.getString(8);
             int hp = resultSet.getInt(9);
             int damage = resultSet.getInt(10);
             int armor = resultSet.getInt(11);
-            int x = resultSet.getInt(12);
-            int y = resultSet.getInt(13);
-            byte[] inventoryBytes = resultSet.getBytes(14);
-            List<Item> inventory = PlayerModel.getInventoryDeserialized(inventoryBytes);
-            PlayerModel player = new PlayerModel(playerId, playerName, hp, damage, armor, x, y, inventory);
+            byte[] cellBytes = resultSet.getBytes(12);
+            Cell cell = Player.getCellDeserialized(cellBytes);
+            byte[] inventoryBytes = resultSet.getBytes(13);
+            List<Item> inventory = Player.getInventoryDeserialized(inventoryBytes);
+
+            Player player = new Player(playerId, playerName, hp, damage, armor, cell, inventory);
+
             result.add(new GameState(id, saveName, mapFilename, currentMap, savedAt, player, map));
         }
         return result;
     }
-
-
 
 }

@@ -1,8 +1,6 @@
 package com.codecool.dungeoncrawl.filemanager;
 
-import com.codecool.dungeoncrawl.model.BaseModel;
 import com.codecool.dungeoncrawl.model.GameState;
-import com.codecool.dungeoncrawl.model.PlayerModel;
 
 import java.io.*;
 import java.util.Optional;

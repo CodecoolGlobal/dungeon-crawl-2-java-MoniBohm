@@ -1,13 +1,13 @@
 package com.codecool.dungeoncrawl.dao;
 
-import com.codecool.dungeoncrawl.model.PlayerModel;
+import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 
 import java.util.List;
 
 public interface PlayerDao {
-    void add(PlayerModel player);
-    void update(PlayerModel player);
+    void add(Player player);
+    void update(Player player);
     boolean isPlayerInDb(int hashcode);
-    PlayerModel get(int id);
-    List<PlayerModel> getAll();
+    Player get(int id);
+    List<Player> getAll();
 }

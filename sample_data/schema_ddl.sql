@@ -16,8 +16,7 @@ CREATE TABLE public.player (
     hp integer NOT NULL,
     damage integer NOT NULL,
     armor integer NOT NULL,
-    x integer NOT NULL,
-    y integer NOT NULL,
+    cell bytea NOT NULL,
     inventory bytea
 );
 
