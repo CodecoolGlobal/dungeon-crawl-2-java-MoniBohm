@@ -15,7 +15,7 @@ class CellTest {
 
     @BeforeEach
     void setUp() {
-//        this.testPlayer = new Player(gameMap.getCell(1, 1));
+        this.testPlayer = new Player(gameMap.getCell(1, 1), "name");
         this.testEnemy = new Bucket(gameMap.getCell(2, 2));
     }
 
