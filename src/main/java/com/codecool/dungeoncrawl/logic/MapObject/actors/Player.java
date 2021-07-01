@@ -318,69 +318,6 @@ public class Player extends Actor {
         return this.health;
     }
 
-//    public Optional<ByteArrayOutputStream> getInventorySerialized() {
-//        try {
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            ObjectOutputStream oout = new ObjectOutputStream(baos);
-//            oout.writeObject(inventory);
-//            oout.close();
-//            return Optional.of(baos);
-//        } catch (IOException e) {
-//            System.out.println("Unable to serialize inventory");
-//            return Optional.empty();
-//        }
-//    }
-
-//    public Optional<ByteArrayOutputStream> getCellSerialized() {
-//        try {
-//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//            ObjectOutputStream oout = new ObjectOutputStream(baos);
-//            oout.writeObject(cell);
-//            oout.close();
-//            return Optional.of(baos);
-//        } catch (IOException e) {
-//            System.out.println("Unable to serialize cell");
-//            return Optional.empty();
-//        }
-//    }
-//
-//    public static List<Item> getInventoryDeserialized(byte[] inventoryBytes) {
-//        try {
-//            if (inventoryBytes != null) {
-//                ByteArrayInputStream bais = new ByteArrayInputStream(inventoryBytes);
-//                ObjectInputStream oin = new ObjectInputStream(bais);
-//                Object obj = oin.readObject();
-//                return (ArrayList<Item>) obj;
-//            } else {
-//                return new ArrayList<>();
-//            }
-//        } catch (IOException | ClassNotFoundException e) {
-//            System.out.println("Unable to deserialize inventory");
-//            return new ArrayList<>();
-//        }
-//    }
-//
-//    public static Cell getCellDeserialized(byte[] cellBytes) {
-//        try {
-//            if (cellBytes != null) {
-//                ByteArrayInputStream bais = new ByteArrayInputStream(cellBytes);
-//                ObjectInputStream oin = new ObjectInputStream(bais);
-//                try {
-//                    return (Cell) oin.readObject();
-//                } catch (Exception e) {
-//                    System.out.println("ERROR: " + e);
-//                    return null;
-//                }
-//
-//            } else {
-//                System.out.println("Cell not found.");
-//                return null;
-//            }
-//        } catch (IOException e) {
-//            System.out.println("Unable to deserialize cell");
-//            return null;
-//        }
-//    }
     public Optional<ByteArrayOutputStream> getInventorySerialized() {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
