@@ -129,6 +129,30 @@ public class GameStateDaoJdbc implements GameStateDao {
         }
     }
 
+
+    public int isSavenameInDb(String saveName) {
+            try (Connection conn = dataSource.getConnection()) {
+                String sql = "SELECT * " +
+                        "FROM game_state " +
+                        "WHERE save_name = ?";
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1, saveName);
+                ResultSet resultSet = statement.executeQuery();
+                if (!resultSet.next()){
+                    return 0;
+                }else{
+                    return resultSet.getInt(1);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+
+
+
+
     private List<GameState> convertToGameStates(ResultSet resultSet) throws SQLException {
         List<GameState> result = new ArrayList<>();
         while (resultSet.next()) {
@@ -155,4 +179,7 @@ public class GameStateDaoJdbc implements GameStateDao {
         }
         return result;
     }
+
+
+
 }

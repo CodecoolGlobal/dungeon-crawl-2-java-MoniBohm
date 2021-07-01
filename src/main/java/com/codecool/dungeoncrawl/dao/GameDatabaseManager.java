@@ -47,11 +47,27 @@ public class GameDatabaseManager {
         saveGameMap(saveName ,mapFilename, currentMap, playerModel, map);
     }
 
+    public void loadGame(int gameId) {
+       GameState gameState = gameStateDao.get(gameId);
+       PlayerModel playerModel = gameState.getPlayerModel();
+
+    }
+
     public void saveGameMap(String saveName, String mapFilename, int currentMap, PlayerModel playerModel, GameMap map) {
         Timestamp date = MiscUtilHelper.getDate();
-        GameState model = new GameState(saveName, mapFilename, currentMap, date, playerModel, map);
-        gameStateDao.add(model);
+        GameState gameState = new GameState(saveName, mapFilename, currentMap, date, playerModel, map);
+        int saveId = gameStateAlreadyInDatabase(saveName);
+        if (saveId == 0) {
+            gameStateDao.add(gameState);
+        } else {
+            gameState.setId(saveId);
+            gameStateDao.update(gameState);
+        }
 
+    }
+
+    private int gameStateAlreadyInDatabase(String saveName) {
+        return gameStateDao.isSavenameInDb(saveName);
     }
 
 

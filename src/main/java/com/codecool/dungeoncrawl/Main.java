@@ -279,6 +279,7 @@ public class Main extends Application {
         int chosenGameId = LoadGameBox.display(gameStates);
         if(chosenGameId !=0){
             // TODO Load game based on chosenGameId
+            gameDatabaseManager.loadGame(chosenGameId);
 //            AlertBox.display("Please Wait", "Game loading!", "load");
             AlertBox.display("Success", "Game loaded!", "loaded");
         }
@@ -290,8 +291,6 @@ public class Main extends Application {
         List<GameState> gameStates = gameDatabaseManager.getGameStateDao().getAll(playerId);
         String saveName = SaveGameBox.display(gameStates);
         if(saveName != null){
-            // TODO if player choose a file to overwrite than this savename variable will be a name that exists in the db.
-            // TODO update Method needs to be implemented
             AlertBox.display("Success", "Game Saved!", "save");
             gameDatabaseManager.saveGame(saveName ,map, mapFilename, currentMap);
         }
