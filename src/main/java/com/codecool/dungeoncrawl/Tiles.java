@@ -1,11 +1,9 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.Drawable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +35,7 @@ public class Tiles {
         tileMap.put("drumstick", new Tile(28, 7));
         tileMap.put("ghost", new Tile(28, 8));
         tileMap.put("colonel", new Tile(27, 8));
+        tileMap.put("archenemy", new Tile(26, 8));
         tileMap.put("bodyguard", new Tile(25, 9));
         tileMap.put("bodyguard2", new Tile(27, 0));
         tileMap.put("key", new Tile(16, 23));

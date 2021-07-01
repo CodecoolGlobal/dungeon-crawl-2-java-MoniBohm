@@ -248,7 +248,9 @@ public class Main extends Application {
         }
     }
 
-    private void loadImportedGame(GameState gameState){
+
+    private void loadImportedGame(GameState gameState){  // TODO Roky was here. Database loading is buggy, player goes invisible.
+        Key.count = 0;
         setCurrentMap(gameState.getCurrentMap());
         setMapFilename(gameState.getMapFilename());
         generateMap();
