@@ -3,37 +3,51 @@ package com.codecool.dungeoncrawl.logic;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Bucket;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Enemy;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
+import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
+import com.codecool.dungeoncrawl.logic.MapObject.items.general.DungeonExit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameMapTest {
-    GameMap gameMap = new GameMap(3, 3, CellType.FLOOR);
-    Player testPlayer;
-    Enemy testEnemy;
+    private GameMap testGameMap;
+    private Player testPlayer;
+    private Enemy testEnemy;
+    private Cell testCell;
+    private Cell[][] testCells;
+
 
     @BeforeEach
     void setUp() {
-        this.testPlayer = new Player(gameMap.getCell(1, 1), "name");
-        this.testEnemy = new Bucket(gameMap.getCell(2, 2));
+        this.testGameMap =  new GameMap(3, 3, CellType.FLOOR);
+        this.testPlayer = new Player(testGameMap.getCell(1, 1), "name");
+        this.testEnemy = new Bucket(testGameMap.getCell(2, 2));
+        this.testCell = new Cell (testGameMap, 1, 0, CellType.FLOOR);
     }
+
+
+    @Test
+    void givenCellIsOutOfMap_ThenReturnNull(){
+        assertEquals(null, testGameMap.getCell(5, 0));
+    }
+
 
     @Test
     void getPlayer() {
-        assertEquals(null, gameMap.getPlayer());
+        assertEquals(null, testGameMap.getPlayer());
     }
 
     @Test
     void getWidth() {
         int excepted = 3;
-        assertEquals(excepted, gameMap.getWidth());
+        assertEquals(excepted, testGameMap.getWidth());
     }
 
     @Test
     void getHeight() {
         int excepted = 3;
-        assertEquals(excepted, gameMap.getHeight());
+        assertEquals(excepted, testGameMap.getHeight());
     }
 
 }

@@ -110,6 +110,7 @@ public class GameMap implements Serializable {
         return null;
     }
 
+
     private boolean isNextDoor(Cell cell) {
         return cell.getItem() instanceof NextStageDoor;
     }
