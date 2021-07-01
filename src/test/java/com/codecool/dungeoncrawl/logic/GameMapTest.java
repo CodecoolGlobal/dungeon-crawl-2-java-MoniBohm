@@ -12,18 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameMapTest {
     private GameMap testGameMap;
-    private Player testPlayer;
-    private Enemy testEnemy;
-    private Cell testCell;
-    private Cell[][] testCells;
 
 
     @BeforeEach
     void setUp() {
         this.testGameMap =  new GameMap(3, 3, CellType.FLOOR);
-        this.testPlayer = new Player(testGameMap.getCell(1, 1), "name");
-        this.testEnemy = new Bucket(testGameMap.getCell(2, 2));
-        this.testCell = new Cell (testGameMap, 1, 0, CellType.FLOOR);
     }
 
 

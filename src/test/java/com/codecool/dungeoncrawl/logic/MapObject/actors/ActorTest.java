@@ -104,8 +104,6 @@ class ActorTest {
     }
 
 
-
-
     @Test
     void askInventory_GetUpdatedInventory(){
         testPlayer.putItemToInventory(testItem);
