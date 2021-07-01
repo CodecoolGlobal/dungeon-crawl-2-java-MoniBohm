@@ -9,6 +9,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,12 +97,11 @@ public class LoadGameBox {
         for(GameState state: gameStates){
             saveNames.add(state.getSaveName());
             savegameFileButton = new RadioButton();
+            String time = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(state.getSavedAt());
             savegameFileButton.setText(
                     "#" + counter + " | "
                             + state.getSaveName() + " | "
-                            + state.getSavedAt().toString() + " "
-                            + state.getMapFilename());
-
+                            + time);
             savegameFileButton.setFont(Font.font("Verdana"));
             savegameFileButton.setId("savedGameBtn");
             savegameFileButton.setToggleGroup(group);

@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,11 +85,11 @@ public class SaveGameBox {
         for(GameState state: gameStates){
             saveNames.add(state.getSaveName());
             savedGameBtn = new Button();
+            String time = new SimpleDateFormat("yyyy/MM/dd HH:mm").format(state.getSavedAt());
             savedGameBtn.setText(
                     "#" + counter + " | "
                     + state.getSaveName() + " | "
-                    + state.getSavedAt().toString() + " "
-                    + state.getMapFilename());
+                    + time);
 
             savedGameBtn.setFont(Font.font("Verdana"));
             savedGameBtn.setId("savedGameBtn");
