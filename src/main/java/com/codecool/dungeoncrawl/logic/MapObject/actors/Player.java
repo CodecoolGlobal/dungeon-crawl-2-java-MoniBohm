@@ -46,7 +46,7 @@ public class Player extends Actor {
         cell = newCell;
     }
 
-    private boolean validateCell(Cell nextCell) {
+    public boolean validateCell(Cell nextCell) {
         if (isColonel(nextCell)) {
             fightColonel(nextCell);
         } else if (isEnemyCell(nextCell)) {

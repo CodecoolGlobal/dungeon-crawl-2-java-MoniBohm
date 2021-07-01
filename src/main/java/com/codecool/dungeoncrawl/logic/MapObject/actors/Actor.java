@@ -36,7 +36,6 @@ public abstract class Actor implements Drawable, Serializable {
         return nextCell.getItem() != null;
     }
 
-
     protected boolean isEmptyCell(Cell nextCell) {
         return nextCell.getType() == CellType.FLOOR
                 && nextCell.getActor() == null
@@ -125,11 +124,6 @@ public abstract class Actor implements Drawable, Serializable {
     public int getY() {
         return cell.getY();
     }
-
-    //TODO
-    public void setCellCoordinates(int x, int y)
-    {
-
-    }
+    
 
 }
