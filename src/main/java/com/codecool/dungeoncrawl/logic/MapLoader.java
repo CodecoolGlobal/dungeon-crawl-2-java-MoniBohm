@@ -121,6 +121,10 @@ public class MapLoader implements Serializable {
                 cell.setType(CellType.FLOOR);
                 new Colonel(cell);
                 break;
+            case 'A': // enemy: Archenemy
+                cell.setType(CellType.FLOOR);
+                new ArchEnemy(cell);
+                break;
             case 'k': // key
                 cell.setType(CellType.FLOOR);
                 new Key(cell);
@@ -157,19 +161,19 @@ public class MapLoader implements Serializable {
                 cell.setType(CellType.FLOOR);
                 new DungeonExit(cell);
                 break;
-            case 'u':
+            case 'u':// Uzi
                 cell.setType(CellType.FLOOR);
                 new Uzi(cell);
                 break;
-            case 'z':
+            case 'z':// MagicStaff
                 cell.setType(CellType.FLOOR);
                 new MagicStaff(cell);
                 break;
-            case 'm':
+            case 'm':// ManaPotion
                 cell.setType(CellType.FLOOR);
                 new ManaPotion(cell);
                 break;
-            case 'j':
+            case 'j':// HealthPotion
                 cell.setType(CellType.FLOOR);
                 new HealthPotion(cell);
                 break;
@@ -177,7 +181,7 @@ public class MapLoader implements Serializable {
                 cell.setType(CellType.FLOOR);
                 map.setPlayer(new Player(cell, playerName));
                 break;
-            case 'K': // player
+            case 'K': // CAGE
                 cell.setType(CellType.CAGE);
                 break;
             default:
