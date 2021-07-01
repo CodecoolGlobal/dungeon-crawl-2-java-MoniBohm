@@ -45,30 +45,26 @@ class CellTest {
 
     @Test
     void cellOnEdgeHasNoNeighbor() {
-        Cell cell = gameMap.getCell(1, 0);
         assertEquals(null, testCell.getNeighbor(0, -1));
-
-        cell = gameMap.getCell(1, 2);
+        Cell cell = gameMap.getCell(1, 2);
         assertEquals(null, cell.getNeighbor(0, 1));
     }
 
 
     @Test
     void testCellIsFloor_ThenReturnFloor() {
-        Cell testCell = new Cell (gameMap, 1, 0, CellType.FLOOR);
         assertEquals(CellType.FLOOR, testCell.getType());
     }
 
 
     @Test
     void testCellIsBodyGuard_ThenReturnFloor() {
-        Cell testCell = new Cell (gameMap, 1, 0, CellType.BODYGUARD);
+        testCell.setType(CellType.BODYGUARD);
         assertEquals(CellType.BODYGUARD, testCell.getType());
     }
 
     @Test
     void onTheGivenCellPlayer_ThenReturnPlayerActor() {
-        Cell testCell = new Cell (gameMap, 1, 0, CellType.EMPTY);
         testCell.setActor(testPlayer);
         assertEquals(testPlayer, testCell.getActor());
     }
@@ -76,7 +72,6 @@ class CellTest {
 
     @Test
     void onTheGivenCellColonel_ThenReturnColonelActor() {
-        Cell testCell = new Cell (gameMap, 1, 0, CellType.EMPTY);
         testCell.setActor(testColonel);
         assertEquals(testColonel, testCell.getActor());
     }
@@ -84,7 +79,6 @@ class CellTest {
 
     @Test
     void onTheGivenCellIsCoin_ThenReturnCoinItem() {
-        Cell testCell = new Cell (gameMap, 1, 0, CellType.FLOOR);
         testCell.setItem(testCoin);
         assertEquals(testCoin, testCell.getItem());
     }
@@ -92,7 +86,6 @@ class CellTest {
 
     @Test
     void onTheGivenCellIsKey_ThenReturnKeyItem() {
-        Cell testCell = new Cell (gameMap, 1, 0, CellType.FLOOR);
         testCell.setItem(testKey);
         assertEquals(testKey, testCell.getItem());
     }
@@ -100,10 +93,8 @@ class CellTest {
 
     @Test
     void onTheGivenCellIsDoor_ThenReturnDoorItem() {
-        Cell testCell = new Cell (gameMap, 1, 0, CellType.FLOOR);
         testCell.setItem(testDoor);
         assertEquals(testDoor, testCell.getItem());
-
     }
 
     @Test
@@ -120,6 +111,7 @@ class CellTest {
 
     @Test
     void getGameMap_WithEnemy() {
+
         assertEquals(gameMap, testEnemy.getCell().getGameMap());
     }
 
@@ -139,9 +131,7 @@ class CellTest {
     void onGivenCellEnemy_ThenReturnFalse(){
         Cell enemyCell = testPlayer.getCell();
         assertFalse(enemyCell.isEnemyCell() );
-
     }
-
 
     @Test
     void onTheGivenCellIsEnemy_ThenFalse(){
@@ -151,7 +141,6 @@ class CellTest {
 
     @Test
     void givenCellIsNull_ThenTrue(){
-        Cell testCell = new Cell (gameMap, 1, 0, CellType.FLOOR);
         testCell.setItem(null);
         assertTrue(testCell.isEmptyCell(testCell));
     }
@@ -164,14 +153,12 @@ class CellTest {
 
     @Test
     void getGivenCellX(){
-        Cell testCell = new Cell (gameMap, 1, 0, CellType.FLOOR);
         assertEquals(1, testCell.getX());
 
     }
 
     @Test
     void getGivenCellY(){
-        Cell testCell = new Cell (gameMap, 1, 0, CellType.FLOOR);
         assertEquals(0, testCell.getY());
     }
 }
