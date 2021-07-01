@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Bucket;
+import com.codecool.dungeoncrawl.logic.MapObject.actors.Colonel;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Enemy;
 import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,11 +13,13 @@ class CellTest {
     GameMap gameMap = new GameMap(3, 3, CellType.FLOOR);
     Player testPlayer;
     Enemy testEnemy;
+    Enemy testColonel;
 
     @BeforeEach
     void setUp() {
         this.testPlayer = new Player(gameMap.getCell(1, 1), "name");
         this.testEnemy = new Bucket(gameMap.getCell(2, 2));
+        this.testColonel = new Colonel(gameMap.getCell(2, 2));
     }
 
     @Test
@@ -34,6 +37,35 @@ class CellTest {
 
         cell = gameMap.getCell(1, 2);
         assertEquals(null, cell.getNeighbor(0, 1));
+    }
+
+
+    @Test
+    void testCellIsFloor_ThenReturnFloor() {
+        Cell testCell = new Cell (gameMap, 1, 0, CellType.FLOOR);
+        assertEquals(CellType.FLOOR, testCell.getType());
+    }
+
+
+    @Test
+    void testCellIsBodyGuard_ThenReturnFloor() {
+        Cell testCell = new Cell (gameMap, 1, 0, CellType.BODYGUARD);
+        assertEquals(CellType.BODYGUARD, testCell.getType());
+    }
+
+    @Test
+    void onTheGivenCellPlayer_ThenReturnPlayerActor() {
+        Cell testCell = new Cell (gameMap, 1, 0, CellType.EMPTY);
+        testCell.setActor(testPlayer);
+        assertEquals(testPlayer, testCell.getActor());
+    }
+
+
+    @Test
+    void onTheGivenCellColonel_ThenReturnColonelActor() {
+        Cell testCell = new Cell (gameMap, 1, 0, CellType.EMPTY);
+        testCell.setActor(testColonel);
+        assertEquals(testColonel, testCell.getActor());
     }
 
 
