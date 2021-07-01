@@ -25,8 +25,6 @@ class ActorTest {
     private Item testItem;
     private Item testDoor;
     private List<Item> testInventory ;
-    private int testDamage ;
-    private int testHealth ;
     private int testArmor ;
     private int testHash ;
 
@@ -40,8 +38,6 @@ class ActorTest {
         this.testItem = new Coin(gameMap.getCell(2, 2));
         this.testDoor = new DungeonExit(gameMap.getCell(2, 2));
         this.testInventory = new ArrayList<>();
-        this.testDamage = ActorStats.PLAYER.damage;
-        this.testHealth = ActorStats.PLAYER.health;
         this.testArmor = ActorStats.PLAYER.armor;
         this.testHash = Math.abs("name".hashCode());
     }
