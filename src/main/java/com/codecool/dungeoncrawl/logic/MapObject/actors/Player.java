@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Player extends Actor {
-    public static final int KEY_COUNT = 3;
+    public static final int KEY_COUNT = 2;
     private String name;
     private int id;
     public static final int MINIMUM_NR_COIN = 7;
@@ -25,7 +25,6 @@ public class Player extends Actor {
     private static final int HEALTH_INCREASE = 20;
     private static final int ARMOR_INCREASE = 20;
     private static final int WEAPON_INCREASE = 20;
-
 
     public Player(Cell cell, String name)  {
         super(cell);
@@ -47,6 +46,7 @@ public class Player extends Actor {
         this.inventory = inventory;
     }
 
+
     public String getName() {
         return name;
     }
@@ -61,30 +61,55 @@ public class Player extends Actor {
     }
 
     public boolean validateCell(Cell nextCell) {
-        if (isColonel(nextCell)) {
-            fightColonel(nextCell);
-        } else if (isArchEnemy(nextCell)) {
-            fightArchEnemy(nextCell);
-        } else if (isEnemyCell(nextCell)) {
-            fightEnemy(nextCell);
-            return true;
-        } else if (isDungeonDoor(nextCell)) {
-            manageDungeonDoor(nextCell);
-            return true;
-        }else if (isDoor(nextCell)) {
-            manageDoor(nextCell);
-            return true;
-        } else if (isItemCell(nextCell)) {
-            pickupItem(nextCell);
-            return true;
-        } else if (isEmptyCell(nextCell)) {
+        if (isEmptyCell(nextCell)) {
             move(nextCell);
             return true;
 
+        } else if(isItemOrEnemy(nextCell)) {
+            manageItemOrEnemy(nextCell);
+            return true;
         }
         return false;
     }
 
+    private boolean isItemOrEnemy(Cell nextCell){
+        return nextCell.getItem() instanceof Item || nextCell.getActor() instanceof  Enemy;
+    }
+
+    private void manageItemOrEnemy(Cell nextCell) {
+        if (isItem(nextCell)) {
+            manageItem(nextCell);
+        } else {
+            fightWithColonelOrEnemy(nextCell);
+        }
+    }
+
+    private void manageItem(Cell nextCell) {
+        if (isDungeonDoor(nextCell)) {
+            manageDungeonDoor(nextCell);
+
+        } else if (isDoor(nextCell)) {
+            manageDoor(nextCell);
+
+        } else if (isItemCell(nextCell)) {
+            pickupItem(nextCell);
+        }
+    }
+
+
+    private boolean isItem(Cell nextCell){
+        return nextCell.getItem() instanceof Item;
+    }
+
+    private void fightWithColonelOrEnemy(Cell nextCell) {
+        if (isColonel(nextCell)) {
+            fightColonel(nextCell);
+        } else if (isArchEnemy(nextCell)) {
+            fightArchEnemy(nextCell);
+        }else {
+            fightEnemy(nextCell);
+        }
+    }
 
     private void manageDoor(Cell nextCell) {
        Item door = nextCell.getItem();
@@ -93,10 +118,10 @@ public class Player extends Actor {
        }else if (isEnoughOfKey("Key")) {
             removeFromInventory("key");
             openNextDoor(nextCell);
-        }else{
+        } else {
             interactionWithDoor();
         }
-       }
+    }
 
     private void interactionWithDoor() {
         AlertBox.display("Door says", "Collect all the keys!");
@@ -133,7 +158,7 @@ public class Player extends Actor {
         if (isEnoughOfCoin("coin")) {
             removeFromInventory("coin");
             move(nextCell);
-        }else{
+        } else {
             interactionWithColonal();
         }
     }
@@ -161,11 +186,9 @@ public class Player extends Actor {
         return numberOfItem(itemName) >= KEY_COUNT;
     }
 
-
     private boolean isEnoughOfCoin(String itemName) {
         return numberOfItem(itemName) >= MINIMUM_NR_COIN;
     }
-
 
     private boolean isDoor(Cell nextCell) {
         Item currentItem = nextCell.getItem();
@@ -295,6 +318,69 @@ public class Player extends Actor {
         return this.health;
     }
 
+//    public Optional<ByteArrayOutputStream> getInventorySerialized() {
+//        try {
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            ObjectOutputStream oout = new ObjectOutputStream(baos);
+//            oout.writeObject(inventory);
+//            oout.close();
+//            return Optional.of(baos);
+//        } catch (IOException e) {
+//            System.out.println("Unable to serialize inventory");
+//            return Optional.empty();
+//        }
+//    }
+
+//    public Optional<ByteArrayOutputStream> getCellSerialized() {
+//        try {
+//            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//            ObjectOutputStream oout = new ObjectOutputStream(baos);
+//            oout.writeObject(cell);
+//            oout.close();
+//            return Optional.of(baos);
+//        } catch (IOException e) {
+//            System.out.println("Unable to serialize cell");
+//            return Optional.empty();
+//        }
+//    }
+//
+//    public static List<Item> getInventoryDeserialized(byte[] inventoryBytes) {
+//        try {
+//            if (inventoryBytes != null) {
+//                ByteArrayInputStream bais = new ByteArrayInputStream(inventoryBytes);
+//                ObjectInputStream oin = new ObjectInputStream(bais);
+//                Object obj = oin.readObject();
+//                return (ArrayList<Item>) obj;
+//            } else {
+//                return new ArrayList<>();
+//            }
+//        } catch (IOException | ClassNotFoundException e) {
+//            System.out.println("Unable to deserialize inventory");
+//            return new ArrayList<>();
+//        }
+//    }
+//
+//    public static Cell getCellDeserialized(byte[] cellBytes) {
+//        try {
+//            if (cellBytes != null) {
+//                ByteArrayInputStream bais = new ByteArrayInputStream(cellBytes);
+//                ObjectInputStream oin = new ObjectInputStream(bais);
+//                try {
+//                    return (Cell) oin.readObject();
+//                } catch (Exception e) {
+//                    System.out.println("ERROR: " + e);
+//                    return null;
+//                }
+//
+//            } else {
+//                System.out.println("Cell not found.");
+//                return null;
+//            }
+//        } catch (IOException e) {
+//            System.out.println("Unable to deserialize cell");
+//            return null;
+//        }
+//    }
     public Optional<ByteArrayOutputStream> getInventorySerialized() {
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -359,8 +445,5 @@ public class Player extends Actor {
         }
     }
 }
-
-
-
 
 
