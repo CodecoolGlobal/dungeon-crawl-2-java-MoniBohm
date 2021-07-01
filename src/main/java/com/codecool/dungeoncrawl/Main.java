@@ -221,8 +221,6 @@ public class Main extends Application {
             case C -> getCheat();
             case X -> exportGameToFile();
             case D -> importGameFromFile();
-//            case S -> getSaveBox();    TODO  <--- use like this without CTRL?
-//            case L -> getLoadBox();
         }
     }
 
@@ -250,10 +248,9 @@ public class Main extends Application {
         }
     }
 
-    private void loadImportedGame(GameState gameState){  // TODO Roky was here. Database loading is buggy, player goes invisible.
+    private void loadImportedGame(GameState gameState){
         setCurrentMap(gameState.getCurrentMap());
-        setMapFilename(gameState.getMapFilename(//        nameOfFiles.add("/map4dungeon.txt");
-));
+        setMapFilename(gameState.getMapFilename());
         generateMap();
         setMap(gameState.getMap());
         setFollowCamera(map.getPlayer().getCell());

@@ -9,7 +9,7 @@ class generalActorTest {
     GameMap gameMap = new GameMap(3, 3, CellType.FLOOR);
 
     @Test
-    void moveUpdatesCells() {
+    void updateCell_ThenReturnDataAboutCell() {
         Player player = new Player(gameMap.getCell(1, 1), "name");
         player.initMove(1, 0);
 

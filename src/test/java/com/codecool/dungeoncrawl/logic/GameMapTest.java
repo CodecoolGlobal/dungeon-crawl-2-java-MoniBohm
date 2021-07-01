@@ -19,7 +19,6 @@ class GameMapTest {
         this.testGameMap =  new GameMap(3, 3, CellType.FLOOR);
     }
 
-
     @Test
     void givenCellIsOutOfMap_ThenReturnNull(){
         assertEquals(null, testGameMap.getCell(5, 0));
