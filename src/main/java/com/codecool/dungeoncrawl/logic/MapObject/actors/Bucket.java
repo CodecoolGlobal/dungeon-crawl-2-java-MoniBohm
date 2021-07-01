@@ -27,9 +27,8 @@ public class Bucket extends Enemy {
     }
 
     private void tryToGoReverseDirection(Direction nextDirection) {
-        Cell nextCell;
         nextDirection = Direction.reverse(nextDirection);
-        nextCell = cell.getNeighbor(nextDirection.dx, nextDirection.dy);
+        Cell nextCell = cell.getNeighbor(nextDirection.dx, nextDirection.dy);
         if (isEmptyCell(nextCell)) {
             move(nextCell, nextDirection);
         }
