@@ -11,12 +11,11 @@ public class ArchEnemy extends Enemy{
     }
 
     @Override
-    public void initMove() { }
-
-
-    @Override
     public String getTileName() {
         return "archenemy";
     }
+
+    @Override
+    public void initMove() { }
 
 }

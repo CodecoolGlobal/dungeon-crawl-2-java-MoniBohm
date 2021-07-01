@@ -11,11 +11,10 @@ public class Colonel extends Enemy {
     }
 
     @Override
-    public void initMove() { }
-
-
-    @Override
     public String getTileName() {
         return "colonel";
     }
+
+    @Override
+    public void initMove(){}
 }

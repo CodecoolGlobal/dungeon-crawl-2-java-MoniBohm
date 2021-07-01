@@ -1,10 +1,7 @@
 package com.codecool.dungeoncrawl.logic.MapObject.actors;
 
 import com.codecool.dungeoncrawl.UI.GameOverBox;
-import com.codecool.dungeoncrawl.logic.CellType;
-import com.codecool.dungeoncrawl.logic.Drawable;
-import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.*;
 
 import java.io.Serializable;
 
@@ -19,12 +16,6 @@ public abstract class Actor implements Drawable, Serializable {
         this.cell = cell;
         this.cell.setActor(this);
     }
-
-    protected boolean isEnemyCell(Cell nextCell) {
-        Actor actor = nextCell.getActor();
-        return actor instanceof Enemy;
-    }
-
 
     protected boolean isColonel(Cell nextCell) {
         Actor actor = nextCell.getActor();

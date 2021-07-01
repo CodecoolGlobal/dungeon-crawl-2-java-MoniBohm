@@ -1,10 +1,8 @@
 package com.codecool.dungeoncrawl.logic.MapObject.actors;
 
-import com.codecool.dungeoncrawl.UI.AlertBox;
-import com.codecool.dungeoncrawl.UI.GameOverBox;
+import com.codecool.dungeoncrawl.UI.*;
 import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.util.Direction;
-import com.codecool.dungeoncrawl.util.RandomHelper;
+import com.codecool.dungeoncrawl.util.*;
 
 
 public class GhostChicken extends Enemy {
