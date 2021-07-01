@@ -4,6 +4,8 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.CellType;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapObject.items.armor.BodyArmor;
+import com.codecool.dungeoncrawl.logic.MapObject.items.armor.HeadGear;
+import com.codecool.dungeoncrawl.logic.MapObject.items.armor.LegArmor;
 import com.codecool.dungeoncrawl.logic.MapObject.items.booster.HealthPotion;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.Coin;
 import com.codecool.dungeoncrawl.logic.MapObject.items.general.DungeonExit;
@@ -22,6 +24,8 @@ class ItemTest {
     Item testUzi;
     Item testHealthPotion;
     Item testBodyArmor;
+    Item testHeadGear;
+    Item testLegArmor;
     Cell testCell;
 
 
@@ -33,6 +37,8 @@ class ItemTest {
         this.testUzi = new Uzi(gameMap.getCell(1, 0));
         this.testHealthPotion = new HealthPotion(gameMap.getCell(1, 1));
         this.testBodyArmor = new BodyArmor(gameMap.getCell(1, 2));
+        this.testHeadGear = new HeadGear(gameMap.getCell(2, 0));
+        this.testLegArmor = new LegArmor(gameMap.getCell(2, 1));
         this.testCell = new Cell (gameMap, 0,0, CellType.FLOOR);
     }
 
@@ -52,6 +58,26 @@ class ItemTest {
     void getTestCoinCell(){
         testCell.setItem(testCoin);
         assertEquals(gameMap.getCell(0, 0), testCoin.getCell());
+    }
+
+
+    @Test
+    void getTestBodyArmorString(){
+       String excepted = "bodyarmor";
+        assertEquals(excepted, testBodyArmor.getTileName());
+    }
+
+
+    @Test
+    void getTestHeaderGearString(){
+        String excepted = "headgear";
+        assertEquals(excepted, testHeadGear.getTileName());
+    }
+
+    @Test
+    void getTestLegArmorString(){
+        String excepted = "legarmor";
+        assertEquals(excepted, testLegArmor.getTileName());
     }
 
 }
