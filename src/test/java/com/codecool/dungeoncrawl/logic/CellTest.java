@@ -45,9 +45,9 @@ class CellTest {
 
     @Test
     void cellOnEdgeHasNoNeighbor() {
-        assertEquals(null, testCell.getNeighbor(0, -1));
+        assertNull(testCell.getNeighbor(0, -1));
         Cell cell = gameMap.getCell(1, 2);
-        assertEquals(null, cell.getNeighbor(0, 1));
+        assertNull(cell.getNeighbor(0, 1));
     }
 
 
@@ -111,7 +111,6 @@ class CellTest {
 
     @Test
     void getGameMap_WithEnemy() {
-
         assertEquals(gameMap, testEnemy.getCell().getGameMap());
     }
 

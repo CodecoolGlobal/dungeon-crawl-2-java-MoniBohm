@@ -203,10 +203,12 @@ public class Player extends Actor {
         if (itemType instanceof Coin) {
             putItemToInventory(nextCell);
         }
-        if (itemType instanceof Key) {
+        else if (itemType instanceof Key) {
             setKeys(nextCell);
+
         } else if (itemType instanceof Armor) {
             setArmor(nextCell);
+
         } else if (itemType instanceof Weapon) {
             setWeapons(nextCell);
 
