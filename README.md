@@ -1,3 +1,19 @@
+![]()
+
+## <div style="color:#f59800" align="center">Welcome to Free Range Chicken👋</div>
+<div align="center">
+A two sprint Codecool teamwork project to learn and practice Java, JavaFx, SQL, Unit tests.
+
+[![Version](https://img.shields.io/badge/version-v1.0-blue.svg)](https://img.shields.io/badge/version-v1.0-blue.svg?cacheSeconds=2592000)
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
+</div>
+
+# <div style="color:#f59800" align="center">Screenshots</div>
+<div align="center">
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+</div>
 # Dungeon Crawl (sprint 1)
 
 ## Story
