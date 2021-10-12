@@ -1,5 +1,6 @@
 package com.codecool.dungeoncrawl.model;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
 public class BaseModel {

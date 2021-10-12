@@ -1,50 +1,106 @@
 package com.codecool.dungeoncrawl.model;
 
+import com.codecool.dungeoncrawl.logic.GameMap;
+import com.codecool.dungeoncrawl.logic.MapObject.actors.Player;
+import com.codecool.dungeoncrawl.logic.MapObject.items.Item;
+
+import java.io.*;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
-public class GameState extends BaseModel {
-    private Date savedAt;
-    private String currentMap;
-    private List<String> discoveredMaps = new ArrayList<>();
-    private PlayerModel player;
+public class GameState extends BaseModel implements Serializable {
+    private String saveName;       // for DB only
+    private Timestamp savedAt;         // for DB only
+    private String mapFilename;
+    private int currentMap;
+    private Player player;           // this is only used for the file export
+    private GameMap map;
 
-    public GameState(String currentMap, Date savedAt, PlayerModel player) {
+    // After loading from DB, this construction is called TODO change playermodel
+    public GameState(int id, String saveName, String mapFilename, int currentMap, Timestamp savedAt, Player player, GameMap map) {
+        this.id = id;
+        this.mapFilename = mapFilename;
+        this.saveName = saveName;
         this.currentMap = currentMap;
         this.savedAt = savedAt;
         this.player = player;
+        this.map = map;
     }
 
-    public Date getSavedAt() {
-        return savedAt;
-    }
-
-    public void setSavedAt(Date savedAt) {
-        this.savedAt = savedAt;
-    }
-
-    public String getCurrentMap() {
-        return currentMap;
-    }
-
-    public void setCurrentMap(String currentMap) {
+    // File Export Saving constructor
+    public GameState(String mapFilename, int currentMap, Timestamp savedAt, Player player, GameMap map) {
+        this.mapFilename = mapFilename;
+        this.saveName = null;
         this.currentMap = currentMap;
+        this.savedAt = savedAt;
+        this.player = player;
+        this.map = map;
     }
 
-    public List<String> getDiscoveredMaps() {
-        return discoveredMaps;
+    // Before saving to DB, this construction is called
+    public GameState(String saveName, String mapFilename, int currentMap, Timestamp savedAt, Player player, GameMap map) {
+        this.mapFilename = mapFilename;
+        this.saveName = saveName;
+        this.currentMap = currentMap;
+        this.savedAt = savedAt;
+        this.player = player;
+        this.map = map;
     }
 
-    public void addDiscoveredMap(String map) {
-        this.discoveredMaps.add(map);
+    public String getSaveName() {
+        return saveName;
     }
 
-    public PlayerModel getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(PlayerModel player) {
-        this.player = player;
+    public Timestamp getSavedAt() {
+        return savedAt;
     }
+
+    public String getMapFilename() {
+        return mapFilename;
+    }
+
+    public Optional<ByteArrayOutputStream> getMapSerialized() {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ObjectOutputStream oout = new ObjectOutputStream(baos);
+            oout.writeObject(map);
+            oout.close();
+            return Optional.of(baos);
+        } catch (IOException e) {
+            System.out.println("Unable to serialize inventory");
+            return Optional.empty();
+        }
+    }
+
+    public static GameMap getMapDeserialized(byte[] mapBytes) {
+        try {
+            if (mapBytes != null) {
+                ByteArrayInputStream bais = new ByteArrayInputStream(mapBytes);
+                ObjectInputStream oin = new ObjectInputStream(bais);
+                Object obj = oin.readObject();
+                return (GameMap) obj;
+            } else {
+                throw new IllegalStateException("No map not found.");
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            throw new IllegalStateException("Unable to deserialize inventory");
+        }
+    }
+
+    public int getCurrentMap() {
+        return currentMap;
+    }
+
+    public GameMap getMap(){
+        return map;
+    }
+
 }

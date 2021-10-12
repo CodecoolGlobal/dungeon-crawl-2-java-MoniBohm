@@ -1,0 +1,34 @@
+110 33
+ff f ╚═╗tTtTttTtt ### ttttttTtttTTTtTT║ t
+ff  f╔═╝  TtT  TT #1# CCCCT  TTtt t .T║tt
+═════╝ TtT    ┬ C ### tT  TtT  TtT  TT║tt
+T T tt  TtT  TtTC     TtT  TtT  TtT T┬║
+Ttt tTttTtTttTttTttttttttttTtttTTTtCtt║t
+Tt┬ t.C..┬╔════╗Æ................┬┬.Tt║ t
+tt Tt.....║tTt┬║........╔═╗...u.....tt║Tt
+┬T ┬T.....║┬T t║┬.......║T║.........tT║ T
+T TkT.....║tT┬t║........╚╗║...........║
+T┬t.......╚════╝.........║╚═╗.......T┬║T
+┬  Tt.............t......╚╗ ║...z...t╔╝T
+t tTt.........T..j.......m╚╗╚╗.....t ║T
+Ttttt......................║t║.d...CT║ttt
+TTt........T.......@.......╚╗╚══╗...T║t t
+Ttt.t......Tt....t┬.........╚╗t ║.d.T║ttt
+T┬t t.....T......┬...........║ T║...T║  t
+┬t Tt........┬.......d.......║T ║..dt╚╗Tt
+tT┬.T..........T.T.........╔═╝  ║Cd..k║ T
+T┬..t.......┬.........T....║ Tt ╚═════╝
+T┬ETt..l...................╚═══════╗T tT
+t┬cTT.................d.........h╔═╝t  T
+t...........a..............a.....║ t tT
+T.C.......d......................║┬.TTTTT
+t.CT ...d..........d........C..╔═╝  t  T
+t┬tT......d.............d......║ ┬┬t tT
+═══╗t...d...d..┬...............╚════╗tttt
+ gg║t..d......tTd....d.......C..╔═══╝Tt t
+g g║t....d..t┬┬t....C..C......C┬║   Ttttt
+xxx╚╗.ttTtTtt┬tt┬tt┬t┬TttttTtttT║TtTtt t
+xg g║TtT   ┬   T┬  TtT  TtT  ┬┬t║ t tt Tt
+g╔═╗╚╗T┬T    T  ┬┬   TtT  TtT  T║T  tT  T
+x║C║ ║ TtT  ┬┬┬  TtT  T   TtT  T║T TTT t
+x╚═╝x╚═╗tT  TtT  TtT  TtT  TtT  T║T  Ttttt
