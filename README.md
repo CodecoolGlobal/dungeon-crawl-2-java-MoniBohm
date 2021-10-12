@@ -1,4 +1,8 @@
-![]()
+<div align="center">
+
+![logo](https://raw.githubusercontent.com/CodecoolGlobal/dungeon-crawl-2-java-MoniBohm/development/screenshots/inv.jpeg)
+
+</div>
 
 ## <div style="color:#f59800" align="center">Welcome to Free Range Chicken👋</div>
 <div align="center">
@@ -11,9 +15,16 @@ A two sprint Codecool teamwork project to learn and practice Java, JavaFx, SQL, 
 # <div style="color:#f59800" align="center">Screenshots</div>
 <div align="center">
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://raw.githubusercontent.com/CodecoolGlobal/dungeon-crawl-2-java-MoniBohm/development/screenshots/Screenshot%20from%202021-10-12%2019-14-31.png)
+  
+![App Screenshot](https://raw.githubusercontent.com/CodecoolGlobal/dungeon-crawl-2-java-MoniBohm/development/screenshots/Screenshot%20from%202021-10-12%2019-15-34.png)
+  
+![App Screenshot](https://raw.githubusercontent.com/CodecoolGlobal/dungeon-crawl-2-java-MoniBohm/development/screenshots/Screenshot%20from%202021-10-12%2019-17-15.png)
+
+![App Screenshot](https://raw.githubusercontent.com/CodecoolGlobal/dungeon-crawl-2-java-MoniBohm/development/screenshots/Screenshot%20from%202021-10-12%2019-17-47.png)
 
 </div>
+
 # Dungeon Crawl (sprint 1)
 
 ## Story
